@@ -7,11 +7,27 @@ license = "GNU GPL 3.0"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
-Flask = "^3.0.2"
-flask-socketio = "^5.3.6"
+python = '^3.12'
+pyntcore = '^2024.1.1.1'
+Flask = '^3.0.0'
+flask-socketio = '^5.3.6'
+eventlet = '^0.34.3'
+flaskwebgui = '^1.0.8'
+waitress = '^2.1.2'
 
+[tool.poetry.group.dev.dependencies]
+ruff = '^0.2.2'
+
+[tool.ruff]
+target-version = 'py312'
+
+[tool.ruff.lint]
+select = ['ALL']
+ignore = ['Q000', 'Q003', 'D211', 'D213', 'COM812', 'ISC001', 'INP001', 'PLW0603']
+
+[tool.ruff.format]
+quote-style = 'single'
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'

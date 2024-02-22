@@ -12,6 +12,7 @@ import waitress
 from flask import Flask, render_template, send_from_directory
 from flask_socketio import SocketIO, emit
 from ntcore import util
+import os
 
 
 def signal_handler(_signal: int, _frame) -> None:
@@ -23,7 +24,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 
 # initialize flask app and socketio
-app = Flask(__name__, static_folder="dist")
+app = Flask(__name__, static_folder="dist", static_url_path="/")
 socketio = SocketIO(app)
 
 inst = ntcore.NetworkTableInstance.getDefault()
@@ -79,15 +80,18 @@ def choose(key: str, selection: str) -> str:
 
 
 # Route for serving dynamic content (all files within dist/)
+@app.route("/static/<path:filename>")
+def custom_static(filename):
+    return send_from_directory("static", filename)
+
+
+@app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def serve_file(path):
-    return send_from_directory("dist", path)
-
-
-# Special route for the root to serve index.html
-@app.route("/")
-def serve_index():
-    return send_from_directory("dist", "index.html")
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + "/" + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
 
 
 def start(**server_kwargs: dict) -> None:
@@ -108,6 +112,12 @@ def stop_telemetry() -> None:
 @socketio.on("connect")
 def connect() -> None:
     """Handle client connection."""
+
+
+@socketio.on("ping")
+def ping() -> None:
+    emit("pong")
+    print("pinged!")
 
 
 @socketio.on("request_data")

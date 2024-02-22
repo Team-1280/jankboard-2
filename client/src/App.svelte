@@ -15,7 +15,7 @@
     <Dashboard />
   </div>
   <!-- the infotainment system -->
-  <div class="h-screen w-[65vw] right-0 fixed infotainment-container">
+  <div class="min-h-screen w-[65vw] right-0 absolute infotainment-container">
     <!-- dynamic app system (edit appList.ts to add new apps) -->
     <div class="mx-10 mt-10">
       <svelte:component this={appList[activeApp].component} />

@@ -2,8 +2,11 @@
   import TopBar from './TopBar/TopBar.svelte'
   import Speedometer from './Speedometer.svelte'
   import SpeedLimit from './SpeedLimit.svelte'
-  import MediaDisplay from './MediaDisplay/MediaDisplay.svelte'
+  import MediaDisplay from './MediaPlayer/MediaDisplay.svelte'
+  import Player from './MediaPlayer/Player.svelte'
 </script>
+
+<Player />
 
 <div class="mt-2">
   <div class="px-5">

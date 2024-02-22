@@ -9,7 +9,6 @@ interface SongData {
   artist: string
   src: string
   coverImg: string
-  slug: string
 }
 
 interface AppData {

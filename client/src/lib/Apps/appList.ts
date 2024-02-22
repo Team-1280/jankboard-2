@@ -1,5 +1,5 @@
 import Camera from './Camera/Camera.svelte'
-import MusicBrowser from './MusicPlayer/MusicBrowser.svelte'
+import MusicBrowser from './MusicBrowser/MusicBrowser.svelte'
 
 export const appList = {
   'camera': {

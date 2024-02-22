@@ -3,7 +3,7 @@
 </script>
 
 <div
-  class="flex gap-4 w-full py-40 px-10 backdrop-blur-lg justify-center h-full camera-background rounded-3xl"
+  class="flex gap-4 w-full py-40 px-10 backdrop-blur-lg justify-center h-full rounded-3xl shadow-md bg-slate-300 bg-opacity-30"
 >
   <div class="my-auto">
     <CameraContainer
@@ -18,17 +18,4 @@
 </div>
 
 <style lang="postcss">
-  .camera-background {
-    background: #4b79a1; /* fallback for old browsers */
-    background: -webkit-linear-gradient(
-      to right,
-      #4b79a1,
-      #283e51
-    ); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(
-      to right,
-      #4b79a1,
-      #283e51
-    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
 </style>

@@ -53,6 +53,11 @@ function createMusicStore() {
         store.playing = !store.playing
         return store
       }),
+    rewind: () =>
+      update(store => {
+        store.currentIndex--
+        return store
+      }),
     reset: () => set({ queue: [], currentIndex: 0, playing: false }),
   }
 }

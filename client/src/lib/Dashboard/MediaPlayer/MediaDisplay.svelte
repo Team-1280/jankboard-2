@@ -10,7 +10,9 @@
     musicStore.skip()
   }
 
-  const handleRewind = () => {}
+  const rewind = () => {
+    musicStore.rewind()
+  }
 
   const toggle = () => {
     musicStore.toggle()
@@ -32,6 +34,11 @@
         <p class="text-lg text-slate-400">{songData.artist}</p>
       </div>
     </div>
-    <Controls on:skip={skip} on:toggle={toggle} playing={$musicStore.playing} />
+    <Controls
+      on:skip={skip}
+      on:toggle={toggle}
+      on:rewind={rewind}
+      playing={$musicStore.playing}
+    />
   </div>
 {/if}

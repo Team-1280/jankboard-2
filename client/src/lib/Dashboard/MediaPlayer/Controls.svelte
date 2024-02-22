@@ -7,10 +7,7 @@
 </script>
 
 <div class="my-auto flex gap-4 mr-4">
-  <button
-    class="mt-2 hover:brightness-75"
-    on:click={() => dispatch('previous')}
-  >
+  <button class="mt-2 hover:brightness-75" on:click={() => dispatch('rewind')}>
     <span class="material-symbols-outlined icon">skip_previous</span>
   </button>
   <button class="mt-2 hover:brightness-75" on:click={() => dispatch('toggle')}>

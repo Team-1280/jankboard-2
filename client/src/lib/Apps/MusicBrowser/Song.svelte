@@ -8,6 +8,7 @@
 
   const handlePlay = () => {
     musicStore.setCurrent(slug)
+    !$musicStore.playing && musicStore.toggle()
   }
 
   const handleQueueNext = () => {
@@ -17,6 +18,8 @@
   const handleQueueLast = () => {
     musicStore.push(slug)
   }
+
+  $: nowPlaying = slug === $musicStore.queue[$musicStore.currentIndex]
 </script>
 
 <div
@@ -27,7 +30,11 @@
   <p class="text-xl text-slate-400">{artist}</p>
   <div class="flex justify-center">
     <div class="my-auto flex gap-4">
-      <button class="mt-2 hover:brightness-75" on:click={handlePlay}>
+      <button
+        class="mt-2 hover:brightness-75"
+        on:click={!nowPlaying ? handlePlay : () => {}}
+        class:invisible={nowPlaying}
+      >
         <span class="material-symbols-outlined icon fill">play_arrow</span>
       </button>
       <button class="mt-2 hover:brightness-75" on:click={handleQueueNext}>

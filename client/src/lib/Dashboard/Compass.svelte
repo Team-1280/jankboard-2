@@ -20,7 +20,7 @@
 
 <div class="flex flex-col gap-2 text-center transition-all">
   <p class="text-xl font-medium">
-    Heading {getDirection(orientation)} ({orientation}°)
+    Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)
   </p>
   <p class="text-lg font-medium">
     {getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(2)}

@@ -1,9 +1,16 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
+  import { musicStore } from '../../stores/musicStore'
 
   const dispatch = createEventDispatcher()
 
   export let playing = false
+
+  let startTime = Date.now()
+
+  $: if (playing) {
+    startTime = Date.now()
+  }
 </script>
 
 <div class="my-auto flex gap-4 mr-4">

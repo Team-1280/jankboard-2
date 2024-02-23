@@ -2,6 +2,9 @@
   import Controls from './Controls.svelte'
   import { musicStore } from '../../stores/musicStore'
   import { songList } from './songList'
+  import { fly } from 'svelte/transition'
+  import { quintInOut } from 'svelte/easing'
+  import { onMount } from 'svelte'
 
   $: currentSong = $musicStore.queue[$musicStore.currentIndex]
   $: songData = songList[currentSong]
@@ -17,10 +20,19 @@
   const toggle = () => {
     musicStore.toggle()
   }
+
+  onMount(() => {
+    document.addEventListener('ended', () => {
+      musicStore.skip()
+    })
+  })
 </script>
 
 {#if songData}
-  <div class="rounded-t-lg bg-neutral-800 px-4 py-2 h-24 flex justify-between">
+  <div
+    class="rounded-t-lg bg-neutral-800 px-4 py-2 h-24 flex justify-between"
+    transition:fly={{ y: 100, duration: 300, easing: quintInOut }}
+  >
     <div class="flex gap-6">
       <div class="aspect-square">
         <img

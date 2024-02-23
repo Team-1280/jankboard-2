@@ -7,8 +7,7 @@
   let { title, artist, coverImg } = song
 
   const handlePlay = () => {
-    musicStore.setCurrent(slug)
-    !$musicStore.playing && musicStore.toggle()
+    musicStore.play(slug)
   }
 
   const handleQueueNext = () => {
@@ -33,7 +32,6 @@
       <button
         class="mt-2 hover:brightness-75"
         on:click={!nowPlaying ? handlePlay : () => {}}
-        class:invisible={nowPlaying}
       >
         <span class="material-symbols-outlined icon fill">play_arrow</span>
       </button>

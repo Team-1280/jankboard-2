@@ -3,10 +3,10 @@
   import Speedometer from './Speedometer.svelte'
   import SpeedLimit from './SpeedLimit.svelte'
   import MediaDisplay from './MediaPlayer/MediaDisplay.svelte'
-  import Player from './MediaPlayer/Player.svelte'
+  // import Player from './MediaPlayer/Player.svelte'
 </script>
 
-<Player />
+<!-- <Player /> -->
 
 <div class="mt-2">
   <div class="px-5">

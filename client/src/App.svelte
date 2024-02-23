@@ -26,7 +26,7 @@
   }
 
   onMount(() => {
-    initializeTelemetry(topics, 5)
+    initializeTelemetry(topics, 200)
   })
 </script>
 

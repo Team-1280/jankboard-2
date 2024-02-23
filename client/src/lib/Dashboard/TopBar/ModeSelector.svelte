@@ -1,5 +1,12 @@
+<!-- 
+  @component
+  
+  @param selectedMode - Selected mode
+
+  Displays the drive mode
+ -->
 <script lang="ts">
-  export let selectedMode: Mode
+  export let selectedMode: Mode | '-999'
 
   let modeText = ''
 
@@ -12,6 +19,9 @@
       break
     case 'ludicrous':
       modeText = 'LUDICROUS'
+      break
+    case '-999':
+      modeText = 'DISCONNECTED'
       break
   }
 </script>

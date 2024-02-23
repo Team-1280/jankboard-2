@@ -1,3 +1,11 @@
+<!-- 
+  @component
+  
+  @param activeApp - Currently selected app
+  @param appList - List of apps
+
+  Displays the app bar, automatically populated from appList. Bind to activeApp and apps will be automagically updated
+ -->
 <script lang="ts">
   export let activeApp: App
   export let appList: AppData

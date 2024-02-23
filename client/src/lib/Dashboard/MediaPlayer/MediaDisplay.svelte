@@ -1,10 +1,16 @@
+<!-- 
+  @component
+  
+  The dashboard's media controller. Automatically updates with the music service.
+ -->
 <script lang="ts">
   import Controls from './Controls.svelte'
   import { musicStore } from '../../stores/musicStore'
   import { songList } from './songList'
   import { fly } from 'svelte/transition'
-  import { quintInOut } from 'svelte/easing'
+  import { cubicInOut } from 'svelte/easing'
   import { onMount } from 'svelte'
+  import { flip } from 'svelte/animate'
 
   $: currentSong = $musicStore.queue[$musicStore.currentIndex]
   $: songData = songList[currentSong]
@@ -31,7 +37,7 @@
 {#if songData}
   <div
     class="rounded-t-lg bg-neutral-800 px-4 py-2 h-24 flex justify-between"
-    transition:fly={{ y: 100, duration: 300, easing: quintInOut }}
+    transition:fly={{ y: 100, duration: 300, easing: cubicInOut }}
   >
     <div class="flex gap-6">
       <div class="aspect-square">

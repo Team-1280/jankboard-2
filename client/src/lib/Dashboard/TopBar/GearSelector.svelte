@@ -1,15 +1,15 @@
 <script lang="ts">
-  export let selectedGear: Gear
+  export let selectedGear: Gear | '-999'
 </script>
 
 <div class="flex justify-center w-full">
   <div class="flex flex-row gap-2 text-neutral-400 text-xl font-bold">
-    <div class:highlighted={selectedGear === 'p'}>P</div>
-    <div class:highlighted={selectedGear === 'r'}>R</div>
-    <div class:highlighted={selectedGear === 'n'}>N</div>
-    <div class:highlighted={selectedGear === 'l'}>L</div>
-    <div class:highlighted={selectedGear === 'a'}>A</div>
-    <div class:highlighted={selectedGear === 'd'}>D</div>
+    <div class:highlighted={selectedGear === 'park'}>P</div>
+    <div class:highlighted={selectedGear === 'reverse'}>R</div>
+    <div class:highlighted={selectedGear === 'neutral'}>N</div>
+    <div class:highlighted={selectedGear === 'low'}>L</div>
+    <div class:highlighted={selectedGear === 'auto'}>A</div>
+    <div class:highlighted={selectedGear === 'drive'}>D</div>
   </div>
 </div>
 

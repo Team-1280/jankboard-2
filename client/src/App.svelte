@@ -5,8 +5,29 @@
   import 'material-symbols'
   import AppBar from './lib/Apps/AppBar.svelte'
   import { appList } from './lib/Apps/appList'
+  import { initializeTelemetry } from './lib/utils/initializeTelemetry'
+  import { onMount } from 'svelte'
 
   let activeApp: App = 'media-player'
+  let topics: TelemetryTopics = {
+    doubles: [
+      'orientation',
+      'chassis-x-speed',
+      'chassis-y-speed',
+      'accx',
+      'accy',
+      'accz',
+      'jerk-x',
+      'jerk-y',
+      'voltage',
+    ],
+    strings: ['acc-profile', 'gear'],
+    booleans: ['ebrake', 'reorient', 'gpws'],
+  }
+
+  onMount(() => {
+    initializeTelemetry(topics, 5)
+  })
 </script>
 
 <main class="select-none">

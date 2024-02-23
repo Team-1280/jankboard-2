@@ -1,3 +1,11 @@
+<!-- 
+  @component
+  
+  @param song - Song data
+  @param slug - Song slug
+
+  Displays a song and its metadata
+ -->
 <script lang="ts">
   import { musicStore } from '../../stores/musicStore'
 

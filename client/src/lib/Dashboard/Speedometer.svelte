@@ -1,8 +1,17 @@
+<!--
+  @component
+
+  @param speed - Speed in meters per second
+
+  Displays the speed in miles per hour
+-->
+
 <script lang="ts">
-  // in mph
+  import { mps2mph } from '../utils/unitConversions'
+
   export let speed: number = 0.0
 
-  $: formatted = speed.toFixed(1)
+  $: formatted = mps2mph(speed).toFixed(1)
 </script>
 
 <div class="flex flex-col gap-4">

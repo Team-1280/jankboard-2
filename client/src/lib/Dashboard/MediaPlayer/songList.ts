@@ -11,7 +11,7 @@ export const songList: { [key: string]: SongData } = {
     src: '/static/songs/deja-vu/audio.m4a',
     coverImg: '/static/songs/deja-vu/cover.jpg',
   },
-  'Xenogenesis': {
+  'xenogenesis': {
     title: 'Xenogenesis',
     artist: 'TheFatRat',
     src: '/static/songs/xenogenesis/audio.m4a',

@@ -32,7 +32,7 @@
     <div class="h-0.5 mt-1 w-full bg-slate-300 border-0"></div>
     <div class="mt-8 flex justify-between">
       <Speedometer speed={speedResolved} />
-      <SpeedLimit />
+      <SpeedLimit speedLimit={-999} />
     </div>
   </div>
 

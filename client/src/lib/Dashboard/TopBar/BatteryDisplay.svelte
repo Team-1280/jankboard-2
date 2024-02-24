@@ -2,13 +2,17 @@
   export let voltage: number
 
   $: formatted = voltage.toFixed(1)
+
+  $: placeholder = voltage === -999
 </script>
 
 <span class="flex gap-1">
-  <div class="text-lg font-medium">
+  <div class="text-lg font-medium" class:placeholder>
     {formatted} V
   </div>
-  <span class="material-symbols-outlined battery-icon">battery_horiz_075</span>
+  <span class="material-symbols-outlined battery-icon" class:placeholder
+    >battery_horiz_075</span
+  >
 </span>
 
 <style lang="postcss">

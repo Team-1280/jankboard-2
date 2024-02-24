@@ -17,3 +17,7 @@
     @apply bg-black text-white;
   }
 }
+
+.placeholder {
+  @apply text-neutral-300 bg-neutral-300 animate-pulse rounded-lg;
+}

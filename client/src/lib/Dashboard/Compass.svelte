@@ -16,13 +16,14 @@
   export let orientation: number
 
   $: accResolved = Math.hypot(accx, accy)
+  $: placeholder = accx === -999 && accy === -999
 </script>
 
-<div class="flex flex-col gap-2 text-center transition-all">
-  <p class="text-xl font-medium">
+<div class="flex flex-col gap-2 text-center justify-center">
+  <p class="text-xl font-medium" class:placeholder>
     Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)
   </p>
-  <p class="text-lg font-medium">
+  <p class="text-lg font-medium" class:placeholder>
     {getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(2)}
     kn/s)
   </p>

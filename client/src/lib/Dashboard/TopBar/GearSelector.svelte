@@ -3,7 +3,10 @@
 </script>
 
 <div class="flex justify-center w-full">
-  <div class="flex flex-row gap-2 text-neutral-400 text-xl font-bold">
+  <div
+    class="flex flex-row gap-2 text-neutral-400 text-xl font-bold"
+    class:placeholder={selectedGear === '-999'}
+  >
     <div class:highlighted={selectedGear === 'park'}>P</div>
     <div class:highlighted={selectedGear === 'reverse'}>R</div>
     <div class:highlighted={selectedGear === 'neutral'}>N</div>

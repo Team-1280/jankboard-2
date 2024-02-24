@@ -10,7 +10,7 @@
 
   let modeText = ''
 
-  switch (selectedMode) {
+  $: switch (selectedMode) {
     case 'chill':
       modeText = 'CHILL'
       break

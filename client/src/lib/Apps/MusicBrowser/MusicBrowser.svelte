@@ -6,10 +6,13 @@
 <script lang="ts">
   import Song from './Song.svelte'
   import { songList } from '../../Dashboard/MediaPlayer/songList'
+  import { fade } from 'svelte/transition'
 </script>
 
 <div
   class="flex gap-4 w-full py-10 px-10 bg-blue-200 bg-opacity-25 backdrop-blur-xl h-full media-background rounded-3xl flex-wrap"
+  in:fade={{ duration: 150, delay: 150 }}
+  out:fade={{ duration: 150 }}
 >
   <h2 class="text-8xl font-bold basis-full text-slate-200">Music</h2>
   <div class="basis-full h-2" />

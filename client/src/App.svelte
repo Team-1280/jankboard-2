@@ -8,7 +8,7 @@
   import { initializeTelemetry } from './lib/utils/initializeTelemetry'
   import { onMount } from 'svelte'
 
-  let activeApp: App = 'media-player'
+  let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
     doubles: [
       'orientation',

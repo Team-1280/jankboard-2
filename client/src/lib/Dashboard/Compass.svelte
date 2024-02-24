@@ -19,12 +19,22 @@
   $: placeholder = accx === -999 && accy === -999
 </script>
 
-<div class="flex flex-col gap-2 text-center justify-center">
-  <p class="text-xl font-medium" class:placeholder>
-    Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)
+<div class="flex flex-col gap-2 text-center transition-all">
+  <p class="text-xl font-medium">
+    {#if !placeholder}
+      Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)
+    {:else}
+      <span class="placeholder">--------------------------------</span>
+    {/if}
   </p>
-  <p class="text-lg font-medium" class:placeholder>
-    {getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(2)}
-    kn/s)
+  <p class="text-lg font-medium">
+    {#if !placeholder}
+      {getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(2)}
+      kn/s)
+    {:else}
+      <span class="placeholder"
+        >-----------------------------------------------------</span
+      >
+    {/if}
   </p>
 </div>

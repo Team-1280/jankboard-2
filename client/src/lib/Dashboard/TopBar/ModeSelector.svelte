@@ -6,6 +6,8 @@
   Displays the drive mode
  -->
 <script lang="ts">
+  import { fade } from 'svelte/transition'
+
   export let selectedMode: Mode | '-999'
 
   let modeText = ''
@@ -27,5 +29,5 @@
 </script>
 
 <div class="font-medium text-xl">
-  {modeText}
+  <span>{modeText}</span>
 </div>

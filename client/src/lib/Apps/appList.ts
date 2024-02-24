@@ -1,5 +1,6 @@
 import Camera from './Camera/Camera.svelte'
 import MusicBrowser from './MusicBrowser/MusicBrowser.svelte'
+import Settings from './Settings/Settings.svelte'
 
 export const appList = {
   'camera': {
@@ -11,5 +12,10 @@ export const appList = {
     name: 'Media Player',
     component: MusicBrowser,
     icon: '/static/app-icons/media-player.png',
+  },
+  'settings': {
+    name: 'Settings',
+    component: Settings,
+    icon: '/static/app-icons/settings.webp',
   },
 }

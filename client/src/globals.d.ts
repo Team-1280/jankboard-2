@@ -71,3 +71,16 @@ interface TelemetryTopics {
   strings: string[]
   booleans: string[]
 }
+
+type ToastType = 'info' | 'success' | 'error'
+
+type ToastData = {
+  message: string
+  type: ToastType
+  timeout?: number
+}
+
+declare module '@zerodevx/svelte-toast' {
+  const value: any
+  export = value
+}

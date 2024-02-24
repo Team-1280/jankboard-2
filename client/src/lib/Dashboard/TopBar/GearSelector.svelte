@@ -2,7 +2,7 @@
   export let selectedGear: Gear | '-999'
 </script>
 
-<div class="flex justify-center w-full">
+<div class="flex justify-center w-full transition">
   <div
     class="flex flex-row gap-2 text-neutral-400 text-xl font-bold"
     class:placeholder={selectedGear === '-999'}

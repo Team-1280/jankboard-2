@@ -30,7 +30,7 @@
 </script>
 
 <div
-  class="flex gap-1 flex-col rounded-lg p-4 bg-slate-800 backdrop-blur-xl shadow-md w-60 flex-grow basis-1/5"
+  class="flex gap-1 flex-col rounded-lg p-4 bg-slate-800 backdrop-blur-xl bg-opacity-80 shadow-md w-60 flex-grow basis-1/5"
 >
   <img src={coverImg} alt="album cover" class="shadow-md rounded-lg w-full" />
   <p class="mt-2 text-2xl font-medium">{title}</p>

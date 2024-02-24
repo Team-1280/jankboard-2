@@ -6,17 +6,17 @@
 <script lang="ts">
   import Song from './Song.svelte'
   import { songList } from '../../Dashboard/MediaPlayer/songList'
-  import { fade } from 'svelte/transition'
+  import AppContainer from '../AppContainer.svelte'
 </script>
 
-<div
-  class="flex gap-4 w-full py-10 px-10 bg-blue-200 bg-opacity-25 backdrop-blur-xl h-full media-background rounded-3xl flex-wrap"
-  in:fade={{ duration: 150, delay: 150 }}
-  out:fade={{ duration: 150 }}
+<AppContainer
+  class="flex gap-4 bg-blue-200 bg-opacity-25 backdrop-blur-xl media-background rounded-3xl flex-wrap px-10 py-20"
 >
-  <h2 class="text-8xl font-bold basis-full text-slate-200">Music</h2>
+  <h2 class="h-full w-full text-8xl font-bold basis-full text-slate-200">
+    Music
+  </h2>
   <div class="basis-full h-2" />
   {#each Object.entries(songList) as [slug, song]}
     <Song {song} {slug} />
   {/each}
-</div>
+</AppContainer>

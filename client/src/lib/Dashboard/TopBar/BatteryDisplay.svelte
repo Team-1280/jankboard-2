@@ -7,11 +7,12 @@
 </script>
 
 <span class="flex gap-1">
-  <div class="text-lg font-medium" class:placeholder>
+  <div class="text-lg font-medium transition" class:placeholder>
     {formatted} V
   </div>
-  <span class="material-symbols-outlined battery-icon" class:placeholder
-    >battery_horiz_075</span
+  <span
+    class="material-symbols-outlined battery-icon transition"
+    class:placeholder>battery_horiz_075</span
   >
 </span>
 

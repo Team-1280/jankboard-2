@@ -10,6 +10,7 @@
 <script lang="ts">
   import { getAcceleration, getDirection } from '../utils/helpers'
   import { mpss2knps } from '../utils/unitConversions'
+  import { fade } from 'svelte/transition'
 
   export let accx: number
   export let accy: number
@@ -19,20 +20,36 @@
   $: placeholder = accx === -999 && accy === -999
 </script>
 
-<div class="flex flex-col gap-2 text-center transition-all">
+<div class="flex flex-col gap-2 text-center">
   <p class="text-xl font-medium">
     {#if !placeholder}
-      Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)
+      <span
+        in:fade={{ duration: 150, delay: 150 }}
+        out:fade={{ duration: 150 }}
+        class="text-lg font-medium"
+        >Heading {getDirection(orientation)} ({orientation.toFixed(2)}°)</span
+      >
     {:else}
-      <span class="placeholder">--------------------------------</span>
+      <span
+        class="placeholder"
+        in:fade={{ duration: 150, delay: 150 }}
+        out:fade={{ duration: 150 }}>--------------------------------</span
+      >
     {/if}
   </p>
   <p class="text-lg font-medium">
     {#if !placeholder}
-      {getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(2)}
+      <span in:fade={{ duration: 150, delay: 150 }} out:fade={{ duration: 150 }}
+        >{getAcceleration(accResolved)} ({mpss2knps(accResolved).toFixed(
+          2
+        )}</span
+      >
       kn/s)
     {:else}
-      <span class="placeholder"
+      <span
+        class="placeholder"
+        in:fade={{ duration: 150, delay: 150 }}
+        out:fade={{ duration: 150 }}
         >-----------------------------------------------------</span
       >
     {/if}

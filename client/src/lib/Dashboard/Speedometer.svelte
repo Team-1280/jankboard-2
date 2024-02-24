@@ -17,11 +17,15 @@
 </script>
 
 <div class="flex flex-col gap-4">
-  <div class="text-6xl" class:placeholder class:width-limit={placeholder}>
+  <div
+    class="text-6xl transition"
+    class:placeholder
+    class:width-limit={placeholder}
+  >
     {placeholder ? '-----' : formatted}
   </div>
   <div
-    class="text-2xl font-medium"
+    class="text-2xl font-medium transition"
     class:placeholder={speed === Math.hypot(-999, -999)}
   >
     MPH

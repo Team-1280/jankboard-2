@@ -7,6 +7,8 @@
   import { appList } from './lib/Apps/appList'
   import { initializeTelemetry } from './lib/utils/initializeTelemetry'
   import { onMount } from 'svelte'
+  import { Toaster } from 'svelte-french-toast'
+  import { initializationSequence } from './lib/Sequences/sequences'
 
   let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
@@ -27,6 +29,7 @@
 
   onMount(() => {
     initializeTelemetry(topics, 200)
+    initializationSequence()
   })
 </script>
 
@@ -45,6 +48,9 @@
       <AppBar bind:activeApp {appList} />
     </div>
   </div>
+
+  <!-- toast service -->
+  <Toaster />
 </main>
 
 <style lang="postcss">

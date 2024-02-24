@@ -81,10 +81,9 @@ export const resolveAcceleration = (
  * @return The cardinal direction based on the input angle
  */
 export const getDirection = (angle: number): CardinalDirection => {
-  if (angle < 0 || angle > 360)
-    if (angle < 22.5 || angle > 337.5) {
-      return 'North'
-    }
+  if (angle < 22.5 || angle > 337.5) {
+    return 'North'
+  }
   if (angle > 22.5 && angle < 67.5) {
     return 'Northeast'
   }

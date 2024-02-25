@@ -7,21 +7,21 @@
  -->
 
 <script lang="ts">
-  import { onDestroy } from 'svelte'
-  import { fade } from 'svelte/transition'
-  import { infotainmentBootupSequence } from '../Sequences/sequences'
+  import { onDestroy } from "svelte";
+  import { fade } from "svelte/transition";
+  import { infotainmentBootupSequence } from "../Sequences/sequences";
 
-  export let useContainer: boolean = true
+  export let useContainer: boolean = true;
 
   onDestroy(() => {
-    infotainmentBootupSequence()
-  })
+    infotainmentBootupSequence();
+  });
 </script>
 
 <div
   in:fade={{ duration: 150, delay: 150 }}
   out:fade={{ duration: 150 }}
-  class:app-container={useContainer}
+  class:overflow-hidden={true}
   {...$$restProps}
 >
   <slot />

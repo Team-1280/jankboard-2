@@ -1,10 +1,14 @@
 /* 
-define various sequences to play out in this file
-for example, we can define an initialization sequence that
+Define various sequences to play out in this file.
+For example, we can define an initialization sequence that
 plays out some series of notifications, and call it whenever we need it,
-or a sequence to change the screen color and play some audio queues for a crash
-these sequences should be self contained and not rely on any external state outside of 
-that in sequenceStore so that they can be easily invoked from anywhere
+or a sequence to change the screen color and play some audio queues 
+after a crash
+
+These sequences should be self contained and not rely on any external state
+so that they can be invoked from anywhere. In the event that you need some 
+persistent variable (eg. a variable that saves whether or not a sequence has
+already been played or a counter variable), add an entry to and use sequenceStore
 */
 
 import { Notifications } from '../Notifications/notifications'

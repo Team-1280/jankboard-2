@@ -14,7 +14,7 @@
 
 {#if visible}
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103 124">
-    <g out:fade={{ duration: 200 }} opacity="0.3">
+    <g out:fade={{ duration: 200 }} opacity="0.35">
       <path
         in:expand={{ duration: 400, delay: 1000, easing: quintOut }}
         style="stroke: #ff3e00; fill: #ff3e00; stroke-width: 50;"
@@ -22,7 +22,7 @@
       />
       <path
         in:draw={{ duration: 1000 }}
-        style="stroke:#ff3e00; stroke-width: 1.5"
+        style="stroke:#ff3e00; stroke-width: 1.75"
         d={inner}
       />
     </g>

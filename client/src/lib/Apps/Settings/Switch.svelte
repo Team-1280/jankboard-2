@@ -3,14 +3,19 @@
 
   export let checked: boolean
   export let tooltip: string
+  export let disabled: boolean = false
 </script>
 
-<div class="flex gap-2">
+<div
+  class="flex gap-2"
+  class:brightness-75={disabled}
+  class:cursor-not-allowed={disabled}
+>
   <label class="switch">
-    <input type="checkbox" bind:checked on:click />
+    <input type="checkbox" bind:checked on:click {disabled} />
     <span class="slider" />
   </label>
-  {#if tooltip !== ''}
+  {#if tooltip !== '' && !disabled}
     <Tooltip content={tooltip} arrow={false}>
       <span class="flex-grow text-xl text-slate-100 font-medium"
         ><slot />

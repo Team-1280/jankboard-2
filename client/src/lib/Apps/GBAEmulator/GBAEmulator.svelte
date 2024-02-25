@@ -1,18 +1,25 @@
 <script lang="ts">
-  import AppContainer from "../AppContainer.svelte";
-  import { Notifications } from "../../Notifications/notifications";
-  import { onMount } from "svelte";
-  import { gbaEmulatorBootupSequence } from "../../Sequences/sequences";
-
-  const handleError = () => {
-    Notifications.error(
-      "Failed to load the GBA Emulator app. Did you add it to the app/static/external-apps directory?"
-    );
-  };
+  import AppContainer from '../AppContainer.svelte'
+  import { Notifications } from '../../Notifications/notifications'
+  import { onMount } from 'svelte'
+  import { gbaEmulatorBootupSequence } from '../../Sequences/sequences'
 
   onMount(() => {
-    gbaEmulatorBootupSequence();
-  });
+    fetch('/static/external-apps/gba-emulator/index.html')
+      .then((res: Response) => {
+        if (!res.ok) {
+          throw new Error('GBA failed to load', { cause: res })
+        } else {
+          gbaEmulatorBootupSequence()
+        }
+      })
+      .catch(() => {
+        Notifications.error(
+          'Failed to load the GBA Emulator app. Did you add it to the app/static/external-apps directory?',
+          { duration: 10000 }
+        )
+      })
+  })
 </script>
 
 <AppContainer useContainer={false} class="h-screen w-full">
@@ -21,6 +28,5 @@
     src="/static/external-apps/gba-emulator/index.html"
     class="w-full h-screen rounded-xl"
     frameborder="0"
-    on:error={handleError}
   />
 </AppContainer>

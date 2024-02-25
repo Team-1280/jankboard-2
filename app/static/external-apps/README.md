@@ -3,6 +3,13 @@
 In this directory, external apps that can be added to jankboard can be added. Jankboard supports any static project that exposes a root index.html
 which can be used in an i-frame. The files in this folder have been gitignored because of their massive size. If you would like to enable external apps, then clone them from the list below and then add them to this directory as specified.
 
+## App Repository
+
+Due to the extremely large size of some of the apps, we are not tracking them with Git.
+You can acquire the latest versions of the apps from [this Google Drive link](about:blank).
+
+> Note: the link is temporarily broken.
+
 ## App List
 
 - GBA Emulator

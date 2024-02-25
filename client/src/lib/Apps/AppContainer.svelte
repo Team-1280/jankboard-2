@@ -21,7 +21,7 @@
 <div
   in:fade={{ duration: 150, delay: 150 }}
   out:fade={{ duration: 150 }}
-  class:overflow-hidden={true}
+  class:app-container={useContainer}
   {...$$restProps}
 >
   <slot />

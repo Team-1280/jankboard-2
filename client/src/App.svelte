@@ -12,7 +12,6 @@
   import Loading from "./lib/Loading/Loading.svelte";
   import { settingsStore } from "./lib/stores/settingsStore";
   import getSettings from "./lib/utils/getSettings";
-  import { Svrollbar } from "svrollbar";
 
   let activeApp: App = "camera";
   let topics: TelemetryTopics = {
@@ -38,7 +37,9 @@
     if (savedSettings !== false) {
       settingsStore.set(savedSettings);
     }
-    initializeTelemetry(topics, 200);
+    window.ResizeObserver = ResizeObserver;
+    // disabled while migrating away from python
+    // initializeTelemetry(topics, 200);
     setTimeout(() => {
       loading = false;
       initializationSequence();

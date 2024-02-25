@@ -2,6 +2,7 @@
   import { Notifications } from '../../Notifications/notifications'
   import { settingsStore } from '../../stores/settingsStore'
   import AppContainer from '../AppContainer.svelte'
+  import SettingsInput from './SettingsInput.svelte'
   import SettingsToggle from './SettingsToggle.svelte'
 
   settingsStore.subscribe(async value => {
@@ -31,6 +32,13 @@
       tooltip="Disables content that could be perceived as offensive for PR and DEI purposes."
       >Go Woke</SettingsToggle
     >
+    <SettingsInput
+      setting="randomWeight"
+      tooltip="Changes the likelihood of random events occurring (default: 1). Set to a decimal to lower probability and a number >= 1 to increase it."
+      width="3rem"
+    >
+      RNG Weight
+    </SettingsInput>
     <button
       class="mt-10 px-4 py-2 bg-blue-500 hover:brightness-75 text-medium rounded-lg w-min"
       on:click={resetSettings}>Reset</button

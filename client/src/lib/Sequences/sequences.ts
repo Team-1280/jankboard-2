@@ -77,7 +77,7 @@ const periodicSequence = async () => {
       throw new Error('Probability must be between 0 and 1')
     }
 
-    return Math.random() < probability
+    return Math.random() < probability * get(settingsStore).randomWeight
   }
 
   /**
@@ -94,7 +94,9 @@ const periodicSequence = async () => {
   every(15, () => {
     if (chance(0.2)) breaching1323Sequence()
     else if (chance(0.2)) breaching254Sequence()
-    else if (chance(0.05)) bullyingRohanSequence()
+  })
+  every(25, () => {
+    if (chance(0.05)) bullyingRohanSequence()
     else if (chance(0.1)) bypassCoprocessorRestrictionsSequence()
   })
 

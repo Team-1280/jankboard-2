@@ -7,3 +7,5 @@ which can be used in an i-frame. The files in this folder have been gitignored b
 
 - GBA Emulator
   - Set the folder name to: `gba-emulator`
+- Doom
+  - Set the folder name to `jsdoom`

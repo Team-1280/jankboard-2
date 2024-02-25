@@ -22,7 +22,8 @@
       />
       <path
         in:draw={{ duration: 1000 }}
-        style="stroke:#ff3e00; stroke-width: 1.75"
+        style="stroke:#ff3e00; stroke-width: 2;"
+        stroke-linecap="round"
         d={inner}
       />
     </g>

@@ -11,7 +11,7 @@ export interface SettingsStoreData {
 export const defaults: SettingsStoreData = {
   disableAnnoyances: false, // disable non-critical notifications
   goWoke: false, // go woke (for showing parents or other officials where DEI has taken over), disables "offensive" sequences
-  fastStartup: false, // skip the loading splash screen (for development purposes. Setting this from within the app has no effect.)
+  fastStartup: true, // skip the loading splash screen (for development purposes. Setting this from within the app has no effect.)
 }
 
 const createSequenceStore = () => {

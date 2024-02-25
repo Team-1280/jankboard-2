@@ -9,6 +9,9 @@ These sequences should be self contained and not rely on any external state
 so that they can be invoked from anywhere. In the event that you need some 
 persistent variable (eg. a variable that saves whether or not a sequence has
 already been played or a counter variable), add an entry to and use sequenceStore
+
+Sequences should be either event-driven or periodic. In the case of periodic 
+sequences, invoke them in the periodicSequence function 
 */
 
 import { Notifications } from '../Notifications/notifications'
@@ -40,11 +43,58 @@ export const initializationSequence = async () => {
       })
       setTimeout(() => {
         Notifications.playAudio(getVoicePath('hello-virtual-assistant', 'en'))
+        periodicSequence()
       }, 3000)
     }, 3000)
   }, 3000)
 }
 
+let counter = 1
+/**
+ * Special sequence that plays invokes itself periodically, started automatically
+ * at the end of the initializationSequence
+ *
+ * @param seconds - the interval in seconds
+ * @param callback - the function to call
+ * @return void
+ */
+const periodicSequence = async () => {
+  await tick()
+
+  /**
+   * Returns either true or false based on the provided probability
+   *
+   * @param probability - The probability value between 0 and 1
+   * @return The result of the probability test
+   */
+  const chance = (probability: number) => {
+    if (probability < 0 || probability > 1) {
+      throw new Error('Probability must be between 0 and 1')
+    }
+
+    return Math.random() < probability
+  }
+
+  /**
+   * Calls a callback function at regular intervals.
+   *
+   * @param seconds - the interval in seconds
+   * @param callback - the function to call
+   */
+  const every = (seconds: number, callback: () => void) => {
+    if (counter % seconds === 0) callback()
+  }
+
+  // add your periodic sequences here
+  every(10, () => {
+    if (chance(0.2)) breaching1323Sequence()
+    else if (chance(0.2)) breaching254Sequence()
+  })
+
+  // Dont touch
+  counter++
+  setTimeout(periodicSequence, 1000)
+}
 export const criticalFailureIminentSequence = async () => {
   await tick()
   Notifications.error('Critical robot failure imminent', {
@@ -90,7 +140,7 @@ export const retardSequence = async () => {
 export const breaching254Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
   await tick()
-  Notifications.info('Breaching 254 mainframe', {
+  Notifications.warn('Breaching 254 mainframe', {
     withAudio: true,
     src: getVoicePath('breaching-254-mainframe', 'en'),
   })
@@ -99,7 +149,7 @@ export const breaching254Sequence = async () => {
 export const breaching1323Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
   await tick()
-  Notifications.info('Breaching 1323 mainframe', {
+  Notifications.warn('Breaching 1323 mainframe', {
     withAudio: true,
     src: getVoicePath('breaching-1323-mainframe', 'en'),
   })

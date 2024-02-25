@@ -44,12 +44,7 @@
       initializationSequence();
     }, 3000);
   });
-
-  let infotainmentViewport: Element;
-  let infotainmentContent: Element;
 </script>
-
-<Svrollbar />
 
 <main
   class="select-none transition-opacity duration-300 overflow-hidden"
@@ -60,13 +55,11 @@
     <Dashboard />
   </div>
   <!-- the infotainment system -->
-  <Svrollbar viewport={infotainmentViewport} contents={infotainmentContent} />
   <div
     class="min-h-screen w-[65vw] right-0 absolute infotainment-container overflow-x-hidden"
-    bind:this={infotainmentViewport}
   >
     <!-- dynamic app system (edit appList.ts to add new apps) -->
-    <div class="mx-10 mt-10 overflow-x-hidden" bind:this={infotainmentContent}>
+    <div class="mx-10 mt-10 overflow-x-hidden">
       <svelte:component this={appList[activeApp].component} />
     </div>
     <div

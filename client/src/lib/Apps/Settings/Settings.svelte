@@ -40,7 +40,7 @@
       RNG Weight
     </SettingsInput>
     <button
-      class="mt-10 px-4 py-2 bg-blue-500 hover:brightness-75 text-medium rounded-lg w-min"
+      class="mt-10 px-4 py-2 bg-amber-600 hover:brightness-75 text-medium rounded-lg w-min"
       on:click={resetSettings}>Reset</button
     >
 

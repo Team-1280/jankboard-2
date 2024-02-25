@@ -28,6 +28,11 @@
     // @ts-expect-error
     value = get(settingsStore)[setting]
   })
+
+  settingsStore.subscribe(data => {
+    // @ts-expect-error
+    value = data[setting]
+  })
 </script>
 
 <span class="flex flex-row gap-2">
@@ -39,10 +44,10 @@
     class="text-slate-800 rounded-lg p-0.5 text-center"
   />
   <button
-    class="bg-blue-500 px-4 py-2 rounded-lg hover:brightness-75 font-medium"
+    class="bg-blue-500 px-2 py-1 rounded-lg hover:brightness-75 font-medium"
     on:click={handleSubmit}
   >
-    Save
+    <span class="material-symbols-outlined mt-1">check</span>
   </button>
   <label
     class="text-xl text-slate-100 font-medium my-auto"

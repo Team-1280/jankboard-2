@@ -2,3 +2,7 @@ node_modules
 dist
 .vscode
 app/__pycache__/*
+
+# ignore external apps directory, except for the README
+app/static/external-apps/*
+!app/static/external-apps/README.md

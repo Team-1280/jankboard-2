@@ -2,6 +2,7 @@ import { toast } from 'svelte-french-toast'
 import type { ToastOptions } from 'svelte-french-toast'
 import InfoIcon from './InfoIcon.svelte'
 import { Howl } from 'howler'
+import WarnIcon from './WarnIcon.svelte'
 
 interface NotificationOptions extends ToastOptions {
   withAudio?: boolean
@@ -62,11 +63,33 @@ export class Notifications {
       sendToast(this.defaultDuration)
     }
   }
-  public static info(message: string, options?: any) {
+  public static info(message: string, options?: NotificationOptions) {
     const sendToast = (duration: number) => {
       toast(message, {
         style: 'padding: 25px; font-size: 1.5rem;',
         icon: InfoIcon,
+        duration,
+        ...options,
+      })
+    }
+    if (options?.withAudio && options?.src) {
+      let sound: Howl
+      sound = new Howl({
+        src: [options.src],
+        preload: true,
+        autoplay: true,
+        onload: () => sendToast(sound.duration() * 1000),
+      })
+    } else {
+      sendToast(this.defaultDuration)
+    }
+  }
+  public static warn(message: string, options?: NotificationOptions) {
+    const sendToast = (duration: number) => {
+      toast(message, {
+        style:
+          'padding: 25px; font-size: 1.5rem; background-color: #f59e0b; color: #fafafa;',
+        icon: WarnIcon,
         duration,
         ...options,
       })

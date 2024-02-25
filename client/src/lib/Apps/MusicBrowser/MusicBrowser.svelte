@@ -7,6 +7,12 @@
   import Song from './Song.svelte'
   import { songList } from '../../Dashboard/MediaPlayer/songList'
   import AppContainer from '../AppContainer.svelte'
+  import { onMount } from 'svelte'
+  import { musicPlayerBootupSequence } from '../../Sequences/sequences'
+
+  onMount(() => {
+    setTimeout(musicPlayerBootupSequence, 5000)
+  })
 </script>
 
 <AppContainer

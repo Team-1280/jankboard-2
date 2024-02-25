@@ -3,26 +3,148 @@ define various sequences to play out in this file
 for example, we can define an initialization sequence that
 plays out some series of notifications, and call it whenever we need it,
 or a sequence to change the screen color and play some audio queues for a crash
+these sequences should be self contained and not rely on any external state outside of 
+that in sequenceStore so that they can be easily invoked from anywhere
 */
 
 import { Notifications } from '../Notifications/notifications'
+import { sequenceStore } from '../stores/sequenceStore'
+import { settingsStore } from '../stores/settingsStore'
+import { get } from 'svelte/store'
 import getVoicePath from '../utils/getVoicePath'
+import { tick } from 'svelte'
 
-export const initializationSequence = () => {
+// await a "tick" (a svelte update frame) at the start of every sequence so that
+// state is synced and no weird side effects occur
+
+export const initializationSequence = async () => {
+  await tick()
   Notifications.info('Jankboard initialized!', {
     withAudio: true,
     src: getVoicePath('jankboard-initialized', 'en'),
   })
   setTimeout(() => {
-    Notifications.success('LittenOS is online.', {
+    if (get(settingsStore).goWoke) return
+    Notifications.success('LittenOS is online', {
       withAudio: true,
       src: getVoicePath('littenos-is-online', 'en'),
     })
     setTimeout(() => {
-      Notifications.error('Breaching Monte Vista codebase.', {
+      Notifications.warn('Breaching Monte Vista codebase', {
         withAudio: true,
         src: getVoicePath('breaching-monte-vista', 'en'),
       })
+      setTimeout(() => {
+        Notifications.playAudio(getVoicePath('hello-virtual-assistant', 'en'))
+      }, 3000)
     }, 3000)
   }, 3000)
+}
+
+export const criticalFailureIminentSequence = async () => {
+  Notifications.error('Critical robot failure imminent', {
+    withAudio: true,
+    src: getVoicePath('critical-robot-failure', 'en'),
+  })
+}
+
+export const collisionDetectedSequence = async () => {
+  Notifications.error('Collision detected', {
+    withAudio: true,
+    src: getVoicePath('collision-detected', 'en'),
+  })
+}
+
+export const collisionImminentSequence = async () => {
+  Notifications.error('Collision imminent', {
+    withAudio: true,
+    src: getVoicePath('collision-imminent', 'en'),
+  })
+}
+
+export const cruiseControlEngagedSequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  Notifications.success('Cruise control engaged', {
+    withAudio: true,
+    src: getVoicePath('cruise-control-engaged', 'en'),
+  })
+}
+
+export const retardSequence = async () => {
+  if (get(settingsStore).goWoke) return
+  Notifications.warn('Retard', {
+    withAudio: true,
+    src: getVoicePath('retard', 'en'),
+  })
+}
+
+export const breaching254Sequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  Notifications.info('Breaching 254 mainframe', {
+    withAudio: true,
+    src: getVoicePath('breaching-254-mainframe', 'en'),
+  })
+}
+
+export const breaching1323Sequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  Notifications.info('Breaching 1323 mainframe', {
+    withAudio: true,
+    src: getVoicePath('breaching-1323-mainframe', 'en'),
+  })
+}
+
+export const bullyingRohanSequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  Notifications.info('Bullying Rohan', {
+    withAudio: true,
+    src: getVoicePath('bullying-rohan', 'en'),
+  })
+}
+
+export const userErrorDetectedSequence = async () => {
+  Notifications.error('User error detected', {
+    withAudio: true,
+    src: getVoicePath('user-error-detected', 'en'),
+  })
+}
+
+export const infotainmentBootupSequence = async () => {
+  if (
+    get(sequenceStore).infotainmentStartedFirstTime ||
+    get(settingsStore).disableAnnoyances
+  )
+    return
+
+  await tick()
+
+  sequenceStore.update('infotainmentStartedFirstTime', true)
+
+  Notifications.info('Infotainment system buffering', {
+    withAudio: true,
+    src: getVoicePath('infotainment-system-buffering', 'en'),
+  })
+  setTimeout(() => {
+    Notifications.success('Infotainment system online', {
+      withAudio: true,
+      src: getVoicePath('infotainment-system-online', 'en'),
+    })
+  }, 3000)
+}
+
+export const musicPlayerBootupSequence = async () => {
+  if (
+    get(sequenceStore).musicStartedFirstTime ||
+    get(settingsStore).disableAnnoyances
+  )
+    return
+
+  await tick()
+
+  sequenceStore.update('musicStartedFirstTime', true)
+
+  Notifications.info('Downloading copyrighted music...', {
+    withAudio: true,
+    src: getVoicePath('downloading-copyrighted-music', 'en'),
+  })
 }

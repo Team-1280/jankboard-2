@@ -1,22 +1,44 @@
 <script lang="ts">
   import { Notifications } from '../../Notifications/notifications'
+  import { settingsStore } from '../../stores/settingsStore'
   import AppContainer from '../AppContainer.svelte'
+  import SettingsToggle from './SettingsToggle.svelte'
 
-  const handleClick = () => {
-    Notifications.error('Jankboard initialized', {
-      src: '/static/voices/en/jankboard-initialized.wav',
-    })
-    Notifications.playAudio('static/voices/en/jankboard-initialized.wav')
+  settingsStore.subscribe(async value => {
+    window.localStorage.setItem('settings', JSON.stringify(value))
+  })
+
+  const resetSettings = () => {
+    window.localStorage.setItem('settings', '')
+    settingsStore.reset()
+    Notifications.success('Settings reset! Refresh for all changes to apply.')
   }
 </script>
 
 <AppContainer
-  class="flex gap-4 bg-blue-200 bg-opacity-25 backdrop-blur-xl media-background rounded-3xl flex-wrap px-10 py-20"
+  class="flex gap-6 bg-blue-200 bg-opacity-25 backdrop-blur-xl media-background rounded-3xl flex-wrap px-10 py-20"
 >
-  <button
-    class="px-4 py-2 bg-blue-500 rounded-md hover:brightness-75"
-    on:click={handleClick}
-  >
-    Test Toast
-  </button>
+  <h1 class="text-5xl font-medium text-slate-100 basis-full">Settings</h1>
+  <h2 class="text-2xl font-medium text-slate-200 mt-4 basis-full">General</h2>
+  <div class="flex flex-col gap-2">
+    <SettingsToggle
+      setting="disableAnnoyances"
+      tooltip="Disable non-critical popups and audio cues."
+      >Disable Annoyances</SettingsToggle
+    >
+    <SettingsToggle
+      setting="goWoke"
+      tooltip="Disables content that could be perceived as offensive for PR and DEI purposes."
+      >Go Woke</SettingsToggle
+    >
+    <button
+      class="mt-10 px-4 py-2 bg-blue-500 hover:brightness-75 text-medium rounded-lg w-min"
+      on:click={resetSettings}>Reset</button
+    >
+
+    <footer class="bottom-0 -mb-10 mt-10 text-slate-300">
+      Settings are synced to the browser's local storage. If things seem broken,
+      try clearing the local Jankboard data and try again.
+    </footer>
+  </div>
 </AppContainer>

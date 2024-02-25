@@ -9,6 +9,9 @@
   import { onMount } from 'svelte'
   import { Toaster } from 'svelte-french-toast'
   import { initializationSequence } from './lib/Sequences/sequences'
+  import Loading from './lib/Loading/Loading.svelte'
+  import { settingsStore } from './lib/stores/settingsStore'
+  import getSettings from './lib/utils/getSettings'
 
   let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
@@ -27,13 +30,25 @@
     booleans: ['ebrake', 'reorient', 'gpws'],
   }
 
+  let loading = $settingsStore.fastStartup ? false : true
+
   onMount(() => {
+    let savedSettings = getSettings()
+    if (savedSettings !== false) {
+      settingsStore.set(savedSettings)
+    }
     initializeTelemetry(topics, 200)
-    initializationSequence()
+    setTimeout(() => {
+      loading = false
+      initializationSequence()
+    }, 3000)
   })
 </script>
 
-<main class="select-none">
+<main
+  class="select-none transition-opacity duration-300"
+  class:opacity-0={loading}
+>
   <!-- driver dashboard -->
   <div class="h-screen w-[35vw] fixed shadow-lg shadow-slate-800 z-10">
     <Dashboard />
@@ -50,8 +65,13 @@
   </div>
 
   <!-- toast service -->
-  <Toaster />
 </main>
+
+{#if loading}
+  <Loading />
+{/if}
+
+<Toaster />
 
 <style lang="postcss">
   main {

@@ -7,9 +7,15 @@
  -->
 
 <script lang="ts">
+  import { onDestroy } from 'svelte'
   import { fade } from 'svelte/transition'
+  import { infotainmentBootupSequence } from '../Sequences/sequences'
 
   export let useContainer: boolean = true
+
+  onDestroy(() => {
+    infotainmentBootupSequence()
+  })
 </script>
 
 <div

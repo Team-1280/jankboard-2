@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { blur } from 'svelte/transition'
+  import { blur } from "svelte/transition";
 
-  import SvelteLogo from './SvelteLogo.svelte'
+  import SvelteLogo from "./SvelteLogo.svelte";
 </script>
 
 <div
-  class="absolute w-screen h-screen flex justify-center items-center flex-col overflow-hidden bg"
+  class="absolute w-screen h-screen flex justify-center items-center flex-col overflow-hidden select-none bg"
   transition:blur={{ duration: 300, amount: 0.5 }}
 >
   <div class="max-w-64">

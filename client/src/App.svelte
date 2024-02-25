@@ -48,7 +48,7 @@
 </script>
 
 <main
-  class="select-none transition-opacity duration-300 overflow-hidden"
+  class="select-none transition-opacity duration-300"
   class:opacity-0={loading}
 >
   <!-- driver dashboard -->
@@ -56,27 +56,22 @@
     <Dashboard />
   </div>
   <!-- the infotainment system -->
-  <div
-    class="min-h-screen w-[65vw] right-0 absolute infotainment-container overflow-x-hidden"
-  >
+  <div class="min-h-screen w-[65vw] right-0 absolute infotainment-container">
     <!-- dynamic app system (edit appList.ts to add new apps) -->
-    <div class="mx-10 mt-10 overflow-x-hidden">
+    <div class="mx-10 mt-10 overflow-hidden">
       <svelte:component this={appList[activeApp].component} />
     </div>
-    <div
-      class="fixed w-[65vw] flex justify-center right-0 bottom-0 mb-4 overflow-x-hidden"
-    >
+    <div class="fixed w-[65vw] flex justify-center right-0 bottom-0 mb-4">
       <AppBar bind:activeApp {appList} />
     </div>
   </div>
-
-  <!-- toast service -->
 </main>
 
 {#if loading}
   <Loading />
 {/if}
 
+<!-- toast service -->
 <Toaster />
 
 <style lang="postcss">

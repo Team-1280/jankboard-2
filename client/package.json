@@ -4,15 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite build --watch --emptyOutDir",
-    "build": "vite build --emptyOutDir",
+    "dev": "vite dev",
+    "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "tauri": "tauri"
   },
   "devDependencies": {
     "@svelte-plugins/tooltips": "^3.0.0",
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
+    "@tauri-apps/cli": "^1.5.10",
     "@tsconfig/svelte": "^5.0.2",
     "@types/howler": "^2.2.11",
     "autoprefixer": "^10.4.17",

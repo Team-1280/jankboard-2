@@ -19,14 +19,17 @@
           { duration: 10000 }
         )
       })
+    Notifications.warn(
+      'The GBA Emulator is currently not working in this version of Jankboard.'
+    )
   })
 </script>
 
 <AppContainer useContainer={false} class="h-screen w-full">
-  <iframe
+  <!-- <iframe
     title="GBA Emulator"
     src="/static/external-apps/gba-emulator/index.html"
     class="w-full h-screen rounded-xl"
     frameborder="0"
-  />
+  /> -->
 </AppContainer>

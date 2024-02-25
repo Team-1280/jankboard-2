@@ -45,8 +45,8 @@
     >
 
     <footer class="bottom-0 -mb-10 mt-10 text-slate-300">
-      Settings are synced to the browser's local storage. If things seem broken,
-      try clearing the local Jankboard data and try again.
+      Settings are synced to Tauri's local storage. If things seem broken, try
+      reinstalling the app and try again.
     </footer>
   </div>
 </AppContainer>

@@ -44,7 +44,7 @@
         <img
           src={songData.coverImg}
           alt="album cover"
-          class="w-full h-full object-cover rounded-lg shadow-sm shadow-neutral-500"
+          class="w-20 h-20 aspect-square object-cover rounded-lg shadow-sm shadow-neutral-500"
         />
       </div>
       <div class="my-auto">

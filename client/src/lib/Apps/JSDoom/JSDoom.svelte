@@ -19,14 +19,17 @@
           { duration: 10000 }
         )
       })
+    Notifications.warn(
+      'Doom is currently not working in this version of Jankboard.'
+    )
   })
 </script>
 
 <AppContainer>
-  <iframe
+  <!-- <iframe
     title="JSDoom"
     src="/static/external-apps/jsdoom/index.html"
     class="w-full h-screen rounded-xl"
     frameborder="0"
-  />
+  /> -->
 </AppContainer>

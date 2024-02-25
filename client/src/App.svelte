@@ -12,6 +12,7 @@
   import Loading from './lib/Loading/Loading.svelte'
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
+  import { Svrollbar } from 'svrollbar'
 
   let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
@@ -43,10 +44,15 @@
       initializationSequence()
     }, 3000)
   })
+
+  let infotainmentViewport: Element
+  let infotainmentContent: Element
 </script>
 
+<Svrollbar />
+
 <main
-  class="select-none transition-opacity duration-300"
+  class="select-none transition-opacity duration-300 overflow-x-hidden"
   class:opacity-0={loading}
 >
   <!-- driver dashboard -->
@@ -54,12 +60,18 @@
     <Dashboard />
   </div>
   <!-- the infotainment system -->
-  <div class="min-h-screen w-[65vw] right-0 absolute infotainment-container">
+  <Svrollbar viewport={infotainmentViewport} contents={infotainmentContent} />
+  <div
+    class="min-h-screen w-[65vw] right-0 absolute infotainment-container overflow-x-hidden"
+    bind:this={infotainmentViewport}
+  >
     <!-- dynamic app system (edit appList.ts to add new apps) -->
-    <div class="mx-10 mt-10">
+    <div class="mx-10 mt-10 overflow-x-hidden" bind:this={infotainmentContent}>
       <svelte:component this={appList[activeApp].component} />
     </div>
-    <div class="fixed w-[65vw] flex justify-center right-0 bottom-0 mb-4">
+    <div
+      class="fixed w-[65vw] flex justify-center right-0 bottom-0 mb-4 overflow-x-hidden"
+    >
       <AppBar bind:activeApp {appList} />
     </div>
   </div>
@@ -90,5 +102,13 @@
       #2c3e50,
       #fd746c
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .infotainment-container::-webkit-scrollbar {
+    /* hide scrollbar */
+    display: none;
   }
 </style>

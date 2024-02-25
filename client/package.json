@@ -32,6 +32,7 @@
     "material-icons": "^1.13.12",
     "material-symbols": "^0.15.0",
     "socket.io-client": "^4.7.4",
-    "svelte-french-toast": "^1.2.0"
+    "svelte-french-toast": "^1.2.0",
+    "svrollbar": "^0.12.0"
   }
 }

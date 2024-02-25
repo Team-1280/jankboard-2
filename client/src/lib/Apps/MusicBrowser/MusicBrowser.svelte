@@ -11,7 +11,7 @@
   import { musicPlayerBootupSequence } from '../../Sequences/sequences'
 
   onMount(() => {
-    setTimeout(musicPlayerBootupSequence, 5000)
+    musicPlayerBootupSequence()
   })
 </script>
 

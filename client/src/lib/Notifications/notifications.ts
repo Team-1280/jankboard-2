@@ -20,7 +20,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast.success(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; background-color: #15803d; color: #fafafa;',
+          'padding: 25px; font-size: 1.5rem; background-color: #15803d; color: #fafafa; gap: 0.5rem;',
         duration,
         ...options,
       })
@@ -45,7 +45,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast.error(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; background-color: #dc2626; color: #fafafa;',
+          'padding: 25px; font-size: 1.5rem; background-color: #dc2626; color: #fafafa; gap: 0.5rem;',
         duration,
         ...options,
       })
@@ -66,7 +66,7 @@ export class Notifications {
   public static info(message: string, options?: NotificationOptions) {
     const sendToast = (duration: number) => {
       toast(message, {
-        style: 'padding: 25px; font-size: 1.5rem;',
+        style: 'padding: 25px; font-size: 1.5rem; gap: 0.5rem;',
         icon: InfoIcon,
         duration,
         ...options,
@@ -88,7 +88,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; background-color: #f59e0b; color: #fafafa;',
+          'padding: 25px; font-size: 1.5rem; background-color: #f59e0b; color: #fafafa; gap: 0.5rem;',
         icon: WarnIcon,
         duration,
         ...options,

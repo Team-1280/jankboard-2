@@ -196,6 +196,25 @@ export const infotainmentBootupSequence = async () => {
   }, 3000)
 }
 
+/**
+ * Waits for the infotainment system to boot up before executing the given sequence.
+ * Designed to be used by apps who want to play a bootup sequence but not overlap with the default one.
+ * If it's already booted, the sequence will be executed immediately.
+ *
+ * @param sequence - The sequence to execute after infotainment bootup, or immediately it already booted.
+ * @param delay? - The delay in milliseconds to wait if infotainment system is currently booting. Defaults to 5000ms
+ */
+const waitForInfotainmentBootup = (
+  sequence: () => void,
+  delay: number = 5000
+) => {
+  if (!get(sequenceStore).infotainmentStartedFirstTime) {
+    setTimeout(sequence, delay)
+  } else {
+    sequence()
+  }
+}
+
 export const musicPlayerBootupSequence = async () => {
   if (
     get(sequenceStore).musicStartedFirstTime ||
@@ -207,8 +226,28 @@ export const musicPlayerBootupSequence = async () => {
 
   sequenceStore.update('musicStartedFirstTime', true)
 
-  Notifications.info('Downloading copyrighted music...', {
-    withAudio: true,
-    src: getVoicePath('downloading-copyrighted-music', 'en'),
+  waitForInfotainmentBootup(() => {
+    Notifications.info('Downloading copyrighted music...', {
+      withAudio: true,
+      src: getVoicePath('downloading-copyrighted-music', 'en'),
+    })
+  })
+}
+
+export const gbaEmulatorBootupSequence = async () => {
+  if (
+    get(sequenceStore).gbaEmulatorStartedFirstTime ||
+    get(settingsStore).disableAnnoyances
+  )
+    return
+
+  await tick()
+  sequenceStore.update('gbaEmulatorStartedFirstTime', true)
+
+  waitForInfotainmentBootup(() => {
+    Notifications.info('Loading pirated Nintendo ROMs', {
+      withAudio: true,
+      src: getVoicePath('loading-pirated-nintendo', 'en'),
+    })
   })
 }

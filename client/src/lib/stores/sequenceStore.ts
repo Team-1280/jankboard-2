@@ -5,11 +5,13 @@ import { writable } from 'svelte/store'
 interface SequenceStoreData {
   infotainmentStartedFirstTime: boolean
   musicStartedFirstTime: boolean
+  gbaEmulatorStartedFirstTime: boolean
 }
 
 let defaults: SequenceStoreData = {
   infotainmentStartedFirstTime: false, // for infotainment bootup sequence
   musicStartedFirstTime: false,
+  gbaEmulatorStartedFirstTime: false,
 }
 
 const createSequenceStore = () => {

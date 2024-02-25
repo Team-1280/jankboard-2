@@ -89,6 +89,7 @@ const periodicSequence = async () => {
   every(10, () => {
     if (chance(0.2)) breaching1323Sequence()
     else if (chance(0.2)) breaching254Sequence()
+    else if (chance(0.05)) bullyingRohanSequence()
   })
 
   // Dont touch
@@ -137,7 +138,7 @@ export const retardSequence = async () => {
   })
 }
 
-export const breaching254Sequence = async () => {
+const breaching254Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
   await tick()
   Notifications.warn('Breaching 254 mainframe', {
@@ -146,7 +147,7 @@ export const breaching254Sequence = async () => {
   })
 }
 
-export const breaching1323Sequence = async () => {
+const breaching1323Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
   await tick()
   Notifications.warn('Breaching 1323 mainframe', {
@@ -155,7 +156,7 @@ export const breaching1323Sequence = async () => {
   })
 }
 
-export const bullyingRohanSequence = async () => {
+const bullyingRohanSequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
   await tick()
   Notifications.info('Bullying Rohan', {

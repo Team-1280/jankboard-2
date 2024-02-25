@@ -46,6 +46,7 @@ export const initializationSequence = async () => {
 }
 
 export const criticalFailureIminentSequence = async () => {
+  await tick()
   Notifications.error('Critical robot failure imminent', {
     withAudio: true,
     src: getVoicePath('critical-robot-failure', 'en'),
@@ -53,6 +54,7 @@ export const criticalFailureIminentSequence = async () => {
 }
 
 export const collisionDetectedSequence = async () => {
+  await tick()
   Notifications.error('Collision detected', {
     withAudio: true,
     src: getVoicePath('collision-detected', 'en'),
@@ -60,6 +62,7 @@ export const collisionDetectedSequence = async () => {
 }
 
 export const collisionImminentSequence = async () => {
+  await tick()
   Notifications.error('Collision imminent', {
     withAudio: true,
     src: getVoicePath('collision-imminent', 'en'),
@@ -68,6 +71,7 @@ export const collisionImminentSequence = async () => {
 
 export const cruiseControlEngagedSequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
+  await tick()
   Notifications.success('Cruise control engaged', {
     withAudio: true,
     src: getVoicePath('cruise-control-engaged', 'en'),
@@ -76,6 +80,7 @@ export const cruiseControlEngagedSequence = async () => {
 
 export const retardSequence = async () => {
   if (get(settingsStore).goWoke) return
+  await tick()
   Notifications.warn('Retard', {
     withAudio: true,
     src: getVoicePath('retard', 'en'),
@@ -84,6 +89,7 @@ export const retardSequence = async () => {
 
 export const breaching254Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
+  await tick()
   Notifications.info('Breaching 254 mainframe', {
     withAudio: true,
     src: getVoicePath('breaching-254-mainframe', 'en'),
@@ -92,6 +98,7 @@ export const breaching254Sequence = async () => {
 
 export const breaching1323Sequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
+  await tick()
   Notifications.info('Breaching 1323 mainframe', {
     withAudio: true,
     src: getVoicePath('breaching-1323-mainframe', 'en'),
@@ -100,6 +107,7 @@ export const breaching1323Sequence = async () => {
 
 export const bullyingRohanSequence = async () => {
   if (get(settingsStore).disableAnnoyances) return
+  await tick()
   Notifications.info('Bullying Rohan', {
     withAudio: true,
     src: getVoicePath('bullying-rohan', 'en'),
@@ -107,6 +115,7 @@ export const bullyingRohanSequence = async () => {
 }
 
 export const userErrorDetectedSequence = async () => {
+  await tick()
   Notifications.error('User error detected', {
     withAudio: true,
     src: getVoicePath('user-error-detected', 'en'),

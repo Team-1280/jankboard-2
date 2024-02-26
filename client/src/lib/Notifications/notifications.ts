@@ -25,41 +25,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast.success(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; background-color: #15803d; color: #fafafa; gap: 0.5rem; user-select: none; max-width: 70vw; margin-top: 30px;',
-        duration,
-        ...options,
-      })
-    }
-
-    if (options?.withAudio && options?.src) {
-      let sound: Howl
-      sound = new Howl({
-        src: [options.src],
-        preload: true,
-        autoplay: true,
-        onload: () => {
-          let duration = sound.duration() * 1000
-          sendToast(duration)
-          setTimeout(onComplete, duration)
-        },
-      })
-    } else {
-      sendToast(this.defaultDuration)
-      setTimeout(onComplete, this.defaultDuration)
-    }
-  }
-  public static error(message: string, options?: NotificationOptions) {
-    if (options?.withAudio && !options.src)
-      throw new Error('No audio source provided')
-
-    const onComplete = () => {
-      if (options?.onComplete) options.onComplete()
-    }
-
-    const sendToast = (duration: number) => {
-      toast.error(message, {
-        style:
-          'padding: 25px; width-200px; font-size: 1.5rem; background-color: #dc2626; color: #fafafa; gap: 0.5rem; user-select: none; max-width: 70vw; margin-top: 30px;',
+          'padding: 25px; font-size: 1.5rem; background-color: #15803d; color: #fafafa; gap: 0.5rem; user-select: none; max-width: 70vw;',
         duration,
         ...options,
       })
@@ -90,7 +56,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; gap: 0.5rem; user-select: none; max-width-600px; max-width: 70vw; margin-top: 30px;',
+          'padding: 25px; font-size: 1.5rem; gap: 0.5rem; user-select: none; max-width-600px; max-width: 70vw;',
         icon: InfoIcon,
         duration,
         ...options,
@@ -121,7 +87,7 @@ export class Notifications {
     const sendToast = (duration: number) => {
       toast(message, {
         style:
-          'padding: 25px; font-size: 1.5rem; background-color: #f59e0b; color: #fafafa; gap: 0.5rem; user-select: none; max-width: 70vw; margin-top: 30px;',
+          'padding: 25px; font-size: 1.5rem; background-color: #f59e0b; color: #fafafa; gap: 0.5rem; user-select: none; max-width: 70vw;',
         icon: WarnIcon,
         duration,
         ...options,

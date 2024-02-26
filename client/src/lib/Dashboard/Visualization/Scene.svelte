@@ -145,13 +145,11 @@
 
 <ContactShadows scale={10} blur={2} far={2.5} opacity={0.5} />
 
-<Float floatIntensity={1} floatingRange={[0, 0.5]}>
-  <Hornet
-    position.y={1.7}
-    position.z={robotPos.z}
-    position.x={robotPos.x}
-    scale={[0.8, 0.8, 0.8]}
-    bind:ref={capsule}
-    rotation.y={rot}
-  />
-</Float>
+<Hornet
+  position.y={2}
+  position.z={robotPos.z}
+  position.x={robotPos.x}
+  scale={[0.8, 0.8, 0.8]}
+  bind:ref={capsule}
+  rotation.y={rot}
+/>

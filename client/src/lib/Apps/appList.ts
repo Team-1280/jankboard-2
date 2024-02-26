@@ -9,6 +9,7 @@ const resolveIconPath = (slug: keyof typeof appList, format: Format) => {
 
 import GBAEmulator from './GBAEmulator/GBAEmulator.svelte'
 import JsDoom from './JSDoom/JSDoom.svelte'
+import DevTools from './DevTools/DevTools.svelte'
 
 interface AppList {
   [key: string]: {
@@ -48,6 +49,12 @@ export const appList: AppList = {
     name: 'Settings',
     component: Settings,
     icon: resolveIconPath('settings', 'png'),
+    external: false,
+  },
+  'dev-tools': {
+    name: 'DevTools',
+    component: DevTools,
+    icon: resolveIconPath('dev-tools', 'png'),
     external: false,
   },
 }

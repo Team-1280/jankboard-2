@@ -1,50 +1,51 @@
 <script lang="ts">
-  import "@fontsource/roboto/latin.css";
-  import "material-icons/iconfont/material-icons.css";
-  import Dashboard from "./lib/Dashboard/Dashboard.svelte";
-  import "material-symbols";
-  import AppBar from "./lib/Apps/AppBar.svelte";
-  import { appList } from "./lib/Apps/appList";
-  import { initializeTelemetry } from "./lib/utils/initializeTelemetry";
-  import { onMount } from "svelte";
-  import { Toaster } from "svelte-french-toast";
-  import { initializationSequence } from "./lib/Sequences/sequences";
-  import Loading from "./lib/Loading/Loading.svelte";
-  import { settingsStore } from "./lib/stores/settingsStore";
-  import getSettings from "./lib/utils/getSettings";
+  import '@fontsource/roboto/latin.css'
+  import 'material-icons/iconfont/material-icons.css'
+  import Dashboard from './lib/Dashboard/Dashboard.svelte'
+  import 'material-symbols'
+  import AppBar from './lib/Apps/AppBar.svelte'
+  import { appList } from './lib/Apps/appList'
+  import { initializeTelemetry } from './lib/utils/initializeTelemetry'
+  import { onMount } from 'svelte'
+  import { Toaster } from 'svelte-french-toast'
+  import { initializationSequence } from './lib/Sequences/sequences'
+  import Loading from './lib/Loading/Loading.svelte'
+  import { settingsStore } from './lib/stores/settingsStore'
+  import getSettings from './lib/utils/getSettings'
+  import { Canvas } from '@threlte/core'
 
-  let activeApp: App = "camera";
+  let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
     doubles: [
-      "orientation",
-      "chassis-x-speed",
-      "chassis-y-speed",
-      "accx",
-      "accy",
-      "accz",
-      "jerk-x",
-      "jerk-y",
-      "voltage",
+      'orientation',
+      'chassis-x-speed',
+      'chassis-y-speed',
+      'accx',
+      'accy',
+      'accz',
+      'jerk-x',
+      'jerk-y',
+      'voltage',
     ],
-    strings: ["acc-profile", "gear"],
-    booleans: ["ebrake", "reorient", "gpws"],
-  };
+    strings: ['acc-profile', 'gear'],
+    booleans: ['ebrake', 'reorient', 'gpws'],
+  }
 
-  let loading = $settingsStore.fastStartup ? false : true;
+  let loading = $settingsStore.fastStartup ? false : true
 
   onMount(() => {
-    let savedSettings = getSettings();
+    let savedSettings = getSettings()
     if (savedSettings !== false) {
-      settingsStore.set(savedSettings);
+      settingsStore.set(savedSettings)
     }
-    window.ResizeObserver = ResizeObserver;
+    window.ResizeObserver = ResizeObserver
     // disabled while migrating away from python
-    // initializeTelemetry(topics, 200);
+    initializeTelemetry(topics, 200)
     setTimeout(() => {
-      loading = false;
-      initializationSequence();
-    }, 3000);
-  });
+      loading = false
+      initializationSequence()
+    }, 3000)
+  })
 </script>
 
 <main
@@ -76,7 +77,7 @@
 
 <style lang="postcss">
   main {
-    font-family: "Roboto", sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
 
   .infotainment-container {

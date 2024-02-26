@@ -27,16 +27,16 @@
   const kP = 2 // Adjust this value based on responsiveness and stability needs
 
   // simulate some turning for testing
-  const simulateTurning = () => {
-    let delay = Math.random() * 4500 + 500
-    let randOffset = Math.random() * 170 * (Math.random() < 0.5 ? -1 : 1)
-    telemetryStore.update({
-      ...get(telemetryReadonlyStore),
-      orientation: get(telemetryReadonlyStore)['orientation'] + randOffset,
-    })
-    setTimeout(simulateTurning, delay)
-  }
-  simulateTurning()
+  // const simulateTurning = () => {
+  //   let delay = Math.random() * 4500 + 500
+  //   let randOffset = Math.random() * 170 * (Math.random() < 0.5 ? -1 : 1)
+  //   telemetryStore.update({
+  //     ...get(telemetryReadonlyStore),
+  //     orientation: get(telemetryReadonlyStore)['orientation'] + randOffset,
+  //   })
+  //   setTimeout(simulateTurning, delay)
+  // }
+  // simulateTurning()
 
   // Sync robot orientation with target rotation
   let targetRot = 0

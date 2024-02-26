@@ -1,10 +1,19 @@
 <script lang="ts">
   import { createEventDispatcher, onDestroy } from 'svelte'
-  import { Camera, Vector2, Vector3, Quaternion } from 'three'
+  import {
+    Camera,
+    Vector2,
+    Vector3,
+    Quaternion,
+    Object3D,
+    type Object3DEventMap,
+    Group,
+  } from 'three'
   import { useThrelte, useParent, useTask } from '@threlte/core'
 
-  export let object: Camera
+  export let object: Group<Object3DEventMap>
   export let rotateSpeed = 1.0
+  export let shouldOrbit: boolean
 
   $: if (object) {
     // console.log(object)
@@ -55,88 +64,52 @@
     )
   }
 
-  // domElement.addEventListener('pointerdown', onPointerDown)
-  // domElement.addEventListener('pointermove', onPointerMove)
-  // domElement.addEventListener('pointerleave', onPointerLeave)
-  // domElement.addEventListener('pointerup', onPointerUp)
-
-  onDestroy(() => {
-    // domElement.removeEventListener('pointerdown', onPointerDown)
-    // domElement.removeEventListener('pointermove', onPointerMove)
-    // domElement.removeEventListener('pointerleave', onPointerLeave)
-    // domElement.removeEventListener('pointerup', onPointerUp)
-  })
-
   // This is basically your update function
   useTask(delta => {
     // the object's position is bound to the prop
     if (!object) return
 
-    // camera is based on character so we rotation character first
-    // rotationQuat.setFromAxisAngle(axis, -rotateDelta.x * rotateSpeed * delta)
-    // object.quaternion.multiply(rotationQuat)
-
     // then we calculate our ideal's
     const offset = vectorFromObject(idealOffset)
     const lookAt = vectorFromObject(idealLookAt)
+
+    // camera is based on character so we rotation character first
+    // rotationQuat.setFromAxisAngle(axis, rotateSpeed * delta)
+    // object.quaternion.multiply(rotationQuat)
 
     // and how far we should move towards them
     const t = 1.0 - Math.pow(0.001, delta)
     currentPosition.lerp(offset, t)
     currentLookAt.lerp(lookAt, t)
 
-    // then finally set the camera, a bit behind the model
-    $camera!.position.copy(currentPosition)
-    const behindOffset = currentPosition
-      .clone()
+    // typescript HACKS! never do this! How does this work? who knows!
+    const robotPosition = vectorFromObject(
+      object as unknown as { x: number; y: number; z: number }
+    )
+
+    const horizontalOffsetDistance = 12 // Distance behind the leading vector
+    const direction = new Vector3(0, 0, 1) // Default forward direction in Three.js is negative z-axis, so behind is positive z-axis
+    const verticalOffset = new Vector3(0, -2.8, 0)
+
+    // Calculate the offset vector
+    const offsetVector = direction
       .normalize()
-      .multiplyScalar(8)
-      .setY(0.5)
+      .multiplyScalar(horizontalOffsetDistance)
+      .add(verticalOffset)
 
-    $camera!.position.copy(currentPosition).add(behindOffset)
+    // If the leading object is rotating, apply its rotation to the offset vector
+    const rotatedOffsetVector = offsetVector.applyQuaternion(object.quaternion)
 
-    $camera!.lookAt(currentLookAt)
-  })
+    // Calculate the trailing vector's position
+    const trailingVector = robotPosition.clone().sub(rotatedOffsetVector)
 
-  function onPointerMove(event: PointerEvent) {
-    const { x, y } = event
-    if (pointerDown && !isOrbiting) {
-      // calculate distance from init down
-      const distCheck =
-        Math.sqrt(
-          Math.pow(x - rotateStart.x, 2) + Math.pow(y - rotateStart.y, 2)
-        ) > 10
-      if (distCheck) {
-        isOrbiting = true
-      }
+    if (!shouldOrbit) {
+      // then finally set the camera, a bit behind the model
+      $camera!.position.copy(trailingVector)
+      // Rotate the offset around the Y-axis
+      $camera!.lookAt(currentLookAt)
     }
-    if (!isOrbiting) return
-
-    rotateEnd.set(x, y)
-    rotateDelta.subVectors(rotateEnd, rotateStart).multiplyScalar(rotateSpeed)
-    rotateStart.copy(rotateEnd)
-
-    invalidate()
-    dispatch('change')
-  }
-
-  function onPointerDown(event: PointerEvent) {
-    const { x, y } = event
-    rotateStart.set(x, y)
-    pointerDown = true
-  }
-
-  function onPointerUp() {
-    rotateDelta.set(0, 0)
-    pointerDown = false
-    isOrbiting = false
-  }
-
-  function onPointerLeave() {
-    rotateDelta.set(0, 0)
-    pointerDown = false
-    isOrbiting = false
-  }
+  })
 
   function vectorFromObject(vec: { x: number; y: number; z: number }) {
     const { x, y, z } = vec
@@ -147,32 +120,4 @@
     )
     return ideal
   }
-
-  function onKeyDown(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'a':
-        rotateDelta.x = -2 * rotateSpeed
-        break
-      case 'd':
-        rotateDelta.x = 2 * rotateSpeed
-        break
-      default:
-        break
-    }
-  }
-
-  function onKeyUp(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'a':
-        rotateDelta.x = 0
-        break
-      case 'd':
-        rotateDelta.x = 0
-        break
-      default:
-        break
-    }
-  }
 </script>
-
-<!-- <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} /> -->

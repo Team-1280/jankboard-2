@@ -25,7 +25,7 @@ export const initializeTelemetry = (
     )
   }
 
-  const socket = io()
+  const socket = io('localhost:1280')
   socket.on('connect', () => {
     console.log('Socket-IO connected!')
     socket.emit('subscribe', topics)

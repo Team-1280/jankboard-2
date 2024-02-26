@@ -46,7 +46,7 @@ Title: Low Poly F/A-18 Hornet
     }
   }
 
-  const gltf = useGltf<GLTFResult>('/src/assets/models/scene.gltf')
+  const gltf = useGltf<GLTFResult>('/static/models/scene.gltf')
 
   const component = forwardEventHandlers()
 </script>

@@ -26,7 +26,7 @@ If you would like to contribute to Jankboard 2, there's only a few simple steps 
 ## Troubleshooting common issues
 
 - If you're experiencing issues with TypeScript type checking or dependency resolution, try opening your editor directly in the `client` directory so it picks up the `tsconfig.json` and uses the project's own TypeScript language server.
-- If you don't have access to a development environment that supports running standalone executables (eg. Github Workspaces), you can try running `npm run dev` instead of `npm run tauri dev`, which will open a development server at `localhost:5173` with the frontend running in the web. However, this may break at any time as critical functionality is more directly attached to the Rust backend.
+- If you don't have access to a development environment that supports running standalone executables (eg. Github Codespaces), you can try running `npm run dev` instead of `npm run tauri dev`, which will open a development server at `localhost:5173` with the frontend running in the web. However, this may break at any time as critical functionality is more directly attached to the Rust backend.
 - If for some reason you need to install and use the Python backend while we are migrating to Rust, run `poetry install --no-root` in the root directory of the project to install dependencies. You can start the server with `poetry run flask --app app/server.py run --host localhost --port 1280` (it must be running at port `1280` for the frontend to detect it).
 
 ## Current progress

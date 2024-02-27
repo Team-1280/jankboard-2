@@ -1,7 +1,7 @@
 <script lang="ts">
   import { T, useTask } from '@threlte/core'
   import { ContactShadows, Float, Grid, OrbitControls } from '@threlte/extras'
-  import Hornet from './models/Hornet.svelte'
+  import Robot from './models/RobotDecimated.svelte'
   import Controls from './Controls.svelte'
   import {
     Vector3,
@@ -138,18 +138,18 @@
   cellColor="#ffffff"
   sectionColor="#ffffff"
   sectionThickness={0}
-  fadeDistance={75}
-  cellSize={2}
+  fadeDistance={100}
+  cellSize={6}
   infiniteGrid
 />
 
 <ContactShadows scale={10} blur={2} far={2.5} opacity={0.5} />
 
-<Hornet
-  position.y={2}
+<Robot
+  position.y={1}
   position.z={robotPos.z}
   position.x={robotPos.x}
-  scale={[0.8, 0.8, 0.8]}
+  scale={[5, 5, 5]}
   bind:ref={capsule}
   rotation.y={rot}
 />

@@ -6,6 +6,7 @@
   import Hornet from '../models/Hornet.svelte'
   import { Vector3 } from 'three'
   import { onMount } from 'svelte'
+  import RobotDecimated from '../models/RobotDecimated.svelte'
 
   function vectorFromObject() {
     let ideal: Vector3 = new Vector3()
@@ -100,8 +101,9 @@
 
 <T.DirectionalLight position={[3, 10, 7]} />
 
-<Hornet
-  position.y={1}
+<RobotDecimated
+  scale={[10, 10, 10]}
+  position.y={0}
   on:create={({ ref }) => {
     $mesh = ref
   }}
@@ -110,7 +112,8 @@
 <Grid
   sectionColor={'#ff3e00'}
   sectionThickness={1}
+  fadeDistance={125}
+  cellSize={6}
   cellColor={'#cccccc'}
-  gridSize={40}
   infiniteGrid
 />

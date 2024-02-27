@@ -4,5 +4,8 @@ dist
 app/__pycache__/*
 
 # ignore external apps directory, except for the README
-app/static/external-apps/*
-!app/static/external-apps/README.md
+client/public/static/external-apps/*
+!client/public/external-apps/README.md
+.DS_Store
+
+target

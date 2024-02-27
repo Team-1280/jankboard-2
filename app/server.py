@@ -6,6 +6,7 @@ import signal
 import sys
 from threading import Thread
 from time import sleep
+from flask_cors import CORS
 
 import ntcore
 import waitress
@@ -25,7 +26,8 @@ signal.signal(signal.SIGINT, signal_handler)
 
 # initialize flask app and socketio
 app = Flask(__name__, static_folder="dist", static_url_path="/")
-socketio = SocketIO(app)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 inst = ntcore.NetworkTableInstance.getDefault()
 table = inst.getTable("SmartDashboard")

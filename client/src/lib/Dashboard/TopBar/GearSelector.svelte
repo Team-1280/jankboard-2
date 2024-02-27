@@ -18,6 +18,6 @@
 
 <style lang="postcss">
   .highlighted {
-    @apply text-white;
+    @apply text-white transition-colors duration-300;
   }
 </style>

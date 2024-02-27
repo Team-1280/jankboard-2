@@ -14,6 +14,7 @@ flask-socketio = '^5.3.6'
 eventlet = '^0.34.3'
 flaskwebgui = '^1.0.8'
 waitress = '^2.1.2'
+flask-cors = "^4.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = '^0.2.2'

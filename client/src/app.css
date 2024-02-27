@@ -13,8 +13,17 @@
     }
   }
 
+  html,
   body {
     @apply bg-black text-white;
+    /* hide scrollbar */
+
+    overflow: auto; /* or 'scroll' if you always want scrollability */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE 10+ and Edge */
+  }
+  body::-webkit-scrollbar {
+    display: none;
   }
 }
 

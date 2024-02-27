@@ -15,6 +15,7 @@
   import Compass from './Compass.svelte'
   import { telemetryReadonlyStore } from '../stores/telemetryStore'
   import Bottom from './Bottom.svelte'
+  import Visualization from './Visualization/Visualization.svelte'
 
   $: speedResolved = Math.hypot(
     $telemetryReadonlyStore['chassis-x-speed'],
@@ -34,6 +35,10 @@
       <Speedometer speed={speedResolved} />
       <SpeedLimit speedLimit={-999} />
     </div>
+  </div>
+
+  <div class="left-0 mt-2 h-[475px] w-[35vw]">
+    <Visualization />
   </div>
 
   <Bottom>

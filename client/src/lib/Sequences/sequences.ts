@@ -29,26 +29,33 @@ export const initializationSequence = async () => {
   Notifications.info("Jankboard initialized!", {
     withAudio: true,
     src: getVoicePath("jankboard-initialized"),
-  });
-  setTimeout(() => {
-    if (get(settingsStore).goWoke) return;
-    Notifications.success("LittenOS is online", {
-      withAudio: true,
-      src: getVoicePath("littenos-is-online"),
-    });
-    setTimeout(() => {
-      Notifications.warn("Breaching Monte Vista codebase", {
+    onComplete: () => {
+      if (get(settingsStore).goWoke) {
+        sequenceStore.update("initializationComplete", true);
+        periodicSequence();
+        return;
+      }
+      Notifications.success("LittenOS is online", {
         withAudio: true,
-        src: getVoicePath("breaching-monte-vista"),
+        src: getVoicePath("littenos-is-online"),
+        onComplete: () => {
+          Notifications.warn("Breaching Monte Vista codebase", {
+            withAudio: true,
+            src: getVoicePath("breaching-monte-vista"),
+            onComplete: () => {
+              Notifications.playAudio(
+                getVoicePath("hello-virtual-assistant"),
+                () => {
+                  sequenceStore.update("initializationComplete", true);
+                  periodicSequence();
+                }
+              );
+            },
+          });
+        },
       });
-      setTimeout(() => {
-        Notifications.playAudio(getVoicePath("hello-virtual-assistant"), () => {
-          sequenceStore.update("initializationComplete", true);
-          periodicSequence();
-        });
-      }, 3000);
-    }, 3000);
-  }, 3000);
+    },
+  });
 };
 
 let counter = 1;
@@ -185,8 +192,9 @@ export const infotainmentBootupSequence = async () => {
     get(sequenceStore).infotainmentStartedFirstTime ||
     get(settingsStore).disableAnnoyances ||
     infotainmentStarted
-  )
+  ) {
     return;
+  }
 
   infotainmentStarted = true;
   await tick();
@@ -195,16 +203,16 @@ export const infotainmentBootupSequence = async () => {
     Notifications.info("Infotainment system buffering", {
       withAudio: true,
       src: getVoicePath("infotainment-system-buffering"),
+      onComplete: () => {
+        Notifications.success("Infotainment system online", {
+          withAudio: true,
+          src: getVoicePath("infotainment-system-online"),
+          onComplete: () => {
+            sequenceStore.update("infotainmentStartedFirstTime", true);
+          },
+        });
+      },
     });
-    setTimeout(() => {
-      Notifications.success("Infotainment system online", {
-        withAudio: true,
-        src: getVoicePath("infotainment-system-online"),
-        onComplete: () => {
-          sequenceStore.update("infotainmentStartedFirstTime", true);
-        },
-      });
-    }, 3000);
   };
 
   if (!get(sequenceStore).initializationComplete) {

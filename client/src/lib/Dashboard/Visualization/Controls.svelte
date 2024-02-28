@@ -87,9 +87,9 @@
       object as unknown as { x: number; y: number; z: number }
     )
 
-    const horizontalOffsetDistance = 12 // Distance behind the leading vector
+    const horizontalOffsetDistance = 15 // Distance behind the leading vector
     const direction = new Vector3(0, 0, 1) // Default forward direction in Three.js is negative z-axis, so behind is positive z-axis
-    const verticalOffset = new Vector3(0, -2.8, 0)
+    const verticalOffset = new Vector3(0, -5, 0)
 
     // Calculate the offset vector
     const offsetVector = direction
@@ -100,14 +100,56 @@
     // If the leading object is rotating, apply its rotation to the offset vector
     const rotatedOffsetVector = offsetVector.applyQuaternion(object.quaternion)
 
+    const leftOffset = -1.5
+    function shiftVectorLeft(
+      vector: Vector3,
+      amount: number,
+      upDirection = axis
+    ): void {
+      // Calculate the left direction. Assuming 'up' is the global up direction or a custom up vector.
+      // This creates a vector pointing to the "left" of the original vector, in a 3D context.
+      let leftDirection = new Vector3()
+        .crossVectors(upDirection, vector)
+        .normalize()
+
+      // Scale the left direction by the desired amount
+      leftDirection.multiplyScalar(amount)
+
+      // Add the scaled left direction to the original vector, mutating it
+      vector.add(leftDirection)
+    }
+
+    shiftVectorLeft(rotatedOffsetVector, leftOffset)
+
     // Calculate the trailing vector's position
     const trailingVector = robotPosition.clone().sub(rotatedOffsetVector)
+
+    function shiftVectorLeftNonMutate(
+      vector: Vector3,
+      amount: number,
+      upDirection = axis
+    ): Vector3 {
+      // Create a new vector to avoid mutating the original vector
+      let shiftedVector = vector.clone()
+
+      // Calculate the left direction. Assuming 'up' is the global up direction or a custom up vector.
+      // This creates a vector pointing to the "left" of the original vector, in a 3D context.
+      let leftDirection = new Vector3()
+        .crossVectors(upDirection, vector)
+        .normalize()
+
+      // Scale the left direction by the desired amount and add it to the original vector
+      leftDirection.multiplyScalar(amount)
+      shiftedVector.add(leftDirection)
+
+      return shiftedVector
+    }
 
     if (!shouldOrbit) {
       // then finally set the camera, a bit behind the model
       $camera!.position.copy(trailingVector)
       // Rotate the offset around the Y-axis
-      $camera!.lookAt(currentLookAt)
+      $camera!.lookAt(shiftVectorLeftNonMutate(currentLookAt, -leftOffset))
     }
   })
 

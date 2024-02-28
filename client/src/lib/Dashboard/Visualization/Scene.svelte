@@ -2,6 +2,7 @@
   import { T, useTask } from "@threlte/core";
   import { ContactShadows, Float, Grid, OrbitControls } from "@threlte/extras";
   import Controls from "./Controls.svelte";
+
   import {
     Vector3,
     type Camera,
@@ -137,18 +138,19 @@
   cellColor="#ffffff"
   sectionColor="#ffffff"
   sectionThickness={0}
-  fadeDistance={75}
-  cellSize={2}
+  fadeDistance={100}
+  cellSize={6}
   infiniteGrid
 />
 
 <ContactShadows scale={10} blur={2} far={2.5} opacity={0.5} />
 
+
 <!-- <Hornet
   position.y={2}
   position.z={robotPos.z}
   position.x={robotPos.x}
-  scale={[0.8, 0.8, 0.8]}
+  scale={[5, 5, 5]}
   bind:ref={capsule}
   rotation.y={rot}
 /> -->

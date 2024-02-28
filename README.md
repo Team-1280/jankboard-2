@@ -29,20 +29,23 @@ If you would like to contribute to Jankboard 2, there's only a few simple steps 
 - If you don't have access to a development environment that supports running standalone executables (eg. Github Codespaces), you can try running `npm run dev` instead of `npm run tauri dev`, which will open a development server at `localhost:5173` with the frontend running in the web. However, this may break at any time as critical functionality is more directly attached to the Rust backend.
 - If for some reason you need to install and use the Python backend while we are migrating to Rust, run `poetry install --no-root` in the root directory of the project to install dependencies. You can start the server with `poetry run flask --app app/server.py run --host localhost --port 1280` (it must be running at port `1280` for the frontend to detect it).
 
-## Current progress
+## Current progress and improvements over (original) Jankboard
 
-- Basic UI layout complete
-- Media player working with a few small issues
-- App system working smoothly
-- Camera feed likely working
-- Frontend syncs basic telemetry data with robot through the same Socket-IO code that powered Jankboard v1
-- Notification service installed, with Toast and audio capability
+- Layout, toasts/notifications, music player, and app system ported.
+- Toast and audio cue system is much more robust
+- Transitions added almost everywhere to make things smoother
+- Tauri app created successfully, currently still using Flask backend
+- Visualization vastly improved with Threlte (Three.js) powered 3D robot simulation
+- Robot model ported successfully via massive optimization through polygon decimation
+- Added settings app with options to disable certain features and developer tools for testing
 
 ## TODO
 
 - Camera cutout overlay
 - Overhaul audio player system
-- Robot visualization (3D, in Threlte).
-- Overhaul backend
+- Overhaul visualization (especially camera)
+- Overhaul backend in Rust
 - Further integrate telemetry (like GPWS, collision warning, etc)
 - Finish re-creating / adding various voice alerts and sequences
+- Create dynamic voice prompt system to support new languages very easily
+- Add dynamic voice prompt fallback to support incremental voice prompt migration

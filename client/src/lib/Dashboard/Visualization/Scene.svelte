@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { T, useTask } from '@threlte/core'
-  import { ContactShadows, Float, Grid, OrbitControls } from '@threlte/extras'
-  import Robot from './models/RobotDecimated.svelte'
-  import Controls from './Controls.svelte'
+  import { T, useTask } from "@threlte/core";
+  import { ContactShadows, Float, Grid, OrbitControls } from "@threlte/extras";
+  import Controls from "./Controls.svelte";
+
   import {
     Vector3,
     type Camera,
     type Group,
     type Object3D,
     type Object3DEventMap,
-  } from 'three'
+  } from "three";
   import {
     telemetryReadonlyStore,
     telemetryStore,
-  } from '../../stores/telemetryStore'
-  import { get } from 'svelte/store'
-  import { Vector2 } from 'three'
-  import { SmoothMotionController } from './smoothMotionController'
-  import { onMount } from 'svelte'
+  } from "../../stores/telemetryStore";
+  import { get } from "svelte/store";
+  import { Vector2 } from "three";
+  import { SmoothMotionController } from "./smoothMotionController";
+  import { onMount } from "svelte";
 
   /* This is the root scene where the robot visualization is built.
   It renders an infinite grid (it's not actually infinite, but we shouldn't run out
@@ -32,91 +32,91 @@
   is the most esoteric and jank code ever written.
   */
 
-  let shouldOrbit = true
+  let shouldOrbit = true;
 
   // CONSTANTS
-  const maxAngularVelocity = 2 // Max angular velocity, in radians per second
-  const stoppingThreshold = 0.005 // Threshold in radians for when to consider the rotation close enough to stop
+  const maxAngularVelocity = 2; // Max angular velocity, in radians per second
+  const stoppingThreshold = 0.005; // Threshold in radians for when to consider the rotation close enough to stop
 
   // Proportional control factor
-  const kP = 2 // Adjust this value based on responsiveness and stability needs
+  const kP = 2; // Adjust this value based on responsiveness and stability needs
 
   // Sync robot orientation with target rotation
-  let targetRot = 0
+  let targetRot = 0;
 
   // Updates rotation to match target with PID controller (intended to be invoked in useTask)
-  let rot = 0 // (initial) rotation in radians
-  let angularVelocity = 0
+  let rot = 0; // (initial) rotation in radians
+  let angularVelocity = 0;
   const updateRotation = (delta: number) => {
-    let angleDifference = targetRot - rot
+    let angleDifference = targetRot - rot;
 
     // Normalize angle difference to the range [-π, π]
-    angleDifference = ((angleDifference + Math.PI) % (2 * Math.PI)) - Math.PI
+    angleDifference = ((angleDifference + Math.PI) % (2 * Math.PI)) - Math.PI;
 
     // Calculate the desired angular velocity based on the angle difference
     let desiredVelocity =
       Math.sign(angleDifference) *
-      Math.min(maxAngularVelocity, Math.abs(kP * angleDifference))
+      Math.min(maxAngularVelocity, Math.abs(kP * angleDifference));
 
     // If the object is very close to the target, adjust the desired velocity to zero to prevent overshooting
     if (Math.abs(angleDifference) < stoppingThreshold) {
-      desiredVelocity = 0
+      desiredVelocity = 0;
     }
 
     // Adjust angular velocity towards desired velocity
-    angularVelocity = desiredVelocity
+    angularVelocity = desiredVelocity;
 
     // Update rotation
-    rot += angularVelocity * delta
+    rot += angularVelocity * delta;
 
     // Normalize rot to the range [0, 2π]
-    if (rot < 0) rot += 2 * Math.PI
-    else if (rot > 2 * Math.PI) rot -= 2 * Math.PI
+    if (rot < 0) rot += 2 * Math.PI;
+    else if (rot > 2 * Math.PI) rot -= 2 * Math.PI;
 
     // Snap to the target rotation to prevent tiny oscillations if close enough
     if (Math.abs(angleDifference) < stoppingThreshold) {
-      rot = targetRot
-      angularVelocity = 0
+      rot = targetRot;
+      angularVelocity = 0;
     }
-  }
+  };
 
-  let robotPos: Vector3 = new Vector3(0, 0, 0)
+  let robotPos: Vector3 = new Vector3(0, 0, 0);
 
-  const robotPosition = new Vector2(0, 0) // Initial position
-  const initialVelocity = { x: 0, y: 0 } // Initial velocity
+  const robotPosition = new Vector2(0, 0); // Initial position
+  const initialVelocity = { x: 0, y: 0 }; // Initial velocity
   // The smooth motion controller utilizes a cubic hermite spline to interpolate between
   // the current simulation velocity and the robot's actual velocity
-  const controller = new SmoothMotionController(robotPosition, initialVelocity)
+  const controller = new SmoothMotionController(robotPosition, initialVelocity);
 
   onMount(() => {
-    telemetryReadonlyStore.subscribe(value => {
-      targetRot = (value['orientation'] * Math.PI) / 180 // convert deg to rad
+    telemetryReadonlyStore.subscribe((value) => {
+      targetRot = (value["orientation"] * Math.PI) / 180; // convert deg to rad
       controller.setTargetVelocity({
-        x: value['chassis-x-speed'],
-        y: value['chassis-y-speed'],
-      })
-      shouldOrbit = value.gear === 'park' || value.gear === '-999'
+        x: value["chassis-x-speed"],
+        y: value["chassis-y-speed"],
+      });
+      shouldOrbit = value.gear === "park" || value.gear === "-999";
       if (shouldOrbit) {
-        robotPos = new Vector3(0, 0, 0)
-        controller.reset()
+        robotPos = new Vector3(0, 0, 0);
+        controller.reset();
       }
-    })
-  })
+    });
+  });
 
-  useTask(delta => {
+  useTask((delta) => {
     if (!shouldOrbit) {
-      updateRotation(delta)
+      updateRotation(delta);
 
-      controller.update(delta)
-      robotPos.x = controller.getPosition().x
-      robotPos.z = controller.getPosition().y
+      controller.update(delta);
+      robotPos.x = controller.getPosition().x;
+      robotPos.z = controller.getPosition().y;
     }
-  })
+  });
 
-  let capsule: Group<Object3DEventMap>
-  let capRef: Group<Object3DEventMap>
+  let capsule: Group<Object3DEventMap>;
+  let capRef: Group<Object3DEventMap>;
   $: if (capsule) {
-    capRef = capsule
+    capRef = capsule;
   }
 </script>
 
@@ -145,11 +145,12 @@
 
 <ContactShadows scale={10} blur={2} far={2.5} opacity={0.5} />
 
-<Robot
-  position.y={1}
+
+<!-- <Hornet
+  position.y={2}
   position.z={robotPos.z}
   position.x={robotPos.x}
   scale={[5, 5, 5]}
   bind:ref={capsule}
   rotation.y={rot}
-/>
+/> -->

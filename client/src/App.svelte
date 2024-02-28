@@ -13,6 +13,7 @@
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
   import { Canvas } from '@threlte/core'
+  import { emit } from '@tauri-apps/api/event'
 
   let activeApp: App = 'camera'
   let topics: TelemetryTopics = {

@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.8",
+    "@tauri-apps/api": "^1.5.3",
     "@threlte/core": "^7.1.0",
     "@threlte/extras": "^8.8.0",
     "camera-controls": "^2.8.3",

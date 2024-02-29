@@ -1,6 +1,5 @@
 use network_tables::v4::client_config::Config;
-use network_tables::v4::Client;
-use network_tables::v4::SubscriptionOptions;
+use network_tables::v4::{Client, SubscriptionOptions};
 use serde_json::to_string;
 use std::net::{Ipv4Addr, SocketAddrV4};
 use tauri::{AppHandle, Manager};

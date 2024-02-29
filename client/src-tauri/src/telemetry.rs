@@ -49,7 +49,6 @@ pub async fn subscribe_topics(app_handle: AppHandle) {
         )
         .await
         .expect("Failed to subscribe");
-
     while let Some(message) = subscription.next().await {
         let mut modified_message = message.clone();
 

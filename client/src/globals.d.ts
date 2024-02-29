@@ -49,8 +49,8 @@ interface TelemetryData {
   'jerk-x': number
   'jerk-y': number
   'voltage': number
-  'acc-profile': Mode | '-999'
-  'gear': Gear | '-999'
+  'acc-profile': Mode
+  'gear': Gear
   'ebrake': boolean
   'reorient': boolean
   'gpws': boolean

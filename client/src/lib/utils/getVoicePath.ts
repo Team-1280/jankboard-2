@@ -1,5 +1,5 @@
-import { get } from "svelte/store";
-import { settingsStore } from "../stores/settingsStore";
+import { get } from 'svelte/store'
+import { settingsStore } from '../stores/settingsStore'
 
 /**
  * Retrieves the voice audio path for the given audio file.
@@ -8,18 +8,13 @@ import { settingsStore } from "../stores/settingsStore";
  * @param lang - the language of the audio
  * @return the path of the audio file
  */
-type SupportedLanguage = "en" | "rus";
+type SupportedLanguage = 'en-US' | 'en-RU'
 
-let currentLang = "en";
-
-settingsStore.subscribe((data) => {
-  currentLang = data.voiceLang;
-});
 export default function getVoicePath(audio: string, lang?: SupportedLanguage) {
-  console.log(get(settingsStore).voiceLang);
+  console.log(get(settingsStore).voiceLang)
   if (!lang) {
-    return `/static/voices/${get(settingsStore).voiceLang}/${audio}.wav`;
+    return `/static/voices/${get(settingsStore).voiceLang}/${audio}.wav`
   }
 
-  return `/static/voices/${lang}/${audio}.wav`;
+  return `/static/voices/${lang}/${audio}.wav`
 }

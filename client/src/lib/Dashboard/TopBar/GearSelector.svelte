@@ -1,18 +1,19 @@
 <script lang="ts">
-  export let selectedGear: Gear | '-999'
+  export let selectedGear: Gear
+  export let placeholder: boolean
 </script>
 
 <div class="flex justify-center w-full transition">
   <div
     class="flex flex-row gap-2 text-neutral-400 text-xl font-bold"
-    class:placeholder={selectedGear === '-999'}
+    class:placeholder
   >
-    <div class:highlighted={selectedGear === 'park'}>P</div>
-    <div class:highlighted={selectedGear === 'reverse'}>R</div>
-    <div class:highlighted={selectedGear === 'neutral'}>N</div>
-    <div class:highlighted={selectedGear === 'low'}>L</div>
-    <div class:highlighted={selectedGear === 'auto'}>A</div>
-    <div class:highlighted={selectedGear === 'drive'}>D</div>
+    <div class:highlighted={selectedGear === 'park' && !placeholder}>P</div>
+    <div class:highlighted={selectedGear === 'reverse' && !placeholder}>R</div>
+    <div class:highlighted={selectedGear === 'neutral' && !placeholder}>N</div>
+    <div class:highlighted={selectedGear === 'low' && !placeholder}>L</div>
+    <div class:highlighted={selectedGear === 'auto' && !placeholder}>A</div>
+    <div class:highlighted={selectedGear === 'drive' && !placeholder}>D</div>
   </div>
 </div>
 

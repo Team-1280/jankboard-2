@@ -2,13 +2,13 @@
   @component
   
   @param speedLimit - Speed limit in Miles Per Hour (MPH)
+  @param placeholder - Whether or not to show the placeholder skeleton
 
   Displays the speed limit
  -->
 <script lang="ts">
-  export let speedLimit: number = 5.0
-
-  $: placeholder = speedLimit === -999
+  export let speedLimit: number
+  export let placeholder: boolean
 </script>
 
 <div

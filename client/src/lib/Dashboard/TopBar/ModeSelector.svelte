@@ -2,29 +2,34 @@
   @component
   
   @param selectedMode - Selected mode
+  @param placeholder - Whether or not to show the placeholder skeleton
 
   Displays the drive mode
  -->
 <script lang="ts">
   import { fade } from 'svelte/transition'
 
-  export let selectedMode: Mode | '-999'
+  export let selectedMode: Mode
+  export let placeholder: boolean
 
   let modeText = ''
 
-  $: switch (selectedMode) {
-    case 'chill':
-      modeText = 'CHILL'
-      break
-    case 'cruise':
-      modeText = 'CRUISE'
-      break
-    case 'ludicrous':
-      modeText = 'LUDICROUS'
-      break
-    case '-999':
+  $: {
+    if (placeholder) {
       modeText = 'DISCONNECTED'
-      break
+    } else {
+      switch (selectedMode) {
+        case 'chill':
+          modeText = 'CHILL'
+          break
+        case 'cruise':
+          modeText = 'CRUISE'
+          break
+        case 'ludicrous':
+          modeText = 'LUDICROUS'
+          break
+      }
+    }
   }
 </script>
 

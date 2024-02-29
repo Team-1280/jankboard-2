@@ -2,6 +2,7 @@
   @component
 
   @param speed - Speed in meters per second
+  @param placeholder - Whether or not to show the placeholder skeleton
 
   Displays the speed in miles per hour
 -->
@@ -10,10 +11,9 @@
   import { mps2mph } from '../utils/unitConversions'
 
   export let speed: number = 0.0
+  export let placeholder: boolean
 
   $: formatted = mps2mph(speed).toFixed(1)
-
-  $: placeholder = speed === Math.hypot(-999, -999)
 </script>
 
 <div class="flex flex-col gap-4">
@@ -24,10 +24,5 @@
   >
     {placeholder ? '-----' : formatted}
   </div>
-  <div
-    class="text-2xl font-medium transition"
-    class:placeholder={speed === Math.hypot(-999, -999)}
-  >
-    MPH
-  </div>
+  <div class="text-2xl font-medium transition" class:placeholder>MPH</div>
 </div>

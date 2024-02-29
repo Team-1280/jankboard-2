@@ -1,15 +1,15 @@
 /* stores global app wide settings */
 
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store'
 
-type SupportedLanguage = "en" | "rus";
+type SupportedLanguage = 'en-US' | 'en-RU'
 
 export interface SettingsStoreData {
-  disableAnnoyances: boolean;
-  goWoke: boolean;
-  fastStartup: boolean;
-  randomWeight: number;
-  voiceLang: SupportedLanguage;
+  disableAnnoyances: boolean
+  goWoke: boolean
+  fastStartup: boolean
+  randomWeight: number
+  voiceLang: SupportedLanguage
 }
 
 export const defaults: SettingsStoreData = {
@@ -17,26 +17,26 @@ export const defaults: SettingsStoreData = {
   goWoke: false, // go woke (for showing parents or other officials where DEI has taken over), disables "offensive" sequences
   fastStartup: false, // skip the loading splash screen (for development purposes. Setting this from within the app has no effect.)
   randomWeight: 1, // the weight of random events (multiplied by the original probability)
-  voiceLang: "en",
-};
+  voiceLang: 'en-US',
+}
 
 const createSequenceStore = () => {
-  const { subscribe, set, update } = writable<SettingsStoreData>(defaults);
+  const { subscribe, set, update } = writable<SettingsStoreData>(defaults)
   return {
     subscribe,
     update: (
       data: keyof SettingsStoreData,
       newValue: SettingsStoreData[typeof data]
     ) => {
-      update((store) => {
+      update(store => {
         // @ts-expect-error
-        store[data] = newValue;
-        return store;
-      });
+        store[data] = newValue
+        return store
+      })
     },
     reset: () => set(defaults),
     set: (data: SettingsStoreData) => set(data),
-  };
-};
+  }
+}
 
-export const settingsStore = createSequenceStore();
+export const settingsStore = createSequenceStore()

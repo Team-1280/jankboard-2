@@ -18,6 +18,7 @@ export const setStationaryTelemetry = () => {
     'ebrake': false,
     'reorient': false,
     'gpws': false,
+    'connected': true,
   })
 }
 

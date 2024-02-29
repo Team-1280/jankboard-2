@@ -54,6 +54,7 @@ interface TelemetryData {
   'ebrake': boolean
   'reorient': boolean
   'gpws': boolean
+  'connected': boolean
 }
 
 type CardinalDirection =

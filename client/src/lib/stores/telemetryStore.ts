@@ -1,20 +1,21 @@
 import { writable, readonly } from 'svelte/store'
 
 let defaults: TelemetryData = {
-  'orientation': -999,
-  'chassis-x-speed': -999,
-  'chassis-y-speed': -999,
-  'accx': -999,
-  'accy': -999,
-  'accz': -999,
-  'jerk-x': -999,
-  'jerk-y': -999,
-  'voltage': -999,
-  'acc-profile': '-999',
-  'gear': '-999',
+  'orientation': 0,
+  'chassis-x-speed': 0,
+  'chassis-y-speed': 0,
+  'accx': 0,
+  'accy': 0,
+  'accz': 0,
+  'jerk-x': 0,
+  'jerk-y': 0,
+  'voltage': 0,
+  'acc-profile': 'chill',
+  'gear': 'park',
   'ebrake': false,
   'reorient': false,
   'gpws': false,
+  'connected': false,
 }
 
 const createTelemetryStore = () => {

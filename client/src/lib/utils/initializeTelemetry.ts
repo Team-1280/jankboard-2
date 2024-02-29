@@ -1,3 +1,4 @@
+import { get } from 'svelte/store'
 import { telemetryStore } from '../stores/telemetryStore'
 import { emit, listen } from '@tauri-apps/api/event'
 
@@ -25,13 +26,26 @@ export const initializeTelemetry = async (
     )
   }
 
-  const unlisten = await listen('hello_from_rust', event => {
-    console.log(event.event)
+  const unlistenDisconnected = await listen('telemetry_disconnected', event => {
+    telemetryStore.update({
+      ...get(telemetryStore),
+      connected: false,
+    })
+  })
+
+  const unlistenTelemetry = await listen('telemetry_data', event => {
     console.log(event.payload)
   })
 
-  emit('subscribe', topics)
+  const unlistenAll = () => {
+    unlistenDisconnected()
+    unlistenTelemetry()
+  }
+
+  return unlistenAll
 }
+
+// emit('subscribe', topics)
 
 // export const initializeTelemetry = (
 //   topics: TelemetryTopics,

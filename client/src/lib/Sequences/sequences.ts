@@ -20,6 +20,7 @@ import { settingsStore } from '../stores/settingsStore'
 import { get } from 'svelte/store'
 import getVoicePath from '../utils/getVoicePath'
 import { tick } from 'svelte'
+import { cameraState } from '../Dashboard/Visualization/CameraControls/utils/cameraStore'
 
 // await a "tick" (a svelte update frame) at the start of every sequence so that
 // state is synced and no weird side effects occur
@@ -28,30 +29,34 @@ export const initializationSequence = async () => {
   await tick()
   Notifications.info('Jankboard initialized!', {
     withAudio: true,
-    src: getVoicePath('jankboard-initialized', 'en'),
-  })
-  setTimeout(() => {
-    if (get(settingsStore).goWoke) return
-    Notifications.success('LittenOS is online', {
-      withAudio: true,
-      src: getVoicePath('littenos-is-online', 'en'),
-    })
-    setTimeout(() => {
-      Notifications.warn('Breaching Monte Vista codebase', {
+    src: getVoicePath('jankboard-initialized'),
+    onComplete: () => {
+      if (get(settingsStore).goWoke) {
+        sequenceStore.update('initializationComplete', true)
+        periodicSequence()
+        return
+      }
+      Notifications.success('LittenOS is online', {
         withAudio: true,
-        src: getVoicePath('breaching-monte-vista', 'en'),
+        src: getVoicePath('littenos-is-online'),
+        onComplete: () => {
+          Notifications.warn('Breaching Monte Vista codebase', {
+            withAudio: true,
+            src: getVoicePath('breaching-monte-vista'),
+            onComplete: () => {
+              Notifications.playAudio(
+                getVoicePath('hello-virtual-assistant'),
+                () => {
+                  sequenceStore.update('initializationComplete', true)
+                  periodicSequence()
+                }
+              )
+            },
+          })
+        },
       })
-      setTimeout(() => {
-        Notifications.playAudio(
-          getVoicePath('hello-virtual-assistant', 'en'),
-          () => {
-            sequenceStore.update('initializationComplete', true)
-            periodicSequence()
-          }
-        )
-      }, 3000)
-    }, 3000)
-  }, 3000)
+    },
+  })
 }
 
 let counter = 1
@@ -108,7 +113,7 @@ export const criticalFailureIminentSequence = async () => {
   await tick()
   Notifications.error('Critical robot failure imminent', {
     withAudio: true,
-    src: getVoicePath('critical-robot-failure', 'en'),
+    src: getVoicePath('critical-robot-failure'),
   })
 }
 
@@ -116,7 +121,7 @@ export const collisionDetectedSequence = async () => {
   await tick()
   Notifications.error('Collision detected', {
     withAudio: true,
-    src: getVoicePath('collision-detected', 'en'),
+    src: getVoicePath('collision-detected'),
   })
 }
 
@@ -124,7 +129,7 @@ export const collisionImminentSequence = async () => {
   await tick()
   Notifications.error('Collision imminent', {
     withAudio: true,
-    src: getVoicePath('collision-imminent', 'en'),
+    src: getVoicePath('collision-imminent'),
   })
 }
 
@@ -133,7 +138,7 @@ export const cruiseControlEngagedSequence = async () => {
   await tick()
   Notifications.success('Cruise control engaged', {
     withAudio: true,
-    src: getVoicePath('cruise-control-engaged', 'en'),
+    src: getVoicePath('cruise-control-engaged'),
   })
 }
 
@@ -142,7 +147,7 @@ export const retardSequence = async () => {
   await tick()
   Notifications.warn('Retard', {
     withAudio: true,
-    src: getVoicePath('retard', 'en'),
+    src: getVoicePath('retard'),
   })
 }
 
@@ -151,7 +156,7 @@ const breaching254Sequence = async () => {
   await tick()
   Notifications.warn('Breaching 254 mainframe', {
     withAudio: true,
-    src: getVoicePath('breaching-254-mainframe', 'en'),
+    src: getVoicePath('breaching-254-mainframe'),
   })
 }
 
@@ -160,7 +165,7 @@ const breaching1323Sequence = async () => {
   await tick()
   Notifications.warn('Breaching 1323 mainframe', {
     withAudio: true,
-    src: getVoicePath('breaching-1323-mainframe', 'en'),
+    src: getVoicePath('breaching-1323-mainframe'),
   })
 }
 
@@ -169,7 +174,7 @@ const bullyingRohanSequence = async () => {
   await tick()
   Notifications.info('Bullying Rohan', {
     withAudio: true,
-    src: getVoicePath('bullying-rohan', 'en'),
+    src: getVoicePath('bullying-rohan'),
   })
 }
 
@@ -177,7 +182,7 @@ export const userErrorDetectedSequence = async () => {
   await tick()
   Notifications.error('User error detected', {
     withAudio: true,
-    src: getVoicePath('user-error-detected', 'en'),
+    src: getVoicePath('user-error-detected'),
   })
 }
 
@@ -188,8 +193,9 @@ export const infotainmentBootupSequence = async () => {
     get(sequenceStore).infotainmentStartedFirstTime ||
     get(settingsStore).disableAnnoyances ||
     infotainmentStarted
-  )
+  ) {
     return
+  }
 
   infotainmentStarted = true
   await tick()
@@ -197,17 +203,17 @@ export const infotainmentBootupSequence = async () => {
   const sequence = () => {
     Notifications.info('Infotainment system buffering', {
       withAudio: true,
-      src: getVoicePath('infotainment-system-buffering', 'en'),
+      src: getVoicePath('infotainment-system-buffering'),
+      onComplete: () => {
+        Notifications.success('Infotainment system online', {
+          withAudio: true,
+          src: getVoicePath('infotainment-system-online'),
+          onComplete: () => {
+            sequenceStore.update('infotainmentStartedFirstTime', true)
+          },
+        })
+      },
     })
-    setTimeout(() => {
-      Notifications.success('Infotainment system online', {
-        withAudio: true,
-        src: getVoicePath('infotainment-system-online', 'en'),
-        onComplete: () => {
-          sequenceStore.update('infotainmentStartedFirstTime', true)
-        },
-      })
-    }, 3000)
   }
 
   if (!get(sequenceStore).initializationComplete) {
@@ -256,7 +262,7 @@ export const musicPlayerBootupSequence = async () => {
   waitForInfotainmentBootup(() => {
     Notifications.info('Downloading copyrighted music...', {
       withAudio: true,
-      src: getVoicePath('downloading-copyrighted-music', 'en'),
+      src: getVoicePath('downloading-copyrighted-music'),
     })
   })
 }
@@ -274,7 +280,7 @@ export const gbaEmulatorBootupSequence = async () => {
   waitForInfotainmentBootup(() => {
     Notifications.info('Loading pirated Nintendo ROMs', {
       withAudio: true,
-      src: getVoicePath('loading-pirated-nintendo', 'en'),
+      src: getVoicePath('loading-pirated-nintendo'),
     })
   })
 }
@@ -292,16 +298,135 @@ export const doomBootupSequence = async () => {
   waitForInfotainmentBootup(() => {
     Notifications.success('Doom Engaged', {
       withAudio: true,
-      src: getVoicePath('doom-engaged', 'en'),
+      src: getVoicePath('doom-engaged'),
     })
   })
 }
 
 const bypassCoprocessorRestrictionsSequence = async () => {
-  if (get(settingsStore).disableAnnoyances) return
+  if (
+    get(settingsStore).disableAnnoyances ||
+    get(sequenceStore).initializationComplete
+  )
+    return
   await tick()
   Notifications.warn('Bypassing coprocessor restrictions', {
     withAudio: true,
-    src: getVoicePath('bypassing-coprocessor-restrictions', 'en'),
+    src: getVoicePath('bypassing-coprocessor-restrictions'),
   })
+}
+
+export const shiftedInParkSequence = async () => {
+  await tick()
+  cameraState.set('mode', 'orbit')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('parked-brakes-engaged'), () => {
+    if (!get(settingsStore).sentry) return
+
+    Notifications.playAudio(getVoicePath('sentry-mode-engaged'))
+    Notifications.warn('Sentry mode engaged. Threats will be neutralized')
+  })
+}
+
+export const shiftedInReverseSequence = async () => {
+  await tick()
+
+  cameraState.set('mode', 'follow-direction')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('reverse'))
+}
+
+export const shiftedInNeutralSequence = async () => {
+  await tick()
+
+  cameraState.set('mode', 'orbit')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('neutral-brakes-engaged'))
+}
+
+export const shiftedInLowSequence = async () => {
+  await tick()
+
+  cameraState.set('mode', 'follow-facing')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('shifted-into-low'))
+}
+
+export const shiftedInAutoSequence = async () => {
+  await tick()
+
+  cameraState.set('mode', 'follow-direction')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('shifted-into-automatic'))
+}
+
+export const shiftedInDriveSequence = async () => {
+  await tick()
+
+  cameraState.set('mode', 'follow-facing')
+
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  Notifications.playAudio(getVoicePath('shifted-into-drive'))
+}
+
+export const modeChillSequence = async () => {
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  await tick()
+
+  Notifications.playAudio(getVoicePath('set-acceleration-profile-chill'))
+}
+
+export const modeCruiseSequence = async () => {
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  await tick()
+
+  Notifications.playAudio(getVoicePath('cruise-control-engaged'))
+}
+
+export const modeLudicrousSequence = async () => {
+  if (
+    get(settingsStore).disableAnnoyances ||
+    !get(sequenceStore).initializationComplete
+  )
+    return
+  await tick()
+
+  Notifications.playAudio(getVoicePath('set-acceleration-profile-ludicrous'))
 }

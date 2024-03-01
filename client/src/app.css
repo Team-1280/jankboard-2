@@ -21,6 +21,8 @@
     overflow: auto; /* or 'scroll' if you always want scrollability */
     scrollbar-width: none; /* Hide scrollbar for Firefox */
     -ms-overflow-style: none; /* Hide scrollbar for IE 10+ and Edge */
+
+    overscroll-behavior: none;
   }
   body::-webkit-scrollbar {
     display: none;

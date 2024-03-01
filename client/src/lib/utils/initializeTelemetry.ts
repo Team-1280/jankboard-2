@@ -1,5 +1,6 @@
-import { io } from 'socket.io-client'
+import { get } from 'svelte/store'
 import { telemetryStore } from '../stores/telemetryStore'
+import { emit, listen } from '@tauri-apps/api/event'
 
 /**
  * Connects to sockets and subscribes to specified topics to receive telemetry data.
@@ -14,7 +15,7 @@ const onUpdate = (data: TelemetryData) => {
   // console.log(data)
 }
 
-export const initializeTelemetry = (
+export const initializeTelemetry = async (
   topics: TelemetryTopics,
   refreshRate: number
 ) => {
@@ -25,20 +26,24 @@ export const initializeTelemetry = (
     )
   }
 
-  const socket = io('localhost:1280')
-  socket.on('connect', () => {
-    console.log('Socket-IO connected!')
-    socket.emit('subscribe', topics)
-    console.log(`Subscribing to topics: ${JSON.stringify(topics)}`)
+  const unlistenStatus = await listen('telemetry_status', event => {
+    if (event.payload === 'connected') {
+      telemetryStore.set('connected', false)
+    } else if (event.payload === 'disconnected') {
+      telemetryStore.set('connected', false)
+    }
   })
 
-  socket.on('subscribed', () => {
-    console.log('Successfully subscribed to requested topics!')
-    socket.emit('request_data', { refresh_rate: refreshRate })
-    console.log(`Refreshing at ${refreshRate} Hz`)
+  const unlistenTelemetry = await listen('telemetry_data', event => {
+    const data = JSON.parse(event.payload as string)
+    // console.log(JSON.parse)
+    telemetryStore.set(data['topic_name'], data['data'])
   })
 
-  socket.on('telemetry_data', (data: string) => {
-    onUpdate(JSON.parse(data))
-  })
+  const unlistenAll = () => {
+    unlistenStatus()
+    unlistenTelemetry()
+  }
+
+  return unlistenAll
 }

@@ -4,6 +4,7 @@
   @param accx - Acceleration in x
   @param accy - Acceleration in y
   @param orientation - Heading in degrees
+  @param placeholder - Whether or not to show the placeholder skeleton
 
   Displays the heading direction and acceleration as human readable text
  -->
@@ -15,9 +16,9 @@
   export let accx: number
   export let accy: number
   export let orientation: number
+  export let placeholder: boolean
 
   $: accResolved = Math.hypot(accx, accy)
-  $: placeholder = accx === -999 && accy === -999
 </script>
 
 <div class="flex flex-col gap-2 text-center">

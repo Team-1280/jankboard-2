@@ -6,13 +6,14 @@
   import AppBar from './lib/Apps/AppBar.svelte'
   import { appList } from './lib/Apps/appList'
   import { initializeTelemetry } from './lib/utils/initializeTelemetry'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import { Toaster } from 'svelte-french-toast'
   import { initializationSequence } from './lib/Sequences/sequences'
   import Loading from './lib/Loading/Loading.svelte'
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
   import { Canvas } from '@threlte/core'
+  import { emit } from '@tauri-apps/api/event'
 
   let activeApp: App = 'camera'
   let topics: TelemetryTopics = {
@@ -32,6 +33,7 @@
   }
 
   let loading = $settingsStore.fastStartup ? false : true
+  let unlistenAll: () => void
 
   onMount(() => {
     let savedSettings = getSettings()
@@ -40,11 +42,21 @@
     }
     window.ResizeObserver = ResizeObserver
     // disabled while migrating away from python
-    initializeTelemetry(topics, 200)
+    initializeTelemetry(topics, 200).then((unsubFunction: () => void) => {
+      unlistenAll = unsubFunction
+    })
     setTimeout(() => {
       loading = false
       initializationSequence()
     }, 3000)
+
+    settingsStore.subscribe(value => {
+      localStorage.setItem('settings', JSON.stringify(value))
+    })
+  })
+
+  onDestroy(() => {
+    unlistenAll && unlistenAll()
   })
 </script>
 

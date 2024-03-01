@@ -18,6 +18,7 @@ export const setStationaryTelemetry = () => {
     'ebrake': false,
     'reorient': false,
     'gpws': false,
+    'connected': true,
   })
 }
 
@@ -37,7 +38,7 @@ export const increaseSpeedTo = async (targetX: number, targetY: number) => {
     }
   }
 
-  const delay = () => new Promise(resolve => setTimeout(resolve, 1000)) // Assuming a 100ms tick for demonstration
+  const delay = () => new Promise(resolve => setTimeout(resolve, 500)) // Assuming a 100ms tick for demonstration
   const lerp = (start: number, end: number, alpha: number) =>
     start + (end - start) * alpha
 
@@ -67,4 +68,48 @@ export const changeGear = (gear: Gear) => {
     ...get(telemetryStore),
     gear: gear,
   })
+}
+
+let cancelPreviousCall = () => {} // Function to cancel the previous interpolation
+
+const getAngle = () => {
+  return get(telemetryStore)['orientation']
+}
+
+const setAngle = (angle: number) => {
+  telemetryStore.update({
+    ...get(telemetryStore),
+    orientation: angle,
+  })
+}
+
+export const increaseRotationTo = async (targetAngle: number) => {
+  let isCancelled = false
+  cancelPreviousCall() // Cancel any ongoing interpolation
+  cancelPreviousCall = () => {
+    isCancelled = true
+  } // Setup cancellation for the current call
+
+  const lerp = (start: number, end: number, alpha: number) =>
+    start + (end - start) * alpha
+  const tick = () => new Promise(resolve => setTimeout(resolve, 1000)) // Assuming a 100ms tick for demonstration
+
+  let currentAngle = getAngle() // Assume getAngle() retrieves the current angle
+
+  const steps = 10 // Number of steps for the interpolation
+  for (let i = 1; i <= steps; i++) {
+    if (isCancelled) return // Exit if a new target angle is set
+
+    const alpha = i / steps // Calculate interpolation fraction
+
+    // Interpolate angle
+    const nextAngle = lerp(currentAngle, targetAngle, alpha)
+
+    setAngle(nextAngle) // Update angle
+
+    await tick() // Wait for state update synchronization
+
+    // Update current angle for the next iteration
+    currentAngle = nextAngle
+  }
 }

@@ -1,9 +1,8 @@
 <script lang="ts">
   export let voltage: number
+  export let placeholder: boolean
 
   $: formatted = voltage.toFixed(1)
-
-  $: placeholder = voltage === -999
 </script>
 
 <span class="flex gap-1">

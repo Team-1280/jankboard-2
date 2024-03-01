@@ -29,11 +29,18 @@
       selectedGear={$telemetryReadonlyStore.gear}
       selectedMode={$telemetryReadonlyStore['acc-profile']}
       voltage={$telemetryReadonlyStore.voltage}
+      placeholder={!$telemetryReadonlyStore.connected}
     />
     <div class="h-0.5 mt-1 w-full bg-slate-300 border-0"></div>
     <div class="mt-8 flex justify-between">
-      <Speedometer speed={speedResolved} />
-      <SpeedLimit speedLimit={-999} />
+      <Speedometer
+        speed={speedResolved}
+        placeholder={!$telemetryReadonlyStore.connected}
+      />
+      <SpeedLimit
+        speedLimit={5}
+        placeholder={!$telemetryReadonlyStore.connected}
+      />
     </div>
   </div>
 
@@ -47,6 +54,7 @@
         accx={$telemetryReadonlyStore['accx']}
         accy={$telemetryReadonlyStore['accy']}
         orientation={$telemetryReadonlyStore['orientation']}
+        placeholder={!$telemetryReadonlyStore.connected}
       />
     </div>
     <MediaDisplay />

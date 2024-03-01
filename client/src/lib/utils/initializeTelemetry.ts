@@ -34,7 +34,11 @@ export const initializeTelemetry = async (
   })
 
   const unlistenTelemetry = await listen('telemetry_data', event => {
-    console.log(event.payload)
+    const data = JSON.parse(event.payload as string)
+    // console.log(JSON.parse)
+    telemetryStore.set('connected', true)
+
+    telemetryStore.set(data['topic_name'], data['data'])
   })
 
   const unlistenAll = () => {

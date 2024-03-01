@@ -1,4 +1,8 @@
 <script lang="ts">
+  import {
+    cameraControls,
+    cameraState,
+  } from '../../Dashboard/Visualization/CameraControls/utils/cameraStore'
   import AppContainer from '../AppContainer.svelte'
   import { simulateMotion } from './simulateMotion'
   import {
@@ -6,6 +10,22 @@
     increaseSpeedTo,
     setStationaryTelemetry,
   } from './telemetrySimulators'
+
+  let cameraMode = 'orbit'
+
+  const changeCamera = () => {
+    if (cameraMode === 'follow-direction') {
+      cameraMode = 'orbit'
+      cameraState.set('mode', 'orbit')
+      cameraState.set('userControlled', false)
+      console.log($cameraState.mode)
+    } else {
+      cameraMode = 'follow-direction'
+      cameraState.set('mode', 'follow-direction')
+      cameraState.set('userControlled', true)
+      console.log($cameraState.mode)
+    }
+  }
 </script>
 
 <AppContainer
@@ -49,6 +69,7 @@
   <button class="button" on:click={simulateMotion}>
     Simulate random motion
   </button>
+  <button class="button" on:click={changeCamera}> Change camera mode </button>
 </AppContainer>
 
 <style lang="postcss">

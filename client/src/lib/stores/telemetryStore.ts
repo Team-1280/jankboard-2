@@ -1,4 +1,4 @@
-import { writable, readonly } from 'svelte/store'
+import { writable, readonly, get } from 'svelte/store'
 
 let defaults: TelemetryData = {
   'orientation': 0,
@@ -27,6 +27,16 @@ const createTelemetryStore = () => {
         if (data !== store) store = data
         return store
       })
+    },
+    set: (key: keyof TelemetryData, value: any) => {
+      let newObj = {
+        ...get(telemetryStore),
+      }
+      newObj = {
+        ...newObj,
+        [key]: value,
+      }
+      set(newObj)
     },
     reset: () => set(defaults),
   }

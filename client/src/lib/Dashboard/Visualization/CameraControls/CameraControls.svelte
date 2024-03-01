@@ -34,6 +34,7 @@
     type PerspectiveCamera,
   } from 'three'
   import { DEG2RAD } from 'three/src/math/MathUtils'
+  import { cameraState } from './utils/cameraStore'
 
   const subsetOfTHREE = {
     Vector2,
@@ -70,11 +71,9 @@
 
   const getControls = () => ref
 
-  let disableAutoRotate = false
-
   useTask(
     delta => {
-      if (autoRotate && !disableAutoRotate) {
+      if (autoRotate && !$cameraState.userControlled) {
         getControls().azimuthAngle += 4 * delta * DEG2RAD * autoRotateSpeed
       }
       const updated = getControls().update(delta)
@@ -91,13 +90,13 @@
 <T
   is={ref}
   on:controlstart={e => {
-    disableAutoRotate = true
+    cameraState.set('userControlled', true)
   }}
   on:zoom={e => {
     console.log('zoomstart', e)
   }}
   on:controlend={() => {
-    disableAutoRotate = false
+    cameraState.set('userControlled', false)
   }}
   {...$$restProps}
   bind:this={$forwardingComponent}

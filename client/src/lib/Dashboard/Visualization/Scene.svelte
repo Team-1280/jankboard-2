@@ -85,6 +85,20 @@
     }
   }
 
+  let gridFadeDistance = 30
+
+  const fadeGridIn = (delta: number) => {
+    if (gridFadeDistance < 100) {
+      gridFadeDistance += delta * 40
+    }
+  }
+
+  const fadeGridOut = (delta: number) => {
+    if (gridFadeDistance > 30) {
+      gridFadeDistance -= delta * 40
+    }
+  }
+
   useTask(delta => {
     /* TODO: standardize a scale (meters : grid lengths) so we can have
     accurate positioning of sensor detected objects */
@@ -94,6 +108,12 @@
     $mesh.position.z +=
       $telemetryReadonlyStore['chassis-x-speed'] * delta * SPEED_MULTIPLIER
     $mesh.rotation.y = $telemetryReadonlyStore.orientation * DEG2RAD
+
+    if ($cameraState.mode === 'orbit') {
+      fadeGridOut(delta)
+    } else {
+      fadeGridIn(delta)
+    }
 
     // run the follow function
     follow(delta)
@@ -126,7 +146,7 @@
 <Grid
   sectionColor={'#ff3e00'}
   sectionThickness={1}
-  fadeDistance={100}
+  bind:fadeDistance={gridFadeDistance}
   cellSize={6}
   sectionSize={24}
   cellColor={'#cccccc'}

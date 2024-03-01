@@ -9,6 +9,9 @@ on:
 
 jobs:
   publish-tauri:
+    defaults:
+      run:
+        working-directory: ./client
     permissions:
       contents: write
     strategy:

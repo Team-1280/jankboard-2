@@ -23,13 +23,16 @@ pub async fn subscribe_topics(app_handle: AppHandle) {
         {
             Ok(client) => {
                 println!("Client created");
+                app_handle
+                    .emit_all("telemetry_connected", "connected")
+                    .expect("Failed to emit telemetry_status connected event");
                 break client; // Exit the loop if the client is successfully created
             }
             Err(e) => {
                 println!("Failed to create client: {}. Retrying in 3 seconds...", e);
                 app_handle
-                    .emit_all("telemetry_disconnected", true)
-                    .expect("Failed to emit telemetry_disconnected event");
+                    .emit_all("telemetry_status", "disconnected")
+                    .expect("Failed to emit telemetry_status disconnected event");
 
                 sleep(Duration::from_secs(3)).await; // Wait for 3 seconds before retrying
                 continue; // Continue the loop to retry
@@ -62,4 +65,8 @@ pub async fn subscribe_topics(app_handle: AppHandle) {
 
         println!("{}", json_message);
     }
+    println!("disconnected");
+    app_handle
+        .emit_all("telemetry_status", "disconnected")
+        .expect("Failed to emit telemetry_disconnected event");
 }

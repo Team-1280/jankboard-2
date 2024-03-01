@@ -26,56 +26,24 @@ export const initializeTelemetry = async (
     )
   }
 
-  const unlistenDisconnected = await listen('telemetry_disconnected', event => {
-    telemetryStore.update({
-      ...get(telemetryStore),
-      connected: false,
-    })
+  const unlistenStatus = await listen('telemetry_status', event => {
+    if (event.payload === 'connected') {
+      telemetryStore.set('connected', false)
+    } else if (event.payload === 'disconnected') {
+      telemetryStore.set('connected', false)
+    }
   })
 
   const unlistenTelemetry = await listen('telemetry_data', event => {
     const data = JSON.parse(event.payload as string)
     // console.log(JSON.parse)
-    telemetryStore.set('connected', true)
-
     telemetryStore.set(data['topic_name'], data['data'])
   })
 
   const unlistenAll = () => {
-    unlistenDisconnected()
+    unlistenStatus()
     unlistenTelemetry()
   }
 
   return unlistenAll
 }
-
-// emit('subscribe', topics)
-
-// export const initializeTelemetry = (
-//   topics: TelemetryTopics,
-//   refreshRate: number
-// ) => {
-//   // Make sure refreshRate is valid
-//   if (!Number.isInteger(refreshRate) || refreshRate < 1) {
-//     throw new Error(
-//       'refreshRate must be an integer greater than or equal to 1.'
-//     )
-//   }
-
-//   const socket = io('localhost:1280')
-//   socket.on('connect', () => {
-//     console.log('Socket-IO connected!')
-//     socket.emit('subscribe', topics)
-//     console.log(`Subscribing to topics: ${JSON.stringify(topics)}`)
-//   })
-
-//   socket.on('subscribed', () => {
-//     console.log('Successfully subscribed to requested topics!')
-//     socket.emit('request_data', { refresh_rate: refreshRate })
-//     console.log(`Refreshing at ${refreshRate} Hz`)
-//   })
-
-//   socket.on('telemetry_data', (data: string) => {
-//     onUpdate(JSON.parse(data))
-//   })
-// }

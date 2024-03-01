@@ -20,7 +20,7 @@
   >
     <div class="text-lg font-medium">SPEED<br />LIMIT</div>
     <div class="text-2xl font-bold transition">
-      {speedLimit}
+      {speedLimit.toFixed(1)}
     </div>
   </div>
 </div>

@@ -47,6 +47,11 @@
       tooltip="Selects the language/locale used for Jankboard voice prompts. Does not affect application language (ie. Jankboard itself will always be in English)."
       >Voice Prompt Language</SettingsSelector
     >
+    <SettingsToggle
+      setting="sentry"
+      tooltip="Sentry mode protects the robot and operator from foreign threats."
+      >Sentry Mode</SettingsToggle
+    >
     <button
       class="mt-10 px-4 py-2 bg-amber-600 hover:brightness-75 text-medium rounded-lg w-min"
       on:click={resetSettings}>Reset</button

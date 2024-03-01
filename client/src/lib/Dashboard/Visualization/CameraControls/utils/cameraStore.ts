@@ -14,12 +14,10 @@ type CameraMode =
 
 interface CameraState {
   mode: CameraMode
-  userControlled: boolean
 }
 
 const { set, update, subscribe } = writable<CameraState>({
   mode: 'orbit',
-  userControlled: false,
 })
 
 const createCameraState = () => {
@@ -28,7 +26,7 @@ const createCameraState = () => {
     subscribe,
     set: (prop: keyof CameraState, val: any) =>
       update(state => ({ ...state, [prop]: val })),
-    reset: () => set({ mode: 'orbit', userControlled: false }),
+    reset: () => set({ mode: 'orbit' }),
   }
 }
 

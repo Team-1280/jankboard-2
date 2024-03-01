@@ -1,6 +1,40 @@
 <script lang="ts">
+  import {
+    shiftedInAutoSequence,
+    shiftedInDriveSequence,
+    shiftedInLowSequence,
+    shiftedInNeutralSequence,
+    shiftedInParkSequence,
+    shiftedInReverseSequence,
+  } from '../../Sequences/sequences'
+
   export let selectedGear: Gear
   export let placeholder: boolean
+
+  const shift = (selectedGear: Gear) => {
+    switch (selectedGear) {
+      case 'park':
+        shiftedInParkSequence()
+        break
+      case 'reverse':
+        shiftedInReverseSequence()
+        break
+      case 'neutral':
+        shiftedInNeutralSequence()
+        break
+      case 'low':
+        shiftedInLowSequence()
+        break
+      case 'auto':
+        shiftedInAutoSequence()
+        break
+      case 'drive':
+        shiftedInDriveSequence()
+        break
+    }
+  }
+
+  $: shift(selectedGear)
 </script>
 
 <div class="flex justify-center w-full transition">

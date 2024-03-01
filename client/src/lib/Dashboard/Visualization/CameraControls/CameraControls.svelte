@@ -33,6 +33,7 @@
     Vector4,
     type PerspectiveCamera,
   } from 'three'
+  // @ts-expect-error
   import { DEG2RAD } from 'three/src/math/MathUtils'
   import { cameraState } from './utils/cameraStore'
 
@@ -61,7 +62,7 @@
 
   const { renderer, invalidate } = useThrelte()
 
-  export let autoRotate = false
+  let autoRotate = true
   export let autoRotateSpeed = 1
 
   export const ref = new CameraControls(
@@ -73,7 +74,7 @@
 
   useTask(
     delta => {
-      if (autoRotate && !$cameraState.userControlled) {
+      if (autoRotate && $cameraState.mode === 'orbit') {
         getControls().azimuthAngle += 4 * delta * DEG2RAD * autoRotateSpeed
       }
       const updated = getControls().update(delta)
@@ -90,13 +91,10 @@
 <T
   is={ref}
   on:controlstart={e => {
-    cameraState.set('userControlled', true)
-  }}
-  on:zoom={e => {
-    console.log('zoomstart', e)
+    autoRotate = false
   }}
   on:controlend={() => {
-    cameraState.set('userControlled', false)
+    autoRotate = true
   }}
   {...$$restProps}
   bind:this={$forwardingComponent}

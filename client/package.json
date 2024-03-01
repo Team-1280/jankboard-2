@@ -39,7 +39,6 @@
     "overlayscrollbars-svelte": "^0.5.3",
     "socket.io-client": "^4.7.4",
     "svelte-french-toast": "^1.2.0",
-    "svelte-tweakpane-ui": "^1.2.1",
     "three": "^0.161.0"
   }
 }

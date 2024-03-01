@@ -10,6 +10,7 @@ export interface SettingsStoreData {
   fastStartup: boolean
   randomWeight: number
   voiceLang: SupportedLanguage
+  sentry: boolean
 }
 
 export const defaults: SettingsStoreData = {
@@ -18,6 +19,7 @@ export const defaults: SettingsStoreData = {
   fastStartup: false, // skip the loading splash screen (for development purposes. Setting this from within the app has no effect.)
   randomWeight: 1, // the weight of random events (multiplied by the original probability)
   voiceLang: 'en-US',
+  sentry: true,
 }
 
 const createSequenceStore = () => {

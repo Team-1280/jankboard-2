@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte'
   import {
     cameraControls,
     cameraState,
@@ -11,21 +12,15 @@
     setStationaryTelemetry,
   } from './telemetrySimulators'
 
-  let cameraMode = 'orbit'
+  let value: typeof $cameraState.mode = $cameraState.mode
 
-  const changeCamera = () => {
-    if (cameraMode === 'follow-direction') {
-      cameraMode = 'orbit'
-      cameraState.set('mode', 'orbit')
-      cameraState.set('userControlled', false)
-      console.log($cameraState.mode)
-    } else {
-      cameraMode = 'follow-direction'
-      cameraState.set('mode', 'follow-direction')
-      cameraState.set('userControlled', true)
-      console.log($cameraState.mode)
-    }
+  $: {
+    cameraState.set('mode', value)
   }
+  const unsubscribe = cameraState.subscribe(state => {
+    if (value !== state.mode) value = state.mode
+  })
+  onDestroy(unsubscribe)
 </script>
 
 <AppContainer
@@ -69,7 +64,11 @@
   <button class="button" on:click={simulateMotion}>
     Simulate random motion
   </button>
-  <button class="button" on:click={changeCamera}> Change camera mode </button>
+  <select bind:value class="bg-slate-300">
+    <option value="orbit">Orbit</option>
+    <option value="follow-facing">Follow Facing</option>
+    <option value="follow-direction">Follow Direction</option>
+  </select>
 </AppContainer>
 
 <style lang="postcss">

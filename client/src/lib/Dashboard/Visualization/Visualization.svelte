@@ -1,16 +1,9 @@
 <script lang="ts">
   import { Canvas } from '@threlte/core'
-  // @ts-expect-error
-  import { DEG2RAD } from 'three/src/math/MathUtils'
-  import { Pane, Button, Separator } from 'svelte-tweakpane-ui'
-  import { cameraControls, mesh } from './CameraControls/utils/cameraStore'
-  import Scene from './CameraControls/Scene.svelte'
+  import { cameraControls } from './CameraControls/utils/cameraStore'
+  import Scene from './Scene.svelte'
   import { onMount } from 'svelte'
-  import {
-    Vector3,
-    type OrthographicCamera,
-    type PerspectiveCamera,
-  } from 'three'
+  import { type OrthographicCamera, type PerspectiveCamera } from 'three'
 
   let camera: PerspectiveCamera | OrthographicCamera
 

@@ -1,5 +1,5 @@
-import { telemetryStore } from "../stores/telemetryStore";
-import { listen } from "@tauri-apps/api/event";
+import { telemetryStore } from '../stores/telemetryStore'
+import { listen } from '@tauri-apps/api/event'
 
 /**
  * Connects to sockets and subscribes to specified topics to receive telemetry data.
@@ -10,9 +10,9 @@ import { listen } from "@tauri-apps/api/event";
  */
 
 const onUpdate = (data: TelemetryData) => {
-  telemetryStore.update(data);
+  telemetryStore.update(data)
   // console.log(data)
-};
+}
 
 export const initializeTelemetry = async (
   topics: TelemetryTopics,
@@ -21,28 +21,27 @@ export const initializeTelemetry = async (
   // Make sure refreshRate is valid
   if (!Number.isInteger(refreshRate) || refreshRate < 1) {
     throw new Error(
-      "refreshRate must be an integer greater than or equal to 1."
-    );
+      'refreshRate must be an integer greater than or equal to 1.'
+    )
   }
 
-  const unlistenStatus = await listen("telemetry_status", (event) => {
-    if (event.payload === "connected") {
-      telemetryStore.set("connected", true);
-    } else if (event.payload === "disconnected") {
-      telemetryStore.set("connected", false);
+  const unlistenStatus = await listen('telemetry_status', event => {
+    if (event.payload === 'connected') {
+      telemetryStore.set('connected', true)
+    } else if (event.payload === 'disconnected') {
+      telemetryStore.reset()
     }
-  });
+  })
 
-  const unlistenTelemetry = await listen("telemetry_data", (event) => {
-    const data = JSON.parse(event.payload as string);
-    // console.log(JSON.parse)
-    telemetryStore.set(data["topic_name"], data["data"]);
-  });
+  const unlistenTelemetry = await listen('telemetry_data', event => {
+    const data = JSON.parse(event.payload as string)
+    telemetryStore.set(data['topic_name'], data['data'])
+  })
 
   const unlistenAll = () => {
-    unlistenStatus();
-    unlistenTelemetry();
-  };
+    unlistenStatus()
+    unlistenTelemetry()
+  }
 
-  return unlistenAll;
-};
+  return unlistenAll
+}

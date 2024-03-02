@@ -1,6 +1,5 @@
-import { get } from "svelte/store";
 import { telemetryStore } from "../stores/telemetryStore";
-import { emit, listen } from "@tauri-apps/api/event";
+import { listen } from "@tauri-apps/api/event";
 
 /**
  * Connects to sockets and subscribes to specified topics to receive telemetry data.

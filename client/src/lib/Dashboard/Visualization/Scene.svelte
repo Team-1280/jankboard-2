@@ -122,10 +122,10 @@
   onMount(() => {})
 </script>
 
-<T.PerspectiveCamera makeDefault position={[12, 10, 12]}>
+<T.PerspectiveCamera makeDefault position={[8, 4, 8]}>
   <CameraControls
     on:create={({ ref }) => {
-      $cameraControls = ref
+      cameraControls.set(ref)
     }}
     autoRotateSpeed={3}
   />
@@ -139,7 +139,7 @@
   position.y={0}
   on:create={({ ref }) => {
     // @ts-expect-error
-    $mesh = ref
+    mesh.set(ref)
   }}
 />
 

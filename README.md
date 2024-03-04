@@ -8,7 +8,8 @@ This project is closed source (for now) and licensed under a modified BSD 3.0 li
 
 ## Installation guide
 
-We recommend installing the latest stable release binaries from [our release page](https://github.com/Team-1280/Jankboard-2/releases/), if you're just looking to run the Jankboard. Currently, there is no stable release which includes telemetry uplink, which is in alpha.
+We recommend installing the latest stable release binaries from [our release page](https://github.com/Team-1280/Jankboard-2/releases/), if you're just looking to run the Jankboard. Alternatively, if you can't find release binaries for your system,
+follow the directions below in the **For developers** section to build it from source.
 
 ## For developers
 

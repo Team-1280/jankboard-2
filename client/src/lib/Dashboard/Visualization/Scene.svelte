@@ -118,8 +118,6 @@
     // run the follow function
     follow(delta)
   })
-
-  onMount(() => {})
 </script>
 
 <T.PerspectiveCamera makeDefault position={[8, 4, 8]}>

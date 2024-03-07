@@ -59,13 +59,12 @@ pub async fn subscribe_topics(
                 };
             }
 
-            if cfg!(debug_assertions) {
-                println!("{}", json_message);
-            }
+            #[cfg(debug_assertions)]
+            tracing::debug!("{}", json_message);
         }
-        if cfg!(debug_assertions) {
-            println!("disconnected");
-        }
+
+        #[cfg(debug_assertions)]
+        tracing::debug!("disconnected");
         app_handle
             .emit_all("telemetry_status", "disconnected")
             .expect("Failed to emit telemetry_disconnected event");

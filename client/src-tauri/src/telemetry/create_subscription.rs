@@ -32,9 +32,8 @@ pub async fn create_subscription(client: &Client) -> Result<Subscription, networ
         match subscription_attempt {
             Ok(subscription) => break Ok(subscription),
             Err(e) => {
-                if cfg!(debug_assertions) {
-                    println!("Failed to create subscription: {}", e);
-                }
+                #[cfg(debug_assertions)]
+                tracing::warn!("Failed to create subscription: {:?}", e);
 
                 if attempts >= 50 {
                     break Err(e);

@@ -37,9 +37,11 @@ pub async fn create_client(
                 break client; // Exit the loop if the client is successfully created
             }
             Err(e) => {
-                if cfg!(debug_assertions) {
-                    println!("Failed to create client: {}. Retrying in 3 seconds...", e);
-                }
+                tracing::debug!(
+                    message = "Failed to create client. Retrying in 3 seconds...",
+                    error = %e,
+                    rate_limit = "3s",
+                );
                 app_handle
                     .emit_all("telemetry_status", "disconnected")
                     .expect("Failed to emit telemetry_status disconnected event");

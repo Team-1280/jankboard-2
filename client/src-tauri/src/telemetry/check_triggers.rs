@@ -10,9 +10,9 @@ pub fn check_triggers(
         match data {
             network_tables::Value::Boolean(b) => {
                 if *b != *previous_gpws {
-                    if cfg!(debug_assertions) {
-                        println!("gpws changed from {} to {}", previous_gpws, b);
-                    }
+                    #[cfg(debug_assertions)]
+                    tracing::debug!("gpws: {}", b);
+
                     app_handle
                         .emit_all("telemetry_gpws", b)
                         .expect("Failed to emit telemetry_gpws event");

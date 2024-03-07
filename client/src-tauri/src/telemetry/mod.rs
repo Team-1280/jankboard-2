@@ -59,11 +59,9 @@ pub async fn subscribe_topics(
                 };
             }
 
-            #[cfg(debug_assertions)]
             tracing::debug!("{}", json_message);
         }
 
-        #[cfg(debug_assertions)]
         tracing::debug!("disconnected");
         app_handle
             .emit_all("telemetry_status", "disconnected")

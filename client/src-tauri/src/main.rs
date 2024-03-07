@@ -3,6 +3,7 @@
 
 use tauri::Manager;
 mod telemetry;
+use tracing_subscriber::FmtSubscriber;
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -14,6 +15,12 @@ const NTABLE_PORT: u16 = 5810;
 
 fn main() {
     let rt = tokio::runtime::Runtime::new().expect("Failed to create Tokio runtime");
+
+    // set the environment variable RUST_LOG to debug in order to see debug messages
+    let subscriber = FmtSubscriber::builder()
+        .with_env_filter(tracing_subscriber::EnvFilter::from_default_env())
+        .finish();
+    tracing::subscriber::set_global_default(subscriber).unwrap();
 
     rt.block_on(async {
         tauri::Builder::default()

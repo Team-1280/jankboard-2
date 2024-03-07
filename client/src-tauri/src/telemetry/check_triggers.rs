@@ -10,7 +10,6 @@ pub fn check_triggers(
         match data {
             network_tables::Value::Boolean(b) => {
                 if *b != *previous_gpws {
-                    #[cfg(debug_assertions)]
                     tracing::debug!("gpws: {}", b);
 
                     app_handle

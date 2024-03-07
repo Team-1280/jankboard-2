@@ -1,4 +1,4 @@
-use network_tables::v4::MessageData;
+use network_tables::v4::{MessageData, Subscription};
 use serde_json::to_string;
 use tauri::{AppHandle, Manager};
 mod create_client;
@@ -23,7 +23,15 @@ pub async fn subscribe_topics(
         // I hope this doesn't lead to a catastrophic infinite loop failure
         let client = create_client(&app_handle, &ntable_ip, &ntable_port).await;
 
-        let mut subscription = create_subscription(&client).await;
+        let mut subscription: Subscription = match create_subscription(&client).await {
+            Ok(subscription) => subscription,
+            Err(_) => {
+                app_handle
+                    .emit_all("telemetry_status", "disconnected")
+                    .expect("Failed to emit telemetry_disconnected event");
+                continue;
+            }
+        };
 
         while let Some(mut message) = subscription.next().await {
             process_message(&mut message);

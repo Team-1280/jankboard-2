@@ -24,7 +24,7 @@ export const initializeTelemetry = async () => {
     telemetryStore.set(data['topic_name'], data['data'])
   })
 
-  const unlistenGpws = await listen('telemetry_gpws', (event) => {
+  const unlistenGPWS = await listen('telemetry_gpws', (event) => {
     const data = JSON.parse(event.payload as string) as boolean
     if (data) {
       gpwsTriggeredSequence()
@@ -34,7 +34,7 @@ export const initializeTelemetry = async () => {
   const unlistenAll = () => {
     unlistenStatus()
     unlistenTelemetry()
-    unlistenGpws()
+    unlistenGPWS()
   }
 
   return unlistenAll

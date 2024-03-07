@@ -217,7 +217,7 @@ export const infotainmentBootupSequence = async () => {
   }
 
   if (!get(sequenceStore).initializationComplete) {
-    const unsubscribe = sequenceStore.subscribe(data => {
+    const unsubscribe = sequenceStore.subscribe((data) => {
       if (data.initializationComplete) {
         sequence()
         unsubscribe()
@@ -237,7 +237,7 @@ export const infotainmentBootupSequence = async () => {
  */
 const waitForInfotainmentBootup = (sequence: () => void) => {
   if (!get(sequenceStore).infotainmentStartedFirstTime) {
-    const unsubscribe = sequenceStore.subscribe(data => {
+    const unsubscribe = sequenceStore.subscribe((data) => {
       if (data.infotainmentStartedFirstTime) {
         sequence()
         unsubscribe()
@@ -429,4 +429,14 @@ export const modeLudicrousSequence = async () => {
   await tick()
 
   Notifications.playAudio(getVoicePath('set-acceleration-profile-ludicrous'))
+}
+
+export const gpwsTriggeredSequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  await tick()
+
+  Notifications.error('Terrain, pull up!', {
+    withAudio: true,
+    src: getVoicePath('terrain-pull-up'),
+  })
 }

@@ -99,7 +99,7 @@
     }
   }
 
-  useTask(delta => {
+  useTask((delta) => {
     /* TODO: standardize a scale (meters : grid lengths) so we can have
     accurate positioning of sensor detected objects */
     // update position data for robot model
@@ -118,8 +118,6 @@
     // run the follow function
     follow(delta)
   })
-
-  onMount(() => {})
 </script>
 
 <T.PerspectiveCamera makeDefault position={[8, 4, 8]}>

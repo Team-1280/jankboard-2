@@ -21,6 +21,8 @@ If you would like to contribute to Jankboard 2, there's only a few simple steps 
 - NodeJS and `npm`, for installing dependencies and the `vite` development server.
 - If you would like the install the (deprecated) Python backend, you will need to install the `poetry` package manager.
 
+### Installation steps
+
 1. Clone the repository. The `app` folder contains most of the (deprecated) Python code that powers the telemetry. The `client` folder contains the code for the desktop app. The `client/src-tauri` contains the Rust source code for the backend that interfaces with the robot via Network Tables. The python backend in `app` is currently being deprecated in favor of a Rust backend. If you need to run it for any reason, check the section below (**Troubleshooting common issues**).
 2. `cd` into the `client` folder. The configuration files and `package.json`, as well as project code for the desktop app are all stored here. To install dependencies, simply run `npm i`.
 3. To run the desktop app in developer mode (with automatic hot stateful reload and other useful features like error reporting), make sure you're in the `client` directory and run `npm run tauri dev`. This will install and build the Rust dependencies via `cargo` and initialize the `vite` development server for the frontend. Note that since this is basically just running the `vite` development server and then connecting the Tauri webview to it, there may be slightly inconsistent behavior in dev mode versus production mode.

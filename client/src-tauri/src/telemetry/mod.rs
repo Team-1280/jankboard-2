@@ -55,7 +55,8 @@ pub async fn subscribe_topics(
 /// This function strips the '/SmartDashboard/' prefix from the topic name if
 /// it is present. This allows easier data processing from the frontend.
 fn process_message(message: &mut MessageData) {
-    if let Some(stripped) = message.topic_name.strip_prefix("/SmartDashboard/") {
-        message.topic_name = stripped.to_string();
-    }
+    message.topic_name = message
+        .topic_name
+        .trim_start_matches("/SmartDashboard/")
+        .to_string();
 }

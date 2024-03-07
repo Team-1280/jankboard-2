@@ -22,8 +22,7 @@ fn main() {
                 let app_handle = app.app_handle();
 
                 tokio::spawn(async move {
-                    crate::telemetry::subscribe_topics(app_handle.clone(), NTABLE_IP, NTABLE_PORT)
-                        .await;
+                    crate::telemetry::subscribe_topics(app_handle, NTABLE_IP, NTABLE_PORT).await;
                 });
 
                 Ok(())

@@ -12,25 +12,8 @@
   import Loading from './lib/Loading/Loading.svelte'
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
-  import { Canvas } from '@threlte/core'
-  import { emit } from '@tauri-apps/api/event'
 
   let activeApp: App = 'camera'
-  let topics: TelemetryTopics = {
-    doubles: [
-      'orientation',
-      'chassis-x-speed',
-      'chassis-y-speed',
-      'accx',
-      'accy',
-      'accz',
-      'jerk-x',
-      'jerk-y',
-      'voltage',
-    ],
-    strings: ['acc-profile', 'gear'],
-    booleans: ['ebrake', 'reorient', 'gpws'],
-  }
 
   let loading = $settingsStore.fastStartup ? false : true
   let unlistenAll: () => void
@@ -42,7 +25,7 @@
     }
     window.ResizeObserver = ResizeObserver
     // disabled while migrating away from python
-    initializeTelemetry(topics, 200).then((unsubFunction: () => void) => {
+    initializeTelemetry().then((unsubFunction: () => void) => {
       unlistenAll = unsubFunction
     })
     setTimeout(() => {
@@ -50,7 +33,7 @@
       initializationSequence()
     }, 3000)
 
-    settingsStore.subscribe(value => {
+    settingsStore.subscribe((value) => {
       localStorage.setItem('settings', JSON.stringify(value))
     })
   })

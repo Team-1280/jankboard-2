@@ -8,7 +8,6 @@
     cameraState,
   } from './CameraControls/utils/cameraStore'
   import { Vector3 } from 'three'
-  import { onMount } from 'svelte'
   import RobotDecimated from './models/RobotDecimated.svelte'
   import { telemetryReadonlyStore } from '../../stores/telemetryStore'
   import { DEG2RAD } from 'three/src/math/MathUtils.js'

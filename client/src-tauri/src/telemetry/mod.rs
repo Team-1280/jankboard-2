@@ -24,7 +24,12 @@ pub async fn subscribe_topics(
         let client = create_client(&app_handle, &ntable_ip, &ntable_port).await;
 
         let mut subscription: Subscription = match create_subscription(&client).await {
-            Ok(subscription) => subscription,
+            Ok(subscription) => {
+                app_handle
+                    .emit_all("telemetry_status", "connected")
+                    .expect("Failed to emit telemetry_connected event");
+                subscription
+            }
             Err(_) => {
                 app_handle
                     .emit_all("telemetry_status", "disconnected")
@@ -41,13 +46,28 @@ pub async fn subscribe_topics(
                 .emit_all("telemetry_data", json_message.clone())
                 .expect("Failed to send telemetry message");
 
-            if cfg!(debug_assertions) {
-                println!("{}", json_message);
+            app_handle
+                .emit_all("telemetry_status", "connected")
+                .expect("Failed to emit telemetry_connected event");
+
+            check_triggers(
+                &app_handle,
+                &message.topic_name,
+                &message.data,
+                &previous_gpws,
+            );
+
+            if message.topic_name == "gpws" {
+                previous_gpws = match message.data {
+                    network_tables::Value::Boolean(b) => b,
+                    _ => previous_gpws,
+                };
             }
+
+            tracing::debug!("{}", json_message);
         }
-        if cfg!(debug_assertions) {
-            println!("disconnected");
-        }
+
+        tracing::debug!("disconnected");
         app_handle
             .emit_all("telemetry_status", "disconnected")
             .expect("Failed to emit telemetry_disconnected event");

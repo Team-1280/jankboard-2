@@ -9,6 +9,9 @@ struct Payload {
     message: String,
 }
 
+const NTABLE_IP: (u8, u8, u8, u8) = (10, 12, 80, 2);
+const NTABLE_PORT: u16 = 5810;
+
 fn main() {
     let rt = tokio::runtime::Runtime::new().expect("Failed to create Tokio runtime");
 
@@ -19,7 +22,7 @@ fn main() {
                 let app_handle = app.app_handle();
 
                 tokio::spawn(async move {
-                    crate::telemetry::subscribe_topics(app_handle.clone()).await;
+                    crate::telemetry::subscribe_topics(app_handle, NTABLE_IP, NTABLE_PORT).await;
                 });
 
                 Ok(())

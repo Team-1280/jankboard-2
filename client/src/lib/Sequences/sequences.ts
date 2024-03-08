@@ -430,3 +430,13 @@ export const modeLudicrousSequence = async () => {
 
   Notifications.playAudio(getVoicePath('set-acceleration-profile-ludicrous'))
 }
+
+export const gpwsTriggeredSequence = async () => {
+  if (get(settingsStore).disableAnnoyances) return
+  await tick()
+
+  Notifications.error('Terrain, pull up!', {
+    withAudio: true,
+    src: getVoicePath('terrain-pull-up'),
+  })
+}

@@ -1,10 +1,12 @@
 use network_tables::v4::{MessageData, Subscription};
 use serde_json::to_string;
 use tauri::{AppHandle, Manager};
+mod check_triggers;
 mod create_client;
 mod create_subscription;
 
-use crate::telemetry::create_client::create_client;
+use check_triggers::check_triggers;
+use create_client::create_client;
 use create_subscription::create_subscription;
 
 /// Attempts to subscribe to NetworkTables topics and send the data to the frontend.
@@ -19,6 +21,8 @@ pub async fn subscribe_topics(
     ntable_ip: (u8, u8, u8, u8),
     ntable_port: u16,
 ) {
+    let mut previous_gpws: bool = false;
+
     loop {
         // I hope this doesn't lead to a catastrophic infinite loop failure
         let client = create_client(&app_handle, &ntable_ip, &ntable_port).await;
@@ -41,7 +45,11 @@ pub async fn subscribe_topics(
         while let Some(mut message) = subscription.next().await {
             process_message(&mut message);
 
-            let json_message = to_string(&message).expect("Failed to serialize message");
+            let json_message = match to_string(&message) {
+                Ok(json) => json,
+                Err(_) => continue,
+            };
+
             app_handle
                 .emit_all("telemetry_data", json_message.clone())
                 .expect("Failed to send telemetry message");

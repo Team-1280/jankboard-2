@@ -1,3 +1,4 @@
+import { gpwsTriggeredSequence } from '../Sequences/sequences'
 import { telemetryStore } from '../stores/telemetryStore'
 import { listen } from '@tauri-apps/api/event'
 
@@ -24,8 +25,6 @@ export const initializeTelemetry = async () => {
     telemetryStore.set(data['topic_name'], data['data'])
   })
 
-<<<<<<< HEAD
-=======
   const unlistenGPWS = await listen('telemetry_gpws', event => {
     const data = JSON.parse(event.payload as string) as boolean
     if (data) {
@@ -33,10 +32,10 @@ export const initializeTelemetry = async () => {
     }
   })
 
->>>>>>> cffa594 (fix: detect connectivity properly)
   const unlistenAll = () => {
     unlistenStatus()
     unlistenTelemetry()
+    unlistenGPWS()
   }
 
   return unlistenAll

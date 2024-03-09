@@ -28,7 +28,12 @@ pub async fn subscribe_topics(
         let client = create_client(&app_handle, &ntable_ip, &ntable_port).await;
 
         let mut subscription: Subscription = match create_subscription(&client).await {
-            Ok(subscription) => subscription,
+            Ok(subscription) => {
+                app_handle
+                    .emit_all("telemetry_status", "connected")
+                    .expect("Failed to emit telemetry_connected event");
+                subscription
+            }
             Err(_) => {
                 app_handle
                     .emit_all("telemetry_status", "disconnected")
@@ -40,10 +45,18 @@ pub async fn subscribe_topics(
         while let Some(mut message) = subscription.next().await {
             process_message(&mut message);
 
-            let json_message = to_string(&message).expect("Failed to serialize message");
+            let json_message = match to_string(&message) {
+                Ok(json) => json,
+                Err(_) => continue,
+            };
+
             app_handle
                 .emit_all("telemetry_data", json_message.clone())
                 .expect("Failed to send telemetry message");
+
+            app_handle
+                .emit_all("telemetry_status", "connected")
+                .expect("Failed to emit telemetry_connected event");
 
             check_triggers(
                 &app_handle,

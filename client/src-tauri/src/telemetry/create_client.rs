@@ -32,7 +32,7 @@ pub async fn create_client(
             Ok(client) => {
                 println!("Client created");
                 app_handle
-                    .emit_all("telemetry_connected", "connected")
+                    .emit_all("telemetry_status", "connected")
                     .expect("Failed to emit telemetry_status connected event");
                 break client; // Exit the loop if the client is successfully created
             }

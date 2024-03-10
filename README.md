@@ -15,11 +15,13 @@ Jankboard 2 is purpose built for Team 1280's Swerve drivebase robots and their
 needs. It's tightly integrated with our proprietary robot features, like
 collision warning and detection, and displays robot drive modes.
 
-The UI is reminiscient of and inspired by dashboards designed by car
-manufacturers, making it easy for the driver to get the information they need at
-a glance, without squinting at Shuffleboard's tiny and ugly UIs. It even
-includes a full 3D robot visualization, synced directly with the robot's
-movements in real life.
+Shuffleboard, while easy to set up, lacks the fine-grained adjustments and
+customization which is afforded by a fully custom solution. The UI looks
+outdated and is quite ugly. In stark contrast, Jankboard's UI is reminiscient of
+and inspired by dashboards designed by car manufacturers, making it easy for the
+driver to get the information they need at a glance, without squinting at
+Shuffleboard's tiny and ugly UIs. It even includes a full 3D robot
+visualization, synced directly with the robot's movements in real life.
 
 Even though the dashboard's layout and design are highly opinionated and not
 meant to be heavily modular, features can still be easily extended via a drop-in

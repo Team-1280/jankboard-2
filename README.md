@@ -16,7 +16,7 @@ needs. It's tightly integrated with our proprietary robot features, like
 collision warning and detection, and displays robot drive modes.
 
 Shuffleboard, while easy to set up, lacks the fine-grained adjustments and
-customization which is afforded by a fully custom solution. The UI looks
+customization which are afforded by a fully custom solution. The UI looks
 outdated and is quite ugly. In stark contrast, Jankboard's UI is reminiscient of
 and inspired by dashboards designed by car manufacturers, making it easy for the
 driver to get the information they need at a glance, without squinting at

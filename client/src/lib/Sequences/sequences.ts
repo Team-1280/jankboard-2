@@ -217,7 +217,7 @@ export const infotainmentBootupSequence = async () => {
   }
 
   if (!get(sequenceStore).initializationComplete) {
-    const unsubscribe = sequenceStore.subscribe(data => {
+    const unsubscribe = sequenceStore.subscribe((data) => {
       if (data.initializationComplete) {
         sequence()
         unsubscribe()
@@ -237,7 +237,7 @@ export const infotainmentBootupSequence = async () => {
  */
 const waitForInfotainmentBootup = (sequence: () => void) => {
   if (!get(sequenceStore).infotainmentStartedFirstTime) {
-    const unsubscribe = sequenceStore.subscribe(data => {
+    const unsubscribe = sequenceStore.subscribe((data) => {
       if (data.infotainmentStartedFirstTime) {
         sequence()
         unsubscribe()

@@ -8,7 +8,7 @@ import { settingsStore } from '../stores/settingsStore'
  * @param lang - the language of the audio
  * @return the path of the audio file
  */
-type SupportedLanguage = 'en-US' | 'en-RU'
+type SupportedLanguage = 'en-US' | 'en-RU' | 'en-UK'
 
 export default function getVoicePath(audio: string, lang?: SupportedLanguage) {
   console.log(get(settingsStore).voiceLang)

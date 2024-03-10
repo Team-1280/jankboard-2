@@ -43,7 +43,7 @@
     </SettingsInput>
     <SettingsSelector
       setting="voiceLang"
-      options={['en-US', 'en-RU']}
+      options={['en-US', 'en-RU', 'en-UK']}
       tooltip="Selects the language/locale used for Jankboard voice prompts. Does not affect application language (ie. Jankboard itself will always be in English)."
       >Voice Prompt Language</SettingsSelector
     >

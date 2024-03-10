@@ -70,14 +70,12 @@ to get the development build up and running.
 
 1. Clone the repository. The `client` folder contains the vast majority of the
    source code for the desktop app.
-
 2. `cd` into the `client` folder. The configuration files and `package.json`,
    This is where stuff like `package.json` and configuration files for our
    various tooling are housed. The `client/src-tauri` directory contains the
    Rust source code and `cargo` configuration files for the backend that
    interfaces with the robot via Network Tables.
 3. Run `pnpm install` to install dependencies.
-
 4. To run the desktop app in developer mode (with automatic hot stateful reload
    and other useful features like error reporting), make sure you're in the
    `client` directory and run `pnpm run tauri dev`. This will install and build
@@ -86,7 +84,6 @@ to get the development build up and running.
    `vite` development server and then connecting the Tauri webview to it, there
    may be slightly inconsistent behavior in dev mode versus production mode.
 5. To create a production binary, run `pnpm run tauri build`. Tauri
-
 6. To create a production binary, run `pnpm run tauri build`. Tauri
    cross-compilation is still in beta, so you should generally try to build
    targeting the same OS you're currently running. Check

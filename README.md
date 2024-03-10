@@ -83,7 +83,7 @@ to get the development build up and running.
    server for the frontend. Note that since this is basically just running the
    `vite` development server and then connecting the Tauri webview to it, there
    may be slightly inconsistent behavior in dev mode versus production mode.
-5. To create a production binary, run `npm run tauri build`. Tauri
+5. To create a production binary, run `pnpm run tauri build`. Tauri
    cross-compilation is still in beta, so you should generally try to build
    targeting the same OS you're currently running. Check
    [the Tauri docs](https://tauri.app/v1/guides/building/) for more information.
@@ -99,7 +99,7 @@ to get the development build up and running.
   server.
 - If you don't have access to a development environment that supports running
   standalone executables (eg. Github Codespaces), you can try running
-  `npm run dev` instead of `npm run tauri dev`, which will open a development
+  `pnpm run dev` instead of `pnpm run tauri dev`, which will open a development
   server at `localhost:5173` with the frontend running in the web. However, app
   behavior may be inconsistent and you will not get any features from the Rust
   backend.

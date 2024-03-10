@@ -87,7 +87,7 @@ to get the development build up and running.
    may be slightly inconsistent behavior in dev mode versus production mode.
 5. To create a production binary, run `pnpm run tauri build`. Tauri
 
-6. To create a production binary, run `npm run tauri build`. Tauri
+6. To create a production binary, run `pnpm run tauri build`. Tauri
    cross-compilation is still in beta, so you should generally try to build
    targeting the same OS you're currently running. Check
    [the Tauri docs](https://tauri.app/v1/guides/building/) for more information.

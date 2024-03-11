@@ -3,6 +3,7 @@
 [![maintainability status](https://api.codeclimate.com/v1/badges/4bedd567dbf60ec87164/maintainability)](https://codeclimate.com/repos/65dfbdc904f9ed00bbf381c8/maintainability)
 ![build](https://github.com/Team-1280/Jankboard-2/actions/workflows/main.yml/badge.svg)
 ![build all platforms](https://github.com/Team-1280/Jankboard-2/actions/workflows/publish-all.yml/badge.svg)
+[![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
 
 Team 1280's custom, powerful, and opinionated dashboard for controlling FRC
 Robots, built with [Svelte](https://svelte.dev/) and

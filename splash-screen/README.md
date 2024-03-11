@@ -3,7 +3,10 @@
 This directory contains the source code for the splash screen used by the Tauri
 app. It's a standalone Svelte + Vite project, with its own separate
 dependencies. In most cases, you won't ever have to touch the code in this
-directory unless you want to modify the loading screen.
+directory unless you want to modify the loading screen. However, if you do
+decide to modify the files in this directory, keep in mind that **_they will not
+be reflected in the app until you compile and replace the_** `splashscreen.html`
+**_file in_** `/client/public`. Read more below to figure out how to do that.
 
 ## How it works
 

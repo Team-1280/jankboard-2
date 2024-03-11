@@ -4,6 +4,7 @@
 use tauri::Manager;
 mod telemetry;
 use tracing_subscriber::FmtSubscriber;
+mod close_splashscreen;
 
 #[derive(Clone, serde::Serialize)]
 struct Payload {
@@ -23,6 +24,13 @@ fn main() {
     tracing::subscriber::set_global_default(subscriber).unwrap();
 
     rt.block_on(async {
+        tauri::Builder::default()
+            .invoke_handler(tauri::generate_handler![
+                close_splashscreen::close_splashscreen
+            ])
+            .run(tauri::generate_context!())
+            .expect("failed to run app");
+
         tauri::Builder::default()
             .setup(|app| {
                 // create app handle and send it to our event listeners

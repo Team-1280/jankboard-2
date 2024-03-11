@@ -62,7 +62,19 @@
         "height": 600,
         "resizable": true,
         "title": "Jankboard 2",
-        "width": 800
+        "width": 800,
+        "visible": false
+      },
+      {
+        "fullscreen": false,
+        "maximized": true,
+        "decorations": false,
+        "titleBarStyle": "Transparent",
+        "height": 600,
+        "resizable": true,
+        "width": 800,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ]
   }

@@ -15,7 +15,6 @@
 
   let activeApp: App = 'camera'
 
-  let loading = $settingsStore.fastStartup ? false : true
   let unlistenAll: () => void
 
   onMount(() => {
@@ -28,10 +27,7 @@
     initializeTelemetry().then((unsubFunction: () => void) => {
       unlistenAll = unsubFunction
     })
-    setTimeout(() => {
-      loading = false
-      initializationSequence()
-    }, 3000)
+    setTimeout(initializationSequence, 3000)
 
     settingsStore.subscribe((value) => {
       localStorage.setItem('settings', JSON.stringify(value))
@@ -43,10 +39,7 @@
   })
 </script>
 
-<main
-  class="select-none transition-opacity duration-300"
-  class:opacity-0={loading}
->
+<main class="select-none transition-opacity duration-300">
   <!-- driver dashboard -->
   <div class="h-screen w-[35vw] fixed shadow-lg shadow-slate-800 z-10">
     <Dashboard />
@@ -62,10 +55,6 @@
     </div>
   </div>
 </main>
-
-{#if loading}
-  <Loading />
-{/if}
 
 <!-- toast service -->
 <Toaster />

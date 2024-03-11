@@ -11,6 +11,9 @@
   import RobotDecimated from './models/RobotDecimated.svelte'
   import { telemetryReadonlyStore } from '../../stores/telemetryStore'
   import { DEG2RAD } from 'three/src/math/MathUtils.js'
+  import { createEventDispatcher } from 'svelte'
+
+  const dispatch = createEventDispatcher()
 
   const SPEED_MULTIPLIER = 4
   const axis = new Vector3(0, 1, 0)
@@ -137,6 +140,7 @@
   on:create={({ ref }) => {
     // @ts-expect-error
     mesh.set(ref)
+    dispatch('loaded')
   }}
 />
 

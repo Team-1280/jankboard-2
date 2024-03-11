@@ -9,11 +9,16 @@
   import { onDestroy, onMount } from 'svelte'
   import { Toaster } from 'svelte-french-toast'
   import { initializationSequence } from './lib/Sequences/sequences'
-  import Loading from './lib/Loading/Loading.svelte'
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
+  import hideSplashscreen from './lib/utils/hideSplashscreen'
 
   let activeApp: App = 'camera'
+  // fake loading splash screen to look cool if the model loads too fast
+  let fakeLoadingDone = false
+  // and the real one, to wait for massive robot model to load if it's slow
+  let realLoadingDone = false
+  let started = false
 
   let unlistenAll: () => void
 
@@ -27,22 +32,39 @@
     initializeTelemetry().then((unsubFunction: () => void) => {
       unlistenAll = unsubFunction
     })
-    setTimeout(initializationSequence, 3000)
 
     settingsStore.subscribe((value) => {
       localStorage.setItem('settings', JSON.stringify(value))
     })
+
+    setTimeout(() => {
+      fakeLoadingDone = true
+    }, 3000)
   })
 
   onDestroy(() => {
     unlistenAll && unlistenAll()
   })
+
+  const start = () => {
+    hideSplashscreen()
+    initializationSequence()
+  }
+
+  const onVisualizationLoaded = () => {
+    realLoadingDone = true
+  }
+
+  $: if (realLoadingDone && fakeLoadingDone && !started) {
+    started = true
+    start()
+  }
 </script>
 
 <main class="select-none transition-opacity duration-300">
   <!-- driver dashboard -->
   <div class="h-screen w-[35vw] fixed shadow-lg shadow-slate-800 z-10">
-    <Dashboard />
+    <Dashboard on:loaded={onVisualizationLoaded} />
   </div>
   <!-- the infotainment system -->
   <div class="min-h-screen w-[65vw] right-0 absolute infotainment-container">

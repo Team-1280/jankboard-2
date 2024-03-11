@@ -45,7 +45,7 @@
   </div>
 
   <div class="left-0 mt-2 h-[475px] w-[35vw]">
-    <Visualization />
+    <Visualization on:loaded />
   </div>
 
   <Bottom>

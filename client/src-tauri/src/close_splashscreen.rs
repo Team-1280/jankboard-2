@@ -3,7 +3,7 @@ use tauri::{Manager, Window};
 // This command must be async so that it doesn't run on the main thread.
 #[tauri::command]
 pub async fn close_splashscreen(window: Window) {
-    println!("Closing splashscreen");
+    tracing::info!("Closing splashscreen");
     // Close splashscreen
     match window.get_window("splashscreen") {
         Some(window) => window.close().unwrap(),

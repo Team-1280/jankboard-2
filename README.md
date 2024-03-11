@@ -68,8 +68,12 @@ to get the development build up and running.
 
 ### Installation steps
 
-1. Clone the repository. The `client` folder contains the vast majority of the
-   source code for the desktop app.
+1. Clone the repository. The `client` directory contains the vast majority of
+   the source code for the desktop app, while the `splash-screen` directory
+   contains the source code for the splash screen displayed before the app
+   loads. You don't have to touch anything in `splash-screen` unless you want to
+   modify it, in which case check the README in `splash-screen` for more
+   information.
 2. `cd` into the `client` folder. The configuration files and `package.json`,
    This is where stuff like `package.json` and configuration files for our
    various tooling are housed. The `client/src-tauri` directory contains the

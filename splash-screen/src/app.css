@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 body {
-  overflow: hidden;
-  overscroll-behavior: none;
-  user-select: none;
   background-image: url('./assets/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  overflow: hidden;
+  overscroll-behavior: none;
+  user-select: none;
 }

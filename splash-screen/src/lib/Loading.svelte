@@ -1,7 +1,16 @@
 <script lang="ts">
-  import { blur } from 'svelte/transition'
+  import { blur, fade } from 'svelte/transition'
 
   import SvelteLogo from './SvelteLogo.svelte'
+  import { onMount } from 'svelte'
+
+  let loadingStuck = false
+
+  onMount(() => {
+    setTimeout(() => {
+      loadingStuck = true
+    }, 3000)
+  })
 </script>
 
 <div
@@ -11,6 +20,14 @@
   <div class="max-w-64">
     <SvelteLogo />
   </div>
+  {#if loadingStuck}
+    <p
+      class="text-5xl text-slate-300 absolute bottom-20 animate-pulse"
+      transition:fade={{ duration: 300 }}
+    >
+      Loading 3D assets...please wait
+    </p>
+  {/if}
 </div>
 
 <style lang="postcss">

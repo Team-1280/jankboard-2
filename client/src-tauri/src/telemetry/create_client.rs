@@ -13,15 +13,12 @@ use tokio::time::{sleep, Duration};
 /// `telemetry_status` event with the payload `"disconnected"` instead.
 pub async fn create_client(
     app_handle: &AppHandle,
-    ntable_ip: &(u8, u8, u8, u8),
+    ntable_ip: &Ipv4Addr,
     ntable_port: &u16,
 ) -> Client {
     loop {
         let client_attempt = Client::try_new_w_config(
-            SocketAddrV4::new(
-                Ipv4Addr::new(ntable_ip.0, ntable_ip.1, ntable_ip.2, ntable_ip.3),
-                *ntable_port,
-            ),
+            SocketAddrV4::new(*ntable_ip, *ntable_port),
             Config {
                 ..Default::default()
             },

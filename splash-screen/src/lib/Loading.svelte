@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { blur, fade } from 'svelte/transition'
+  import { fly } from 'svelte/transition'
 
   import SvelteLogo from './SvelteLogo.svelte'
   import { onMount } from 'svelte'
+  import { cubicIn } from 'svelte/easing'
 
   let loadingStuck = false
 
@@ -15,17 +16,16 @@
 
 <div
   class="absolute w-screen h-screen flex justify-center items-center flex-col overflow-hidden select-none bg"
-  transition:blur={{ duration: 300, amount: 0.5 }}
 >
   <div class="max-w-64">
     <SvelteLogo />
   </div>
   {#if loadingStuck}
     <p
-      class="text-5xl text-slate-300 absolute bottom-20 animate-pulse"
-      transition:fade={{ duration: 300 }}
+      class="text-4xl text-slate-300 absolute bottom-20 animate-pulse font-medium"
+      in:fly={{ duration: 150, y: 25, easing: cubicIn }}
     >
-      Loading 3D assets...please wait
+      Loading 3D assets...
     </p>
   {/if}
 </div>

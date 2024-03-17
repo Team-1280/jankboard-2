@@ -32,7 +32,7 @@
 
 <style lang="postcss">
   .bg {
-    background-image: url('../../assets/wallpaper.jpg');
+    background-image: url('/splash-screen.jpg');
     background-repeat: no-repeat;
     background-size: cover;
   }

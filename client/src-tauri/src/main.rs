@@ -1,6 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::net::Ipv4Addr;
+
 use tauri::Manager;
 mod telemetry;
 use tracing_subscriber::FmtSubscriber;
@@ -12,7 +14,7 @@ struct Payload {
     message: String,
 }
 
-const NTABLE_IP: (u8, u8, u8, u8) = (10, 12, 80, 2);
+const NTABLE_IP: Ipv4Addr = Ipv4Addr::new(10, 12, 80, 2);
 const NTABLE_PORT: u16 = 5810;
 
 fn main() {

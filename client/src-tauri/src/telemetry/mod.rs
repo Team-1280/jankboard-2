@@ -1,3 +1,5 @@
+use std::net::Ipv4Addr;
+
 use network_tables::v4::{MessageData, Subscription};
 use serde_json::to_string;
 use tauri::{AppHandle, Manager};
@@ -16,11 +18,7 @@ use create_subscription::create_subscription;
 /// to all connected frontends using the "telemetry_data" event.
 ///
 /// The function loops forever, retrying connection every 3 seconds, reconnecting if the client disconnects.
-pub async fn subscribe_topics(
-    app_handle: AppHandle,
-    ntable_ip: (u8, u8, u8, u8),
-    ntable_port: u16,
-) {
+pub async fn subscribe_topics(app_handle: AppHandle, ntable_ip: Ipv4Addr, ntable_port: u16) {
     let mut previous_gpws: bool = false;
 
     loop {

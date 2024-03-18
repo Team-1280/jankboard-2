@@ -44,3 +44,4 @@ screen!**
    inlined.
 4. Rename this outputted `index.html` to `splashscreen.html`, and then move it
    into `/client/public`, replacing the existing `splashscreen.html`.
+   Note: the background image will not load in development since it's designed to load `/splash-screen.jpg` from the main app. Update the `splash-screen.jpg` image in `client/public` to change it.

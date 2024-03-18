@@ -13,7 +13,6 @@
 
   const handleSubmit = async () => {
     await tick()
-    // @ts-expect-error
     settingsStore.update(setting, value)
   }
 

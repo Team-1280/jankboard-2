@@ -23,6 +23,9 @@ dependencies:
   howler:
     specifier: ^2.2.4
     version: 2.2.4
+  konami-code-js:
+    specifier: ^0.8.1
+    version: 0.8.1
   material-icons:
     specifier: ^1.13.12
     version: 1.13.12
@@ -61,6 +64,9 @@ devDependencies:
   '@types/howler':
     specifier: ^2.2.11
     version: 2.2.11
+  '@types/konami-code-js':
+    specifier: ^0.8.3
+    version: 0.8.3
   '@types/three':
     specifier: ^0.161.2
     version: 0.161.2
@@ -724,6 +730,10 @@ packages:
     resolution: {integrity: sha512-7aBoUL6RbSIrqKnpEgfa1wSNUBK06mn08siP2QI0zYk7MXfEJAaORc4tohamQYqCqVESoDyRWSdQn2BOKWj2Qw==}
     dev: true
 
+  /@types/konami-code-js@0.8.3:
+    resolution: {integrity: sha512-TYwIDZ16MuzqHdgv/zhbbE3p/iXY/FotJkMYx1oOzZKJoINezl91stc/U/i5AknH5lrEpXoims+tsCnAwIJGew==}
+    dev: true
+
   /@types/pug@2.0.10:
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
     dev: true
@@ -1311,6 +1321,10 @@ packages:
     resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /konami-code-js@0.8.1:
+    resolution: {integrity: sha512-bJ0tuWYLYiUueIVTpA0MV4h4Gz1X16uuJggh5TpIWXOQoLv0238SU7Im23z2wYKCCBsOfk5j4HKWB/pqdCgu5Q==}
+    dev: false
 
   /lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}

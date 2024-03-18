@@ -1,3 +1,11 @@
+declare module 'konami-code-js' {
+  export default class KonamiCode {
+    constructor(options: any = {})
+    setCallback: (callback: () => void) => void
+    disable: () => void
+  }
+}
+
 type Gear = 'park' | 'reverse' | 'neutral' | 'low' | 'auto' | 'drive'
 
 type Mode = 'chill' | 'ludicrous' | 'cruise'

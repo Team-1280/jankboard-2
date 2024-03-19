@@ -54,7 +54,6 @@
         >
       </li>
     </ul>
-
     <h2 class="text-2xl font-medium text-slate-200 mt-4 basis-full">
       Camera Configuration
     </h2>

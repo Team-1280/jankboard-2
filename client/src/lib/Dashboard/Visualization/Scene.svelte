@@ -137,6 +137,8 @@
 <RobotDecimated
   scale={[10, 10, 10]}
   position.y={0}
+  position.x={-3}
+  position.z={3}
   on:create={({ ref }) => {
     // @ts-expect-error
     mesh.set(ref)
@@ -148,7 +150,7 @@
   sectionColor={'#ff3e00'}
   sectionThickness={1}
   bind:fadeDistance={gridFadeDistance}
-  cellSize={6}
+  cellSize={3}
   sectionSize={24}
   cellColor={'#cccccc'}
   infiniteGrid

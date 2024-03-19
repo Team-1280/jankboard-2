@@ -23,7 +23,7 @@
 
   const dispatch = createEventDispatcher()
 
-  const SPEED_MULTIPLIER = 1.408
+  const SPEED_MULTIPLIER = 3
   const axis = new Vector3(0, 1, 0)
 
   const follow = (delta: number) => {

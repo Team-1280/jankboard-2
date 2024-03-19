@@ -12,6 +12,7 @@
   import { settingsStore } from './lib/stores/settingsStore'
   import getSettings from './lib/utils/getSettings'
   import hideSplashscreen from './lib/utils/hideSplashscreen'
+  import Cutouts from './lib/Dashboard/Cutouts/Cutouts.svelte'
 
   let activeApp: App = 'camera'
   // fake loading splash screen to look cool if the model loads too fast
@@ -78,6 +79,9 @@
   </div>
 </main>
 
+<!-- Camera cutouts -->
+<Cutouts show={activeApp !== 'camera'} />
+
 <!-- toast service -->
 <Toaster />
 
@@ -88,14 +92,14 @@
 
   .infotainment-container {
     background-image: url('./assets/wallpaper.jpg');
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     /* hide scrollbar */
     -ms-overflow-style: none;
     scrollbar-width: none;
     background-position: top right;
     width: 65vw;
-    height: 100vw;
+    height: 100vh;
   }
 
   .infotainment-container::-webkit-scrollbar {

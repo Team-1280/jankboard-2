@@ -1,3 +1,11 @@
+<!-- 
+  @component
+  
+  Visualization scene for the robot. 
+  1:28in scale
+  aka 1:0.71m scale
+ -->
+
 <script lang="ts">
   import { T, useTask } from '@threlte/core'
   import { Grid } from '@threlte/extras'
@@ -15,7 +23,7 @@
 
   const dispatch = createEventDispatcher()
 
-  const SPEED_MULTIPLIER = 4
+  const SPEED_MULTIPLIER = 1.408
   const axis = new Vector3(0, 1, 0)
 
   const follow = (delta: number) => {
@@ -105,6 +113,7 @@
     /* TODO: standardize a scale (meters : grid lengths) so we can have
     accurate positioning of sensor detected objects */
     // update position data for robot model
+    // Speed is reported in
     $mesh.position.x +=
       $telemetryReadonlyStore['chassis-y-speed'] * delta * SPEED_MULTIPLIER
     $mesh.position.z +=
@@ -135,10 +144,10 @@
 <T.AmbientLight color={'#f0f0f0'} intensity={0.1} />
 
 <RobotDecimated
-  scale={[10, 10, 10]}
+  scale={[9, 9, 9]}
   position.y={0}
-  position.x={-3}
-  position.z={3}
+  position.x={-2.8}
+  position.z={2.8}
   on:create={({ ref }) => {
     // @ts-expect-error
     mesh.set(ref)

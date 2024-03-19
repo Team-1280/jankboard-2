@@ -93,6 +93,9 @@
     /* hide scrollbar */
     -ms-overflow-style: none;
     scrollbar-width: none;
+    background-position: top right;
+    width: 65vw;
+    height: 100vw;
   }
 
   .infotainment-container::-webkit-scrollbar {

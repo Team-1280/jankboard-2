@@ -9,7 +9,7 @@
   import { onMount } from 'svelte'
   import { fly } from 'svelte/transition'
 
-  settingsStore.subscribe(async value => {
+  settingsStore.subscribe(async (value) => {
     window.localStorage.setItem('settings', JSON.stringify(value))
   })
 
@@ -31,7 +31,7 @@
 </script>
 
 <AppContainer
-  class="flex gap-6 bg-blue-200 bg-opacity-25 backdrop-blur-xl media-background rounded-3xl flex-wrap px-10 py-20 transition-all"
+  class="flex flex-col gap-6 bg-blue-200 bg-opacity-25 backdrop-blur-xl media-background rounded-3xl flex-wrap px-10 py-20 transition-all"
 >
   <h1 class="text-5xl font-medium text-slate-100 basis-full">Settings</h1>
   <p class="text-slate-300">Hover over setting names to see helpful tooltips</p>

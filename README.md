@@ -1,34 +1,77 @@
-# Jankboard 2
+# Jankboard
 
-[![maintainability status](https://api.codeclimate.com/v1/badges/4bedd567dbf60ec87164/maintainability)](https://codeclimate.com/repos/65dfbdc904f9ed00bbf381c8/maintainability)
-![build](https://github.com/couscousdude/jankboard-2/actions/workflows/main.yml/badge.svg)
-![build all platforms](https://github.com/couscousdude/jankboard-2/actions/workflows/publish-all.yml/badge.svg)
+![build](https://github.com/couscousdude/jankboard/actions/workflows/main.yml/badge.svg)
 [![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
 
-Team 1280's custom, powerful, and opinionated dashboard for controlling FRC
-Robots, built with [Svelte](https://svelte.dev/) and
-[TypeScript](https://www.typescriptlang.org/), and powered by
-[Rust (Tauri)](https://tauri.app/).
+This repository hosts the last version of the source code for the Jankboard
+worked on by [me](https://github.com/youwen5).
 
-Unlike Shuffleboard, which attempts to provide an unopinionated "blank slate"
-with an easy to configure and modular environment for displaying robot data,
-Jankboard 2 is purpose built for Team 1280's Swerve drivebase robots and their
-needs. It's tightly integrated with our proprietary robot features, like
-collision warning and detection, and displays robot drive modes.
+Jankboard is the fully custom control interface designed in-house by Team 1280
+for the 2024 season of the
+[FIRST Robotics Competition](https://en.wikipedia.org/wiki/FIRST_Robotics_Competition).
+The FIRST Robotics Competition is an international high-school robotics
+competition which runs annually. Teams spend six weeks designing, prototyping,
+and building a robot to compete in each year's game. The goals for each game
+vary by year.
 
-Shuffleboard, while easy to set up, lacks the fine-grained adjustments and
-customization which are afforded by a fully custom solution. The UI looks
-outdated and is quite ugly. In stark contrast, Jankboard's UI is reminiscient of
-and inspired by dashboards designed by car manufacturers, making it easy for the
-driver to get the information they need at a glance, without squinting at
-Shuffleboard's tiny and ugly UIs. It even includes a full 3D robot
-visualization, synced directly with the robot's movements in real life.
+Though this is a Team 1280 project, it's hosted on my GitHub account as I wrote
+the vast majority of the code and retain rights to it via the
+[license](./LICENSE). A small portion of this codebase was contributed by
+@quantum9innovation. I've released it as free and open source software,
+compliant with Team 1280's policies for post-competition software stewardship.
 
-Even though the dashboard's layout and design are highly opinionated and not
-meant to be heavily modular, features can still be easily extended via a drop-in
-app system which supports easy drop-in app integration. Jankboard 2 ships with a
-few apps by default, featuring a camera feed, robot settings configurator, and
-even a music player and games.
+The Jankboard is a fully functional control interface designed to be used with
+our 2024 robot. It is intended to work alongside the FRC Game Tools application,
+which is required by the rules to handle processing robot control inputs. The
+Jankboard is a dashboard which receives the telemetry data from the robot and
+displays it for the driver. It also processes it to provide useful features. It
+replaces the standard "Shuffleboard" dashboard program provided by FIRST, and
+has a much cleaner and purpose-built UI.
+
+Jankboard is built with [Tauri](https://tauri.app/), which is a framework for
+building desktop application with Rust and webviews. Unlike Electron, it
+leverages the platforms built-in web technologies (Chromium on Windows, WebKit
+on Linux and MacOS) to avoid shipping a massive bloated binary with a bundled
+browser. Our (my) choice of web framework is [Svelte](https://svelte.dev/), a
+modern framework with a compiler. To interface with and collect telemetry from
+the robot, a Rust backend implements the low-level networking and communication
+details and streams the received data back to the frontend UI. As soon as new
+data is received, the frontend is updated immediately. We found that this
+provided more than enough speed for our purposes, since the robot sends new
+telemetry at a rate of 10 Hz. We chose this tech stack because building
+beautiful and functional UIs is easiest with the Web, and it allowed us to
+rapidly build the application during our 6-week development period.
+
+<!-- prettier-ignore -->
+> [!IMPORTANT]
+> If you are interested in forking this project or utilizing portions of it for
+> your (personal or on behalf of your organization) use, please see
+> [the licensing section](#licensing) for a detailed explanation of what this
+> project's status as free software entails.
+
+---
+
+<table>
+<tr><td><b>Table of Contents:</b></td></tr>
+
+  <tr>
+<td><!--toc:start-->
+
+- [Jankboard 2](#jankboard-2)
+  - [Installation guide](#installation-guide)
+  - [A brief footnote on the name "Jankboard 2"](#a-brief-footnote-on-the-name-jankboard-2)
+  - [For developers](#for-developers)
+    - [Prerequisites](#prerequisites)
+    - [Installation steps](#installation-steps)
+  - [Troubleshooting common issues](#troubleshooting-common-issues)
+  - [Current progress and improvements over (original) Jankboard](#current-progress-and-improvements-over-original-jankboard)
+  - [TODO](#todo)
+  <!--toc:end-->
+
+</tr>
+</table>
+
+---
 
 ## Installation guide
 
@@ -110,26 +153,36 @@ to get the development build up and running.
   behavior may be inconsistent and you will not get any features from the Rust
   backend.
 
-## Current progress and improvements over (original) Jankboard
+## Licensing
 
-- Layout, toasts/notifications, music player, and app system ported.
-- Toast and audio cue system is much more robust
-- Transitions added almost everywhere to make things smoother
-- Tauri app created successfully, currently still using Flask backend
-- Visualization vastly improved with Threlte (Three.js) powered 3D robot
-  simulation
-- Robot model ported successfully via massive optimization through polygon
-  decimation
-- Added settings app with options to disable certain features and developer
-  tools for testing
-- Created dynamic voice prompt system to support new languages very easily
-- Overhaul backend in Rust
-- Overhaul visualization (especially camera)
-- Added Vlad's voice lines (AT LAST)
+This project is released as free software under the
+[GNU General Public License](./LICENSE). What that entails for a developer
+seeking to use portions of this codebase, or even the entirety of the codebase,
+for your own purposes, is the following:
 
-## TODO
+You are given the right to copy, modify, and distribute this software, in its
+entirety or just a portion of it, with or without modification, provided you
+meet the following requirements:
 
-- Camera cutout overlay
-- Overhaul audio player system
-- Further integrate telemetry (like GPWS, collision warning, etc)
-- Finish re-creating / adding various voice alerts and sequences
+- If you do make modifications to the software, you are required to release
+  them, also under the terms of the GPL v3, **if you are planning to distribute
+  the software**. However, this is not required if you are not planning to
+  distribute it. See below.
+- You may modify or use it however you'd like personally or internally (within
+  an organization, like your robotics team), without releasing your changes or
+  code under the GPL. This means that if you make a custom dashboard based on
+  this code for your own robotics team, you do not have to release the code as
+  long as you are not planning to distribute your custom dashboard to other
+  robotics teams or publish it publicly on the internet. If you do intend to
+  distribute it, then you must release the modified source under the terms of
+  the GPL v3.
+  - We think that this is fair - if you intend to keep an internal private tool,
+    we should not stop you from doing so. However, if you intend to publish your
+    tool or share it with others, then you should also publish or share the
+    source code for the benefit of other developers and robotics teams, as we
+    have done here.
+
+See the full license text of the [GPL](./LICENSE) if you need further
+clarification. The above is simply an explanation of the license, if any
+conflicts between the above text and the license text arise, then the original
+license text takes precedence.

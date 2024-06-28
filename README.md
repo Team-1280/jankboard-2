@@ -1,6 +1,6 @@
 # Jankboard
 
-![build](https://github.com/couscousdude/jankboard/actions/workflows/main.yml/badge.svg)
+![build](https://github.com/youwen5/jankboard/actions/workflows/main.yml/badge.svg)
 [![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
 
 This repository hosts the last version of the source code for the Jankboard
@@ -154,7 +154,7 @@ get the development build up and running.
 
 ## Licensing
 
-This project is released as free software under the
+This project is released as free software under the terms of the
 [GNU General Public License](./LICENSE). What that entails for a developer
 seeking to use portions of this codebase, or even the entirety of the codebase,
 for their own purposes, is the following:

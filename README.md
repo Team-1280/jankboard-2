@@ -17,9 +17,9 @@ vary by year.
 Though this is a Team 1280 project, it's hosted on my GitHub account as I wrote
 the vast majority of the code and retain rights to it via the
 [license](./LICENSE). A small portion of this codebase was contributed by
-@quantum9innovation. I've released it as free and open source software under the
-GPL v3, as permitted by Team 1280's policies for post-competition software
-stewardship.
+[@quantum9innovation](https://github.com/quantum9Innovation/). I've released it
+as free and open source software under the GPL v3, as permitted by Team 1280's
+policies for post-competition software stewardship.
 
 The Jankboard is a fully functional control interface designed to be used with
 our 2024 robot. It is intended to work alongside the FRC Game Tools application,

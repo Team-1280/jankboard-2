@@ -17,8 +17,9 @@ vary by year.
 Though this is a Team 1280 project, it's hosted on my GitHub account as I wrote
 the vast majority of the code and retain rights to it via the
 [license](./LICENSE). A small portion of this codebase was contributed by
-@quantum9innovation. I've released it as free and open source software,
-compliant with Team 1280's policies for post-competition software stewardship.
+@quantum9innovation. I've released it as free and open source software under the
+GPL v3, as permitted by Team 1280's policies for post-competition software
+stewardship.
 
 The Jankboard is a fully functional control interface designed to be used with
 our 2024 robot. It is intended to work alongside the FRC Game Tools application,
@@ -55,17 +56,18 @@ rapidly build the application during our 6-week development period.
 <tr><td><b>Table of Contents:</b></td></tr>
 
   <tr>
-<td><!--toc:start-->
+<td>
 
-- [Jankboard 2](#jankboard-2)
+<!--toc:start-->
+
+- [Jankboard](#jankboard)
   - [Installation guide](#installation-guide)
-  - [A brief footnote on the name "Jankboard 2"](#a-brief-footnote-on-the-name-jankboard-2)
+  - [A brief note on the name "Jankboard"](#a-brief-note-on-the-name-jankboard)
   - [For developers](#for-developers)
     - [Prerequisites](#prerequisites)
     - [Installation steps](#installation-steps)
   - [Troubleshooting common issues](#troubleshooting-common-issues)
-  - [Current progress and improvements over (original) Jankboard](#current-progress-and-improvements-over-original-jankboard)
-  - [TODO](#todo)
+  - [Licensing](#licensing)
   <!--toc:end-->
 
 </tr>
@@ -83,22 +85,20 @@ release binaries for your system, follow the directions below in the
 periodically update the releases with new builds when we come out with stable
 versions, and we follow [semantic versioning](https://semver.org/).
 
-## A brief footnote on the name "Jankboard 2"
+## A brief note on the name "Jankboard"
 
 The name "Jankboard" comes from Team 1280's original attempt at creating a
 custom dashboard. Though it looked and functioned superficially similar to
-Jankboard 2, it was not designed with maintainability in mind and became
+Jankboard, it was not designed with maintainability in mind and became
 exceptionally difficult to extend and develop as the codebase became bloated.
-Jankboard 2 is a version redesigned from the ground up with the goal of easy
+Jankboard is a version redesigned from the ground up with the goal of easy
 maintainability and richer features. It contains both a completely rewritten
-frontend and backend, which have been improved in almost every possible way. You
-can view the original version at
-[its archived repository.](https://github.com/Team-1280/Jankboard-Super-Jank/tree/f42715f5ae1897e95ef15103b16ba6e764d2c0be)
+frontend and backend, which have been improved in almost every possible way.
 
 ## For developers
 
-If you would like to contribute to Jankboard 2, there's only a few simple steps
-to get the development build up and running.
+If you would like to contribute to Jankboard, there's only a few simple steps to
+get the development build up and running.
 
 ### Prerequisites
 
@@ -107,8 +107,7 @@ to get the development build up and running.
   that this is ONLY necessary for development, release binaries do not require
   Rust.
 - `pnpm`, for installing dependencies and the `vite` development server.
-- Ideally, NodeJS, but it's technically not required as `pnpm` brings its own
-  node binary.
+- NodeJS
 
 ### Installation steps
 
@@ -132,13 +131,13 @@ to get the development build up and running.
    `vite` development server and then connecting the Tauri webview to it, there
    may be slightly inconsistent behavior in dev mode versus production mode.
 5. To create a production binary, run `pnpm run tauri build`. Tauri
-6. To create a production binary, run `pnpm run tauri build`. Tauri
-   cross-compilation is still in beta, so you should generally try to build
-   targeting the same OS you're currently running. Check
-   [the Tauri docs](https://tauri.app/v1/guides/building/) for more information.
-   We also have some Github Actions set up to automatically compile a production
-   build for all platforms, but this is expensive (uses over 30 minutes of our
-   quota), and should only be used for publishing new major releases.
+   cross-compilation is still in beta, so you should build targeting the same OS
+   you're currently running. For example, create Windows builds from Windows.
+   Check [the Tauri docs](https://tauri.app/v1/guides/building/) for more
+   information. We also have some Github Actions set up to automatically compile
+   a production build for all platforms, but this is expensive (uses over 30
+   minutes of our quota), and should only be used for publishing new major
+   releases.
 
 ## Troubleshooting common issues
 
@@ -158,16 +157,16 @@ to get the development build up and running.
 This project is released as free software under the
 [GNU General Public License](./LICENSE). What that entails for a developer
 seeking to use portions of this codebase, or even the entirety of the codebase,
-for your own purposes, is the following:
+for their own purposes, is the following:
 
-You are given the right to copy, modify, and distribute this software, in its
-entirety or just a portion of it, with or without modification, provided you
-meet the following requirements:
+You are given the freedom (rights) to copy, modify, and distribute this
+software, in its entirety or just a portion of it, with or without modification,
+provided you meet the following requirements:
 
-- If you do make modifications to the software, you are required to release
-  them, also under the terms of the GPL v3, **if you are planning to distribute
-  the software**. However, this is not required if you are not planning to
-  distribute it. See below.
+- If you do make modifications to the software, you are required to release the
+  source code of your modifications, also under the terms of the GPL v3, **if
+  you are planning to distribute the software**. However, this is **not required
+  if you are not planning to distribute it**. See below.
 - You may modify or use it however you'd like personally or internally (within
   an organization, like your robotics team), without releasing your changes or
   code under the GPL. This means that if you make a custom dashboard based on

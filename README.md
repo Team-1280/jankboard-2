@@ -66,6 +66,7 @@ rapidly build the application during our 6-week development period.
   - [For developers](#for-developers)
     - [Prerequisites](#prerequisites)
     - [Installation steps](#installation-steps)
+      - [Some notes:](#some-notes)
   - [Troubleshooting common issues](#troubleshooting-common-issues)
   - [Licensing](#licensing)
   <!--toc:end-->
@@ -98,46 +99,45 @@ frontend and backend, which have been improved in almost every possible way.
 ## For developers
 
 If you would like to contribute to Jankboard, there's only a few simple steps to
-get the development build up and running.
+get the development build up and running. Please keep in mind that the following
+is only necessary if you are building from source; the binaries have no external
+dependencies.
 
 ### Prerequisites
 
 - Rust and `cargo`. Check the [Rust docs](https://www.rust-lang.org/learn) for
-  more information. We recommend you install Rust using `rustup`. Keep in mind
-  that this is ONLY necessary for development, release binaries do not require
-  Rust.
+  more information.
 - `pnpm`, for installing dependencies and the `vite` development server.
 - NodeJS
 
 ### Installation steps
 
-1. Clone the repository. The `client` directory contains the vast majority of
-   the source code for the desktop app, while the `splash-screen` directory
-   contains the source code for the splash screen displayed before the app
-   loads. You don't have to touch anything in `splash-screen` unless you want to
-   modify it, in which case check the README in `splash-screen` for more
-   information.
-2. `cd` into the `client` folder. The configuration files and `package.json`,
-   This is where stuff like `package.json` and configuration files for our
-   various tooling are housed. The `client/src-tauri` directory contains the
-   Rust source code and `cargo` configuration files for the backend that
-   interfaces with the robot via Network Tables.
-3. Run `pnpm install` to install dependencies.
-4. To run the desktop app in developer mode (with automatic hot stateful reload
-   and other useful features like error reporting), make sure you're in the
-   `client` directory and run `pnpm run tauri dev`. This will install and build
-   the Rust dependencies via `cargo` and initialize the `vite` development
-   server for the frontend. Note that since this is basically just running the
-   `vite` development server and then connecting the Tauri webview to it, there
-   may be slightly inconsistent behavior in dev mode versus production mode.
-5. To create a production binary, run `pnpm run tauri build`. Tauri
-   cross-compilation is still in beta, so you should build targeting the same OS
-   you're currently running. For example, create Windows builds from Windows.
-   Check [the Tauri docs](https://tauri.app/v1/guides/building/) for more
-   information. We also have some Github Actions set up to automatically compile
-   a production build for all platforms, but this is expensive (uses over 30
-   minutes of our quota), and should only be used for publishing new major
-   releases.
+1. Clone the repository using your preferred method.
+2. Enter the `client` directory. This is where the majority of the app's source
+   code lives.
+3. Run `pnpm install` to download all required NPM dependencies.
+4. To create a production build, run `pnpm tauri build`. This will use Cargo to
+   fetch and build all the Rust dependencies, then compile the app and output an
+   executable for your platform in `target`.
+5. To launch a developer build with hot reloading and convenient debugging
+   features, run `pnpm tauri dev`.
+
+#### Some notes:
+
+- The `client` directory contains the vast majority of the source code for the
+  desktop app, while the `splash-screen` directory contains the source code for
+  the splash screen displayed before the app loads. You don't have to touch
+  anything in `splash-screen` unless you want to modify it, in which case check
+  the [README](./splash-screen/README.md) in `splash-screen` for more
+  information.
+
+- Tauri cross-compilation is still in beta, so you should build targeting the
+  same OS you're currently running. For example, create Windows builds from
+  Windows. Check [the Tauri docs](https://tauri.app/v1/guides/building/) for
+  more information. We also have some Github Actions set up to automatically
+  compile a production build for all platforms, but this is expensive (uses over
+  30 minutes of our quota), and should only be used for publishing new major
+  releases.
 
 ## Troubleshooting common issues
 
@@ -145,12 +145,6 @@ get the development build up and running.
   resolution, try opening your editor directly in the `client` directory so it
   picks up the `tsconfig.json` and uses the project's own TypeScript language
   server.
-- If you don't have access to a development environment that supports running
-  standalone executables (eg. Github Codespaces), you can try running
-  `pnpm run dev` instead of `pnpm run tauri dev`, which will open a development
-  server at `localhost:5173` with the frontend running in the web. However, app
-  behavior may be inconsistent and you will not get any features from the Rust
-  backend.
 
 ## Licensing
 

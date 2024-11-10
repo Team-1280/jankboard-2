@@ -7,8 +7,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "Jankboard 2",
-    "version": "0.3.0"
+    "productName": "Jankboard",
+    "version": "0.1.0"
   },
   "tauri": {
     "allowlist": {
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.team1280.jankboard",
+      "identifier": "org.team1280.jankboard",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -61,7 +61,7 @@
         "titleBarStyle": "Transparent",
         "height": 600,
         "resizable": true,
-        "title": "Jankboard 2",
+        "title": "Jankboard",
         "width": 800,
         "visible": false,
         "label": "main"

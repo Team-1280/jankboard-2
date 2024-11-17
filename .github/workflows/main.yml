@@ -1,8 +1,10 @@
-name: 'Publish'
+name: 'Publish to Windows'
 
 # This will trigger the action manually.
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   publish-tauri:

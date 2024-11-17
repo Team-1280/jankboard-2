@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+    tags: "**"
 
 jobs:
   publish-tauri:
@@ -47,7 +48,7 @@ jobs:
         with:
           projectPath: ./client
           tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: "Jankboard 2 v__VERSION__"
+          releaseName: "Jankboard v__VERSION__"
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false

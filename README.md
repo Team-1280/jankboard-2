@@ -121,6 +121,10 @@ get the development build up and running. Please keep in mind that the following
 is only necessary if you are building from source; the binaries have no external
 dependencies.
 
+The preferred way to run Jankboard on Linux and macOS is to use the Nix package
+manager. However, the below instructions detail how to install and use the
+required dependencies manually.
+
 ### Prerequisites
 
 - Rust and `cargo`. Check the [Rust docs](https://www.rust-lang.org/learn) for
@@ -134,10 +138,11 @@ dependencies.
 2. Enter the `client` directory. This is where the majority of the app's source
    code lives.
 3. Run `pnpm install` to download all required NPM dependencies.
-4. To create a production build, run `pnpm tauri build`. This will use Cargo to
+4. Run `pnpm run build-splash` to compile the splash screen.
+5. To create a production build, run `pnpm tauri build`. This will use Cargo to
    fetch and build all the Rust dependencies, then compile the app and output an
    executable for your platform in `target`.
-5. To launch a developer build with hot reloading and convenient debugging
+6. To launch a developer build with hot reloading and convenient debugging
    features, run `pnpm tauri dev`.
 
 #### Some notes:

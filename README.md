@@ -24,16 +24,20 @@ the vast majority of the code and retain rights to it via the
 as free and open source software under the GPL v3, as permitted by Team 1280's
 policies for post-competition software stewardship.
 
-You can try it out effortlessly on Linux if you have the [Nix package
+You can try it out effortlessly on Linux and macOS if you have the [Nix package
 manager](https://nixos.org/) installed with
 [flakes](https://zero-to-nix.com/concepts/flakes) enabled. This repository
 provides a Nix flake that hermetically compiles Jankboard from source.
-Otherwise, you can compile it with the installation instructions detailed
-below.
 
 ```bash
 nix run github:youwen5/jankboard
 ```
+
+On Windows, download the [latest
+release](https://github.com/youwen5/jankboard/releases/latest), compiled by
+GitHub Actions builders.
+
+Or, you can compile it with the installation instructions detailed below.
 
 The Jankboard is a fully functional control interface designed to be used with
 our 2024 robot. It is intended to work alongside the FRC Game Tools application,

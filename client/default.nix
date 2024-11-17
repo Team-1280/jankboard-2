@@ -46,18 +46,18 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
     pnpm.configHook
     pkg-config
-  ] ++ lib.optional stdenv.targetPlatform.isLinux wrapGAppsHook4;
+    wrapGAppsHook4
+  ];
 
-  buildInputs =
-    [
-      splashscreen
-    ]
-    ++ lib.optional stdenv.targetPlatform.isLinux webkitgtk_4_1
-    ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gstreamer
-    ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gst-plugins-good
-    ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gst-plugins-base
-    ++ lib.optional stdenv.targetPlatform.isLinux libsoup
-    ++ lib.optional stdenv.targetPlatform.isLinux gtk4;
+  buildInputs = [
+    splashscreen
+    webkitgtk_4_1
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-base
+    libsoup
+    gtk4
+  ];
 
   preConfigure = ''
     # pnpm.configHook has to write to .., as our sourceRoot is set to src-tauri

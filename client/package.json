@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "pnpm run build-splash && vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "build-splash": "cd ../splash-screen && pnpm install && pnpm build && cp dist/index.html ../client/public/splashscreen.html"
   },
   "devDependencies": {
     "@svelte-plugins/tooltips": "^3.0.0",

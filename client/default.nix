@@ -8,7 +8,7 @@
   cargo-tauri,
   pkg-config,
   gtk4,
-  webkitgtk_4_0,
+  webkitgtk_4_1,
   libsoup,
   wrapGAppsHook4,
   splashscreen,
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       splashscreen
     ]
-    ++ lib.optional stdenv.targetPlatform.isLinux webkitgtk_4_0
+    ++ lib.optional stdenv.targetPlatform.isLinux webkitgtk_4_1
     ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gstreamer
     ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gst-plugins-good
     ++ lib.optional stdenv.targetPlatform.isLinux gst_all_1.gst-plugins-base

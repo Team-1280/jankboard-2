@@ -1,4 +1,4 @@
-name: 'Publish to Windows'
+name: "Publish to Windows"
 
 # This will trigger the action manually.
 on:
@@ -11,44 +11,44 @@ jobs:
     defaults:
       run:
         working-directory: ./client
-    
+
     permissions:
       contents: write
-    
+
     strategy:
       fail-fast: false
       matrix:
         platform: [windows-latest]
-    
+
     runs-on: ${{ matrix.platform }}
-    
+
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: setup node
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    
-    - name: install Rust stable
-      uses: dtolnay/rust-toolchain@stable
-      
-    - uses: pnpm/action-setup@v3
-      with:
-        version: 8
-    
-    - name: install frontend dependencies
-      run: pnpm install
-    
-    - name: build and release tauri app
-      uses: tauri-apps/tauri-action@v0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        projectPath: ./client
-        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-        releaseName: 'Jankboard 2 v__VERSION__'
-        releaseBody: 'See the assets to download this version and install.'
-        releaseDraft: true
-        prerelease: false
-        tauriScript: 'pnpm tauri'
+      - uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: install frontend dependencies
+        run: pnpm install
+
+      - name: build and release tauri app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: ./client
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: "Jankboard 2 v__VERSION__"
+          releaseBody: "See the assets to download this version and install."
+          releaseDraft: true
+          prerelease: false
+          tauriScript: "pnpm tauri"

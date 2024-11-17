@@ -39,7 +39,9 @@ jobs:
           version: 8
 
       - name: install frontend dependencies
-        run: pnpm install
+        run: |
+          pnpm install
+          pnpm run build-splash
 
       - name: build and release tauri app
         uses: tauri-apps/tauri-action@v0

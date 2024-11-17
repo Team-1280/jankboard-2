@@ -1,7 +1,7 @@
 # Jankboard
 
-![build](https://github.com/youwen5/jankboard/actions/workflows/main.yml/badge.svg)
 [![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
+[![https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a]](https://nixos.org/)
 
 This repository hosts the last version of the source code for the Jankboard
 worked on by [me](https://github.com/youwen5).
@@ -20,6 +20,17 @@ the vast majority of the code and retain rights to it via the
 [@quantum9innovation](https://github.com/quantum9Innovation/). I've released it
 as free and open source software under the GPL v3, as permitted by Team 1280's
 policies for post-competition software stewardship.
+
+You can try it out effortlessly on Linux if you have the [Nix package
+manager](https://nixos.org/) installed with
+[flakes](https://zero-to-nix.com/concepts/flakes) enabled. This repository
+provides a Nix flake that hermetically compiles Jankboard from source.
+Otherwise, you can compile it with the installation instructions detailed
+below.
+
+```bash
+nix run github:youwen5/jankboard
+```
 
 The Jankboard is a fully functional control interface designed to be used with
 our 2024 robot. It is intended to work alongside the FRC Game Tools application,

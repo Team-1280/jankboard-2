@@ -1,7 +1,6 @@
 # Jankboard
 
-[![https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg](https://good-labs.github.io/greater-good-affirmation/assets/images/badge.svg)](https://good-labs.github.io/greater-good-affirmation)
-[![https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a]](https://nixos.org/)
+[![](https://img.shields.io/static/v1?logo=nixos&logoColor=white&label=&message=Built%20with%20Nix&color=41439a)](https://nixos.org/)
 
 This repository hosts the last version of the source code for the Jankboard
 worked on by [me](https://github.com/youwen5).

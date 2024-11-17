@@ -9,3 +9,5 @@ client/public/static/external-apps/*
 .DS_Store
 
 target
+
+result

@@ -18,6 +18,7 @@
       perSystem =
         {
           pkgs,
+          config,
           ...
         }:
         {
@@ -25,6 +26,30 @@
             default = jankboard;
             jankboard = pkgs.callPackage ./client { inherit splashscreen; };
             splashscreen = pkgs.callPackage ./splash-screen { };
+          };
+
+          devShells.default = pkgs.mkShell {
+            # provide all of the build inputs of the derivation to the
+            # devShell, plus some additional development tools
+            packages =
+              config.packages.jankboard.buildInputs
+              ++ config.packages.jankboard.nativeBuildInputs
+              ++ (with pkgs; [
+                rust-analyzer
+                rustfmt
+                clippy
+                svelte-language-server
+                typescript-language-server
+                tailwindcss-language-server
+                taplo
+                prettierd
+              ]);
+
+            # we must provide LD_LIBRARY_PATH to tauri so that it doesn't unalive itself
+            shellHook = ''
+              export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath config.packages.default.buildInputs}:${pkgs.lib.makeLibraryPath config.packages.default.nativeBuildInputs}:$LD_LIBRARY_PATH
+              export XDG_DATA_DIRS=${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk4.name}:$XDG_DATA_DIRS
+            '';
           };
         };
     };

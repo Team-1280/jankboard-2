@@ -17,11 +17,12 @@
 }:
 
 let
+  inherit (builtins) fromJSON readFile;
   pnpm = pnpm_9;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "jankboard";
-  version = "0.1.0";
+  version = (fromJSON (readFile "${finalAttrs.src}/src-tauri/tauri.conf.json")).package.version;
 
   src = ./.;
 

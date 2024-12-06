@@ -4,11 +4,12 @@
   nodejs,
 }:
 let
+  inherit (builtins) fromJSON readFile;
   pnpm = pnpm_9;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splash-screen";
-  version = "0.1.0";
+  version = (fromJSON (readFile "${finalAttrs.src}/package.json")).version;
 
   src = ./.;
 

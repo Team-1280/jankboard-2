@@ -20,7 +20,7 @@
           pkgs,
           ...
         }:
-        rec {
+        {
           packages = rec {
             default = jankboard;
             jankboard = pkgs.callPackage ./client { inherit splashscreen; };

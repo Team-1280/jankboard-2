@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-u8g1E/onxB90Jq7J0TdtUgTVELbcG4eq5nrtyXczF8I=";
+    hash = "sha256-ObkipSkC5+kg9PkdKPkxh7V6cxZHIX/LjfXKGPjAFCs=";
   };
 
   pnpmRoot = "..";

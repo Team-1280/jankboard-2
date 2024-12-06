@@ -61,6 +61,11 @@ telemetry at a rate of 10 Hz. We chose this tech stack because building
 beautiful and functional UIs is easiest with the Web, and it allowed us to
 rapidly build the application during our 6-week development period.
 
+Additionally, the repository serves as a reference example of how to do Tauri
+development in a pure, reproducible Nix shell. You are still able to do live
+iteration using `pnpm dev`, but you can hermetically build the program using
+the `nix` CLI. See the `nix` files for more.
+
 <!-- prettier-ignore -->
 > [!IMPORTANT]
 > If you are interested in forking this project or utilizing portions of it for

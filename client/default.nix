@@ -5,11 +5,11 @@
   pnpm_9,
   cargo,
   rustc,
-  cargo-tauri,
+  cargo-tauri_1,
   pkg-config,
   gtk4,
   webkitgtk_4_0,
-  libsoup,
+  libsoup_2_4,
   wrapGAppsHook4,
   splashscreen,
   gst_all_1,
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     rustPlatform.cargoSetupHook
     cargo
     rustc
-    cargo-tauri.hook
+    cargo-tauri_1.hook
     nodejs
     pnpm.configHook
     pkg-config
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
       gst_all_1.gstreamer
       gst_all_1.gst-plugins-good
       gst_all_1.gst-plugins-base
-      libsoup
+      libsoup_2_4
       gtk4
     ];
 

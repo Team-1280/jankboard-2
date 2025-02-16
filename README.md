@@ -6,8 +6,7 @@
 [![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
 
-This repository hosts the last version of the source code for the Jankboard
-worked on by [me](https://github.com/youwen5).
+This repository hosts the source tree for the Jankboard.
 
 Jankboard is the fully custom control interface designed in-house by Team 1280
 for the 2024 season of the
@@ -17,24 +16,17 @@ competition which runs annually. Teams spend six weeks designing, prototyping,
 and building a robot to compete in each year's game. The goals for each game
 vary by year.
 
-Though this is a Team 1280 project, it's hosted on my GitHub account as I wrote
-the vast majority of the code and retain rights to it via the
-[license](./LICENSE). A small portion of this codebase was contributed by
-[@quantum9innovation](https://github.com/quantum9Innovation/). I've released it
-as free and open source software under the GPL v3, as permitted by Team 1280's
-policies for post-competition software stewardship.
-
 You can try it out effortlessly on Linux and macOS if you have the [Nix package
 manager](https://nixos.org/) installed with
 [flakes](https://zero-to-nix.com/concepts/flakes) enabled. This repository
 provides a Nix flake that hermetically compiles Jankboard from source.
 
 ```bash
-nix run github:youwen5/jankboard
+nix run github:team-1280/jankboard
 ```
 
 On Windows, download the [latest
-release](https://github.com/youwen5/jankboard/releases/latest), compiled by
+release](https://github.com/team-1280/jankboard/releases/latest), compiled by
 GitHub Actions builders.
 
 Or, you can compile it with the installation instructions detailed below.

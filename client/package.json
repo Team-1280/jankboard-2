@@ -36,7 +36,7 @@
     "@tauri-apps/api": "^1.5.3",
     "@threlte/core": "^7.1.0",
     "@threlte/extras": "^8.8.0",
-    "camera-controls": "^2.8.3",
+    "camera-controls": "^2.10.1",
     "howler": "^2.2.4",
     "konami-code-js": "^0.8.1",
     "material-icons": "^1.13.12",
